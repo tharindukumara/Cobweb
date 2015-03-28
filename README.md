@@ -13,15 +13,16 @@ Cobweb - A Social Network for Internet of Things
 * Use Eclipse Import GIT repo, add url 
 
 * Database configuration
-Install OrientDB 2.0.5 
-edit orientdb-server-config.xml 
-add the folowing line to the users tag
+*Install OrientDB 2.0.5 
+*Edit orientdb-server-config.xml 
+*Add the folowing line to the users tag
 `<user name="root" password="C08w38" resources="*"/>`
-create new graph database named "Cobweb" with username: "admin", password: "admin"
+*Create new graph database named "Cobweb" with username: "admin", password: "admin"
+
+*Install "Sourcetree" software and manage your work accordingly
 
 ### Contribution guidelines ###
 
 * Code review
 Install JAutoDoc eclipse plugin and generate docs for your code
 Add author name on each file
-
