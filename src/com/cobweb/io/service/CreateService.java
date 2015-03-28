@@ -3,6 +3,7 @@ package com.cobweb.io.service;
 import com.cobweb.io.core.Device;
 import com.cobweb.io.core.Sensor;
 import com.cobweb.io.core.User;
+import com.tinkerpop.blueprints.Vertex;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -11,32 +12,52 @@ import com.cobweb.io.core.User;
  * @author Yasith Lokuge
  */
 
-public class CreateService extends AbstractService{
-
+public class CreateService implements AbstractService{
+	
+	/** The name. */
+	private final String NAME = "name";
+	
+	/** The password. */
+	private final String PASSWORD = "password";
+	
+	/** The email. */
+	private final String EMAIL = "email";
+	
+	/** The salt. */
+	private final String SALT = "salt";	
+	
+	
 	/**
-	 * Instantiates a new creates the service.
+	 * Creates the device.
 	 *
 	 * @param device the device
 	 */
-	public CreateService(Device device){
+	public void Create(Device device){
 		
 	}
 	
 	/**
-	 * Instantiates a new creates the service.
+	 * Creates the sensor.
 	 *
 	 * @param sensor the sensor
 	 */
-	public CreateService(Sensor sensor){
+	public void Create(Sensor sensor){
 		
 	}
 
 	/**
-	 * Instantiates a new creates the service.
+	 * Creates the user.
 	 *
 	 * @param user the user
 	 */
-	public CreateService(User user){
+	public void Create(User user){
+		
+		Vertex v = graph.addVertex(user);
+		v.setProperty(NAME	,user.getName() );
+		v.setProperty(PASSWORD	,user.getPassword() );
+		v.setProperty(EMAIL	,user.getEmail() );
+		v.setProperty(SALT	,user.getSalt() );
+		graph.commit();
 	
 	}
 	

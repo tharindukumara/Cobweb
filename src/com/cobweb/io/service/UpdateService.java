@@ -11,7 +11,7 @@ import com.cobweb.io.core.User;
  * @author Yasith Lokuge
  */
 
-public class UpdateService extends AbstractService{
+public class UpdateService implements AbstractService{
 
 	/**
 	 * Instantiates a new update service.

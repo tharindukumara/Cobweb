@@ -16,13 +16,13 @@ public class ReadPropertyFile {
 	
 	
 	/** The database. */
-	private String DATABASE = "database";
+	private String DATABASE = "database_path";
 	
 	/** The db user. */
-	private String DB_USER  = "database user";
+	private String DB_USER  = "database_username";
 	
 	/** The db password. */
-	private String DB_PASSWORD = "database password";
+	private String DB_PASSWORD = "database_password";
 	
 	/** The database url. */
 	private String databaseUrl;

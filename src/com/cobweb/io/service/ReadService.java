@@ -11,7 +11,7 @@ import com.cobweb.io.core.User;
  * @author Yasith Lokuge
  */
 
-public class ReadService extends AbstractService{
+public class ReadService implements AbstractService{
 
 	/**
 	 * Instantiates a new read service.

@@ -9,12 +9,12 @@ import com.tinkerpop.blueprints.TransactionalGraph;
  * @author Yasith Lokuge
  */
 
-public abstract class AbstractService {
+public interface AbstractService {
 	
 	/** The ss. */
-	private ServiceSamurai ss = ServiceSamurai.getInstance();
+	ServiceSamurai ss = ServiceSamurai.getInstance();
 	
 	/** The graph. */
-	private TransactionalGraph graph = ss.getGraphDB();
+	TransactionalGraph graph = ss.getGraphDB();
 
 }

@@ -11,7 +11,7 @@ import com.cobweb.io.core.User;
  * @author Yasith Lokuge
  */
 
-public class DeleteService extends AbstractService{
+public class DeleteService implements AbstractService{
 
 	/**
 	 * Instantiates a new delete service.
