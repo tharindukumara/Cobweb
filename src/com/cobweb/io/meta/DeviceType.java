@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cobweb.io.core;
+package com.cobweb.io.meta;
 
 // TODO: Auto-generated Javadoc
 /**

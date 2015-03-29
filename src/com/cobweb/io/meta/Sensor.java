@@ -1,17 +1,17 @@
-package com.cobweb.io.core;
+package com.cobweb.io.meta;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Device.
+ * The Class Sensor.
  *
  * @author Yasith Lokuge
  */
 
-public class Device implements Item{
-	
+public class Sensor implements Item{
+
 	/** The name. */
 	private String name;
 	
@@ -22,53 +22,53 @@ public class Device implements Item{
 	private String description;
 	
 	/** The devicetype. */
-	private DeviceType devicetype;
+	private SensorType sensortype;
 	
 	/** The is deleated. */
 	private boolean isDeleated=false;
-
-	/** The Other Type if any. */
-	private String otherType = "default";
-		
+	
+	/** The id. */
+	private String otherType ="default";
+	
 	/** The image url. */
 	private URL imageUrl;
-
 	
 	/**
-	 * Instantiates a new device.
+	 * Instantiates a new sensor.
 	 *
 	 * @param name the name
 	 * @param id the id
 	 * @param description the description
-	 * @param devicetype the devicetype
+	 * @param sensortype the sensortype
 	 * @param otherType the other type
 	 * @param imageUrl the image url
 	 */
-	public Device(String name, String id, String description, DeviceType devicetype, String otherType, URL imageUrl){
+	public Sensor(String name, String id, String description, SensorType sensortype, String otherType, URL imageUrl){
 		this.name = name;
 		this.id = id;
 		this.description = description;
-		this.devicetype = devicetype;
+		this.sensortype = sensortype;
 		this.otherType = otherType;
 		this.imageUrl = imageUrl;		
 	}
 	
+	
 	/**
-	 * Instantiates a new device.
+	 * Instantiates a new sensor.
 	 *
 	 * @param name the name
 	 * @param id the id
 	 * @param description the description
-	 * @param devicetype the devicetype
+	 * @param sensortype the sensortype
 	 */
-	public Device(String name, String id, String description, DeviceType devicetype){
+	public Sensor(String name, String id, String description, SensorType sensortype){
 		this.name = name;
 		this.id = id;
 		this.description = description;
-		this.devicetype = devicetype;
+		this.sensortype = sensortype;
 		
 		try {
-			imageUrl = new URL("www.cobweb.io/default/device/devicedefault.jpg");
+			imageUrl = new URL("www.cobweb.io/default/sensor/sensordefault.jpg");
 		} catch (MalformedURLException e) {
 			imageUrl = null;
 		}
@@ -144,7 +144,7 @@ public class Device implements Item{
 	 */
 	@Override
 	public void setType(DeviceType devicetype) {
-		this.devicetype = devicetype;
+
 	}
 
 	/* (non-Javadoc)
@@ -152,7 +152,7 @@ public class Device implements Item{
 	 */
 	@Override
 	public void setType(SensorType sensortype) {
-
+		this.sensortype = sensortype;
 	}
 
 	/* (non-Javadoc)
@@ -160,7 +160,7 @@ public class Device implements Item{
 	 */
 	@Override
 	public DeviceType getType() {
-		return devicetype;
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -168,7 +168,7 @@ public class Device implements Item{
 	 */
 	@Override
 	public SensorType sensortype() {
-		return null;
+		return sensortype;
 	}
 
 	/* (non-Javadoc)
@@ -176,7 +176,7 @@ public class Device implements Item{
 	 */
 	@Override
 	public void setOtherType(String type) {
-		otherType = type;		
+		otherType = type;
 	}
 
 	/* (non-Javadoc)
@@ -187,14 +187,20 @@ public class Device implements Item{
 		return otherType;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.cobweb.io.core.Item#getImageUrl()
+	 */
 	@Override
 	public URL getImageUrl() {
 		return imageUrl;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.cobweb.io.core.Item#setImageUrl(java.net.URL)
+	 */
 	@Override
 	public void setImageUrl(URL imageUrl) {
-		this.imageUrl = imageUrl;		
+		this.imageUrl = imageUrl;
 	}
 
 }

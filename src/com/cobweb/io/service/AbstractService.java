@@ -2,7 +2,7 @@ package com.cobweb.io.service;
 
 import com.tinkerpop.blueprints.impls.orient.OrientGraph;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class AbstractService.
  *

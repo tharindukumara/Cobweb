@@ -1,4 +1,4 @@
-package com.cobweb.io.core;
+package com.cobweb.io.meta;
 
 import com.cobweb.io.service.CreateService;
 

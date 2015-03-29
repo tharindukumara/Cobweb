@@ -51,9 +51,9 @@ public class ServiceSamurai {
 		
 		ReadPropertyFile readFile = new ReadPropertyFile();		
 		
-		DBURL = readFile.getDBUrl();
-		DBUSER = readFile.getDBUser();
-		DBPASS = readFile.getDBPass();
+		DBURL 	= readFile.getDBUrl();
+		DBUSER 	= readFile.getDBUser();
+		DBPASS 	= readFile.getDBPass();
 		
 		OrientGraph graph = new OrientGraph(DBURL,DBUSER, DBPASS);
 		

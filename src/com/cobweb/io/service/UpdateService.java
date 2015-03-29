@@ -1,8 +1,8 @@
 package com.cobweb.io.service;
 
-import com.cobweb.io.core.Device;
-import com.cobweb.io.core.Sensor;
-import com.cobweb.io.core.User;
+import com.cobweb.io.meta.Device;
+import com.cobweb.io.meta.Sensor;
+import com.cobweb.io.meta.User;
 
 // TODO: Auto-generated Javadoc
 /**

@@ -1,4 +1,4 @@
-package com.cobweb.io.core;
+package com.cobweb.io.meta;
 
 import java.net.URL;
 

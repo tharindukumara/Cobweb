@@ -46,11 +46,17 @@ public class Bootstrap implements AbstractService {
 	/** The other type. */
 	private final static String OTHERTYPE 		= "otherType";
 	
+	/** The message. */
+	private final static String MESSAGE 		= "message";
+	
+	/** The date and time. */
+	private final static String DATETIME 		= "dateTime";
+	
 
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) {		
 		
 		/**
 		 * Create User Class
@@ -58,7 +64,6 @@ public class Bootstrap implements AbstractService {
 		
 		OrientVertexType User = graph.createVertexType("User");
 		graph.addVertex("class:User");		
-		
 		User.createProperty(NAME, 		OType.STRING	).setMandatory(true);
 		User.createProperty(PASSWORD, 	OType.STRING	).setMandatory(true);
 		User.createProperty(EMAIL, 		OType.STRING	).setMandatory(true);
@@ -82,7 +87,7 @@ public class Bootstrap implements AbstractService {
 		Device.createProperty(IMAGEURL, 	OType.STRING	);
 		Device.createProperty(ISDELETED,	OType.BOOLEAN	);
 		Device.createProperty(OTHERTYPE, 	OType.STRING	).setMandatory(true);
-		
+				
 		/**
 		 * Create Sensor Class
 		 */		
@@ -98,6 +103,17 @@ public class Bootstrap implements AbstractService {
 		Sensor.createProperty(ISDELETED, 	OType.BOOLEAN	);
 		Sensor.createProperty(OTHERTYPE, 	OType.STRING	).setMandatory(true);
 
+		/**
+		 * Create Payload Class
+		 */
+		
+		OrientVertexType Payload = graph.createVertexType("Payload");
+		graph.addVertex("class:Payload");
+		
+		Payload.createProperty(MESSAGE, 	OType.STRING	).setMandatory(true);
+		Payload.createProperty(DATETIME, 	OType.DATETIME	).setMandatory(true);
+		Payload.createProperty(ISDELETED, 	OType.BOOLEAN	);
+		
 	}
 
 }
