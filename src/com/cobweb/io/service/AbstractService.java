@@ -1,6 +1,6 @@
 package com.cobweb.io.service;
 
-import com.tinkerpop.blueprints.TransactionalGraph;
+import com.tinkerpop.blueprints.impls.orient.OrientGraph;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -15,6 +15,7 @@ public interface AbstractService {
 	ServiceSamurai ss = ServiceSamurai.getInstance();
 	
 	/** The graph. */
-	TransactionalGraph graph = ss.getGraphDB();
-
+	OrientGraph graph = ss.getGraphDB();
+	
+	
 }

@@ -1,12 +1,9 @@
 package com.cobweb.io.core;
 
+import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Set;
 
-import com.tinkerpop.blueprints.Direction;
-import com.tinkerpop.blueprints.Edge;
-import com.tinkerpop.blueprints.Vertex;
-import com.tinkerpop.blueprints.VertexQuery;
+import com.cobweb.io.service.AbstractService;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -15,28 +12,28 @@ import com.tinkerpop.blueprints.VertexQuery;
  * @author Yasith Lokuge
  */
 
-public class User implements Vertex{
+public class User implements AbstractService{
 	
 	/** The name. */
-	private String name;
+	private String name 	= "User";
 	
 	/** The uid. */
-	private String uid;
+	private String uid 		= "00000";
 	
 	/** The email. */
-	private String email;
+	private String email 	= "info@cobweb.io";
 	
 	/** The image url. */
-	private URL imageUrl;
+	private URL imageUrl;	
 	
 	/** The password. */
-	private String password;
+	private String password = "admin";
 	
 	/** The salt. */
-	private String salt;
+	private String salt		= "admin";
 	
 	/** The is deleted. */
-	private boolean isDeleted = false;
+	private boolean isDeleted = false;	
 	
 	/**
 	 * Instantiates a new user.
@@ -46,13 +43,15 @@ public class User implements Vertex{
 	 * @param imageUrl the image url
 	 * @param password the password
 	 * @param salt the salt
+	 * @param uid the uid
 	 */
-	public User(String name, String email,URL imageUrl, String password, String salt){
+	public User(String name, String email,URL imageUrl, String password, String salt,String uid){
 		this.name=name;
 		this.email=email;
 		this.salt=salt;
 		this.password=password;
-		this.imageUrl=imageUrl;		
+		this.imageUrl=imageUrl;	
+		this.uid=uid;
 	}
 	
 	/**
@@ -62,12 +61,20 @@ public class User implements Vertex{
 	 * @param email the email
 	 * @param password the password
 	 * @param salt the salt
+	 * @param uid the uid
 	 */
-	public User(String name, String email, String password, String salt){
+	public User(String name, String email, String password, String salt,String uid){
 		this.name=name;
 		this.email=email;
 		this.salt=salt;
-		this.password=password;			
+		this.password=password;	
+		this.uid=uid;
+		
+		try {
+			imageUrl = new URL("www.cobweb.io/default/user/userdefault.jpg");
+		} catch (MalformedURLException e) {
+			imageUrl = null;
+		}
 	}
 		
 	/**
@@ -140,87 +147,6 @@ public class User implements Vertex{
 	 */
 	public void setImageUrl(URL imageUrl) {
 		this.imageUrl = imageUrl;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.tinkerpop.blueprints.Element#getProperty(java.lang.String)
-	 */
-	@Override
-	public <T> T getProperty(String key) {
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.tinkerpop.blueprints.Element#getPropertyKeys()
-	 */
-	@Override
-	public Set<String> getPropertyKeys() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.tinkerpop.blueprints.Element#setProperty(java.lang.String, java.lang.Object)
-	 */
-	@Override
-	public void setProperty(String key, Object value) {
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see com.tinkerpop.blueprints.Element#removeProperty(java.lang.String)
-	 */
-	@Override
-	public <T> T removeProperty(String key) {
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.tinkerpop.blueprints.Element#remove()
-	 */
-	@Override
-	public void remove() {
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see com.tinkerpop.blueprints.Element#getId()
-	 */
-	@Override
-	public Object getId() {
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.tinkerpop.blueprints.Vertex#getEdges(com.tinkerpop.blueprints.Direction, java.lang.String[])
-	 */
-	@Override
-	public Iterable<Edge> getEdges(Direction direction, String... labels) {
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.tinkerpop.blueprints.Vertex#getVertices(com.tinkerpop.blueprints.Direction, java.lang.String[])
-	 */
-	@Override
-	public Iterable<Vertex> getVertices(Direction direction, String... labels) {
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.tinkerpop.blueprints.Vertex#query()
-	 */
-	@Override
-	public VertexQuery query() {
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.tinkerpop.blueprints.Vertex#addEdge(java.lang.String, com.tinkerpop.blueprints.Vertex)
-	 */
-	@Override
-	public Edge addEdge(String label, Vertex inVertex) {
-		return null;
 	}
 
 	/**

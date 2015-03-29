@@ -1,6 +1,5 @@
 package com.cobweb.io.service;
 
-import com.tinkerpop.blueprints.TransactionalGraph;
 import com.tinkerpop.blueprints.impls.orient.OrientGraph;
 
 // TODO: Auto-generated Javadoc
@@ -48,7 +47,7 @@ public class ServiceSamurai {
 	 *
 	 * @return the graph db
 	 */
-	public TransactionalGraph getGraphDB(){		
+	public OrientGraph getGraphDB(){		
 		
 		ReadPropertyFile readFile = new ReadPropertyFile();		
 		
@@ -56,7 +55,7 @@ public class ServiceSamurai {
 		DBUSER = readFile.getDBUser();
 		DBPASS = readFile.getDBPass();
 		
-		TransactionalGraph graph = new OrientGraph(DBURL,DBUSER, DBPASS);
+		OrientGraph graph = new OrientGraph(DBURL,DBUSER, DBPASS);
 		
 		return graph;
 		
