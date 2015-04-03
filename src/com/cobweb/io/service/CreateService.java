@@ -1,8 +1,10 @@
 package com.cobweb.io.service;
 
 import com.cobweb.io.meta.Device;
+import com.cobweb.io.meta.Payload;
 import com.cobweb.io.meta.Sensor;
 import com.cobweb.io.meta.User;
+import com.cobweb.io.meta.UserSubscribes;
 import com.orientechnologies.orient.core.sql.OCommandSQL;
 
 /**
@@ -45,6 +47,16 @@ public class CreateService implements AbstractService{
 
 	/** The other type. */
 	private final String OTHERTYPE 		= "otherType";
+	
+	/** The isParentOnly. */
+	private final String ISPARENTONLY 	= "isParentOnly";
+	
+	/** The message. */
+	private final String MESSAGE 		= "message";
+	
+	/** The message. */
+	private final String DATETIME 		= "dateTime";
+	
 	
 	/**
 	 * Creates the device.
@@ -97,6 +109,37 @@ public class CreateService implements AbstractService{
 		graph.command(new OCommandSQL("insert into User (" + ISDELETED 	+ ") values ('" + user.isDeleted() 		+ "')")).execute();		
 
 	}
+	
+	
+	/**
+	 * Creates the payload.
+	 *
+	 * @param payload the payload
+	 */
+	public CreateService(Payload payload){		
+		
+		graph.command(new OCommandSQL("insert into Payload (" + MESSAGE 	+ ") values ('" + payload.getMessage()		+ "')")).execute();		
+		graph.command(new OCommandSQL("insert into Payload (" + DATETIME 	+ ") values ('" + payload.getDateTime()		+ "')")).execute();		
+		graph.command(new OCommandSQL("insert into Payload (" + ISDELETED	+ ") values ('" + payload.isDeleted() 		+ "')")).execute();		
+		
+	}
+	
+	/**
+	 * Creates the userSubscribes.
+	 *
+	 * @param userSubscribes the userSubscribes
+	 */
+	public CreateService(UserSubscribes userSubscribes){
+		
+		graph.command(new OCommandSQL("insert into Payload (" + ISPARENTONLY + ") values ('" + userSubscribes.isParentOnly() + "')")).execute();		
+		
+	}
+	
+	public void addDevice(User user, Device device){
+		
+		
+	}
+	
 
 	
 }
