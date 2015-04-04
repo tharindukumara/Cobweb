@@ -10,9 +10,10 @@ import com.googlecode.scopeplugin.annotations.Out;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
  
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class LoginAction.
+ * @author Yasith Lokuge
  */
 public class LoginAction extends ActionSupport implements SessionAware,Action {
     

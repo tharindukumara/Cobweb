@@ -7,9 +7,10 @@ import org.apache.struts2.interceptor.SessionAware;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class RegisterAction.
+ * @author Yasith Lokuge
  */
 public class RegisterAction extends ActionSupport implements SessionAware,Action{
 
