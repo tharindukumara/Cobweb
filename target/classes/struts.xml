@@ -1,17 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC
-    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
-    "http://struts.apache.org/dtds/struts-2.0.dtd">
-
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
-	<constant name="struts.devMode" value="false" />
-	<constant name="struts.custom.i18n.resources" value="ApplicationResources" />
+	<constant name="struts.devMode" value="true" />
+	
+	<package name="login" extends="struts-default" namespace="/">
+		<interceptors>
+			<interceptor class="com.cobweb.io.interceptor.LoginInterceptor" name="loginInterceptor">
+			</interceptor>
+			<interceptor-stack name="loginStack">
+				<interceptor-ref name="loginInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
 
-	<package name="default" extends="struts-default" namespace="/">
-		<action name="login" class="com.cobweb.io.action.LoginAction">
-			<result name="success">Welcome.jsp</result>
-			<result name="error">Login.jsp</result>
+		<global-results>
+			<result name="login">Login.jsp</result>
+		</global-results>
+
+		<!--   login action  -->
+		<action name="loginUser" class="com.cobweb.io.action.LoginAction" method="login">
+			<result name="success" type="redirect">homeAction.action</result>
+			<result name="Login">Login.jsp</result>
 		</action>
-	</package>
+
+		<!-- home link action -->
+		<action name="homeAction" class="com.cobweb.io.action.LoginAction" method="home">
+			<interceptor-ref name="loginStack" />
+			<result name="success">Welcome.jsp</result>
+		</action>
+		<!--   logout action  -->
+		<action name="logout" class="com.cobweb.io.action.LoginAction" method="logout">
+			<result name="success">Login.jsp</result>
+		</action>
+		
+		<!--   register action  -->
+		<action name="registerUser" class="com.cobweb.io.action.RegisterAction" method="register">
+			<result name="success">Welcome.jsp</result>
+		</action>		
+		
+	</package>	
 </struts>

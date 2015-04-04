@@ -78,6 +78,12 @@
 			<version>2.3.20</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.googlecode.struts2scopeplugin</groupId>
+			<artifactId>struts2-scope-plugin</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+
 	</dependencies>
 	<repositories>
 		<repository>
@@ -90,6 +96,17 @@
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
+		</repository>
+
+		<repository>
+			<id>Maven Plugin Repository</id>
+			<url>http://struts2plugin-maven-repo.googlecode.com/svn/trunk/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
 		</repository>
 	</repositories>
 </project>
