@@ -2,6 +2,7 @@ package com.cobweb.io.meta;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.UUID;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -44,13 +45,15 @@ public class Device implements Item{
 	 * @param otherType the other type
 	 * @param imageUrl the image url
 	 */
-	public Device(String name, String id, String description, DeviceType devicetype, String otherType, URL imageUrl){
+	public Device(String name, String description, DeviceType devicetype, String otherType, URL imageUrl){
 		this.name = name;
-		this.id = id;
 		this.description = description;
 		this.devicetype = devicetype;
 		this.otherType = otherType;
-		this.imageUrl = imageUrl;		
+		this.imageUrl = imageUrl;
+		
+		UUID uuid = UUID.randomUUID();
+		id = uuid.toString();
 	}
 	
 	/**
@@ -61,11 +64,13 @@ public class Device implements Item{
 	 * @param description the description
 	 * @param devicetype the devicetype
 	 */
-	public Device(String name, String id, String description, DeviceType devicetype){
-		this.name = name;
-		this.id = id;
+	public Device(String name, String description, DeviceType devicetype){
+		this.name = name;		
 		this.description = description;
 		this.devicetype = devicetype;
+		
+		UUID uuid = UUID.randomUUID();
+		id = uuid.toString();
 		
 		try {
 			imageUrl = new URL("www.cobweb.io/default/device/devicedefault.jpg");

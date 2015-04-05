@@ -4,6 +4,8 @@ import java.util.Map;
 
 import org.apache.struts2.interceptor.SessionAware;
 
+import com.cobweb.io.meta.User;
+import com.cobweb.io.service.CreateService;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -43,6 +45,8 @@ public class RegisterAction extends ActionSupport implements SessionAware,Action
      */
     public String register(){
     	sessionMap.put("loginId", email);
+    	User userObj = new User(firstName,lastName, email, password,""); 
+    	CreateService createService = new CreateService(userObj);
     	return SUCCESS;
     }
 

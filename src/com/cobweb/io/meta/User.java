@@ -2,6 +2,7 @@ package com.cobweb.io.meta;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.UUID;
 
 import com.cobweb.io.service.AbstractService;
 
@@ -14,8 +15,11 @@ import com.cobweb.io.service.AbstractService;
 
 public class User implements AbstractService{
 	
-	/** The name. */
-	private String name 	= "User";
+	/** The firstname. */
+	private String firstName 	= "User";
+	
+	/** The lastname. */
+	private String lastName 	= "User";
 	
 	/** The uid. */
 	private String uid 		= "00000";
@@ -38,37 +42,44 @@ public class User implements AbstractService{
 	/**
 	 * Instantiates a new user.
 	 *
-	 * @param name the name
+	 * @param firstName the first name
+	 * @param lastName the last name
 	 * @param email the email
 	 * @param imageUrl the image url
 	 * @param password the password
 	 * @param salt the salt
-	 * @param uid the uid
 	 */
-	public User(String name, String email,URL imageUrl, String password, String salt,String uid){
-		this.name=name;
+	public User(String firstName,String lastName, String email,URL imageUrl, String password, String salt){
+		
+		this.firstName=firstName;
+		this.lastName=lastName;
 		this.email=email;
 		this.salt=salt;
 		this.password=password;
 		this.imageUrl=imageUrl;	
-		this.uid=uid;
+		
+		UUID uuid = UUID.randomUUID();
+		uid = uuid.toString();		
 	}
 	
 	/**
 	 * Instantiates a new user.
 	 *
-	 * @param name the name
+	 * @param firstName the first name
+	 * @param lastName the last name
 	 * @param email the email
 	 * @param password the password
 	 * @param salt the salt
-	 * @param uid the uid
 	 */
-	public User(String name, String email, String password, String salt,String uid){
-		this.name=name;
+	public User(String firstName,String lastName,String email, String password, String salt){
+		this.firstName=firstName;
+		this.lastName=lastName;
 		this.email=email;
 		this.salt=salt;
 		this.password=password;	
-		this.uid=uid;
+		
+		UUID uuid = UUID.randomUUID();
+		uid = uuid.toString();	
 		
 		try {
 			imageUrl = new URL("www.cobweb.io/default/user/userdefault.jpg");
@@ -78,21 +89,40 @@ public class User implements AbstractService{
 	}
 		
 	/**
-	 * Gets the name.
+	 * Gets the fisrtName.
 	 *
 	 * @return the name
 	 */
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
 
 	/**
-	 * Sets the name.
+	 * Sets the firstname.
 	 *
 	 * @param name the name to set
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	
+	
+	/**
+	 * Gets the lastName.
+	 *
+	 * @return the name
+	 */
+	public String getLastName() {
+		return lastName;
+	}
+
+	/**
+	 * Sets the lastname.
+	 *
+	 * @param name the name to set
+	 */
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	/**

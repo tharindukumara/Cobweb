@@ -15,6 +15,12 @@ import com.tinkerpop.blueprints.impls.orient.OrientVertexType;
  */
 public class Bootstrap implements AbstractService {
 
+	/** The firstname. */
+	private final static String FIRSTNAME 		= "firstname";
+	
+	/** The lastname. */
+	private final static String LASTNAME 		= "lastname";
+	
 	/** The name. */
 	private final static String NAME 			= "name";
 	
@@ -72,7 +78,8 @@ public class Bootstrap implements AbstractService {
 		System.out.println("--Creating User Vertex Class--");		
 		OrientVertexType User = graph.createVertexType("User");
 		Vertex user = graph.addVertex("class:User");		
-		User.createProperty(NAME, 		OType.STRING	);
+		User.createProperty(FIRSTNAME, 	OType.STRING	);
+		User.createProperty(LASTNAME, 	OType.STRING	);
 		User.createProperty(PASSWORD, 	OType.STRING	);
 		User.createProperty(EMAIL, 		OType.STRING	);
 		User.createProperty(SALT, 		OType.STRING	);

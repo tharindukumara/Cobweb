@@ -2,6 +2,7 @@ package com.cobweb.io.meta;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.UUID;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -36,36 +37,39 @@ public class Sensor implements Item{
 	/**
 	 * Instantiates a new sensor.
 	 *
-	 * @param name the name
-	 * @param id the id
+	 * @param name the name 
 	 * @param description the description
 	 * @param sensortype the sensortype
 	 * @param otherType the other type
 	 * @param imageUrl the image url
 	 */
-	public Sensor(String name, String id, String description, SensorType sensortype, String otherType, URL imageUrl){
+	public Sensor(String name, String description, SensorType sensortype, String otherType, URL imageUrl){
 		this.name = name;
-		this.id = id;
+		
 		this.description = description;
 		this.sensortype = sensortype;
 		this.otherType = otherType;
-		this.imageUrl = imageUrl;		
+		this.imageUrl = imageUrl;	
+		
+		UUID uuid = UUID.randomUUID();
+		id = uuid.toString();
 	}
 	
 	
 	/**
 	 * Instantiates a new sensor.
 	 *
-	 * @param name the name
-	 * @param id the id
+	 * @param name the name 
 	 * @param description the description
 	 * @param sensortype the sensortype
 	 */
 	public Sensor(String name, String id, String description, SensorType sensortype){
-		this.name = name;
-		this.id = id;
+		this.name = name;		
 		this.description = description;
 		this.sensortype = sensortype;
+		
+		UUID uuid = UUID.randomUUID();
+		id = uuid.toString();
 		
 		try {
 			imageUrl = new URL("www.cobweb.io/default/sensor/sensordefault.jpg");

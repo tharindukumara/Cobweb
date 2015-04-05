@@ -28,7 +28,8 @@
 		<!-- home link action -->
 		<action name="homeAction" class="com.cobweb.io.action.LoginAction" method="home">
 			<interceptor-ref name="loginStack" />
-			<result name="success">Welcome.jsp</result>
+		<!--<result name="success">Welcome.jsp</result> -->
+		<result name="success" type="redirect">initializeList.action</result>
 		</action>
 		<!--   logout action  -->
 		<action name="logout" class="com.cobweb.io.action.LoginAction" method="logout">
@@ -39,6 +40,22 @@
 		<action name="registerUser" class="com.cobweb.io.action.RegisterAction" method="register">
 			<result name="success">Welcome.jsp</result>
 		</action>		
+		
+		<action name="initializeList" class="com.cobweb.io.action.Initialize" method="initializeList">
+			<result name="none">Welcome.jsp</result>
+		</action>	
+		
+		<!--   add device action  -->
+		<action name="addDevice" class="com.cobweb.io.action.AddDeviceAction">
+		<!-- <result name="success">Welcome.jsp</result> -->
+				<result name="success" type="redirect">initializeList.action</result>
+		</action>	
+		
+		<!--   add sensor action  -->
+		<action name="addSensor" class="com.cobweb.io.action.AddSensorAction" >
+<!-- 			<result name="success">Welcome.jsp</result> -->
+				<result name="success" type="redirect">initializeList.action</result>
+		</action>	
 		
 	</package>	
 </struts>

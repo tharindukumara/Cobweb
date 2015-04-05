@@ -18,6 +18,12 @@ public class CreateService implements AbstractService{
 	/** The name. */
 	private final String NAME 			= "name";
 	
+	/** The firstname. */
+	private final String FIRSTNAME 		= "firstname";
+	
+	/** The lastname. */
+	private final String LASTNAME 		= "lastname";
+	
 	/** The password. */
 	private final String PASSWORD 		= "password";
 	
@@ -100,7 +106,8 @@ public class CreateService implements AbstractService{
 	 */
 	public CreateService(User user){		
 		
-		graph.command(new OCommandSQL("insert into User (" + NAME 		+ ") values ('" + user.getName()		+ "')")).execute();		
+		graph.command(new OCommandSQL("insert into User (" + FIRSTNAME 	+ ") values ('" + user.getFirstName()	+ "')")).execute();	
+		graph.command(new OCommandSQL("insert into User (" + LASTNAME 	+ ") values ('" + user.getLastName()	+ "')")).execute();		
 		graph.command(new OCommandSQL("insert into User (" + PASSWORD 	+ ") values ('" + user.getPassword()	+ "')")).execute();		
 		graph.command(new OCommandSQL("insert into User (" + EMAIL 		+ ") values ('" + user.getEmail() 		+ "')")).execute();		
 		graph.command(new OCommandSQL("insert into User (" + SALT 		+ ") values ('" + user.getSalt() 		+ "')")).execute();		
