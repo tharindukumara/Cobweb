@@ -41,7 +41,11 @@ public class ReadPropertyFile {
 		Properties settings = new Properties();
     	InputStream input = null;
     	
-    	try {
+    	databaseUrl = "remote:127.0.0.1/Cobweb";
+	    databaseUserName = "root";
+	    databasePassword = "root";
+    	
+    	/*try {
  
     		input = new FileInputStream("cobweb.properties");   		
     		settings.load(input);              
@@ -62,7 +66,7 @@ public class ReadPropertyFile {
 					e.printStackTrace();
 				}
         	}
-        }
+        }*/
 		
 	}
 	

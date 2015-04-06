@@ -64,7 +64,7 @@ public interface Item {
 	 *
 	 * @return true, if is deleated
 	 */
-	public boolean isDeleated();
+	public boolean isDeleted();
 	
 	/**
 	 * Sets the type.

@@ -71,14 +71,21 @@ public class CreateService implements AbstractService{
 	 */
 	public CreateService(Device device){
 		
-		graph.command(new OCommandSQL("insert into Device (" + NAME 		+ ") values ('" + device.getName()			+ "')")).execute();		
-		graph.command(new OCommandSQL("insert into Device (" + ID 			+ ") values ('" + device.getId()			+ "')")).execute();		
-		graph.command(new OCommandSQL("insert into Device (" + DESCRIPTION 	+ ") values ('" + device.getDescription()	+ "')")).execute();		
-		graph.command(new OCommandSQL("insert into Device (" + DEVICETYPE 	+ ") values ('" + device.getType()			+ "')")).execute();		
-		graph.command(new OCommandSQL("insert into Device (" + ISDELETED 	+ ") values ('" + device.isDeleated()		+ "')")).execute();		
-		graph.command(new OCommandSQL("insert into Device (" + OTHERTYPE 	+ ") values ('" + device.getOtherType()		+ "')")).execute();		
-		graph.command(new OCommandSQL("insert into Device (" + IMAGEURL 	+ ") values ('" + device.getImageUrl()		+ "')")).execute();		
-
+		graph.command(new OCommandSQL("insert into Device ("+ NAME 			+","
+															+ ID			+","
+															+ DESCRIPTION	+","
+															+ DEVICETYPE	+","
+															+ ISDELETED		+","
+															+ OTHERTYPE		+","
+															+ IMAGEURL		+"	) values ('" 	
+															
+															+ device.getName()			+"'"+","+"'"
+															+ device.getId()			+"'"+","+"'"
+															+ device.getDescription()  	+"'"+","+"'"
+															+ device.getType()			+"'"+","+"'"
+															+ device.isDeleted()		+"'"+","+"'"
+															+ device.getOtherType()		+"'"+","+"'"
+															+ device.getImageUrl()		+"')")).execute();
 		
 	}
 	
@@ -87,16 +94,23 @@ public class CreateService implements AbstractService{
 	 *
 	 * @param sensor the sensor
 	 */
-	public CreateService(Sensor sensor){
-		
-		graph.command(new OCommandSQL("insert into Sensor (" + NAME 		+ ") values ('" + sensor.getName()			+ "')")).execute();		
-		graph.command(new OCommandSQL("insert into Device (" + ID 			+ ") values ('" + sensor.getId()			+ "')")).execute();		
-		graph.command(new OCommandSQL("insert into Device (" + DESCRIPTION 	+ ") values ('" + sensor.getDescription()	+ "')")).execute();		
-		graph.command(new OCommandSQL("insert into Device (" + SENSORTYPE 	+ ") values ('" + sensor.getType()			+ "')")).execute();		
-		graph.command(new OCommandSQL("insert into Device (" + ISDELETED 	+ ") values ('" + sensor.isDeleated()		+ "')")).execute();		
-		graph.command(new OCommandSQL("insert into Device (" + OTHERTYPE 	+ ") values ('" + sensor.getOtherType()		+ "')")).execute();		
-		graph.command(new OCommandSQL("insert into Device (" + IMAGEURL 	+ ") values ('" + sensor.getImageUrl()		+ "')")).execute();		
+	public CreateService(Sensor sensor){	
 
+		graph.command(new OCommandSQL("insert into Sensor ("+ NAME 			+","
+															+ ID			+","
+															+ DESCRIPTION	+","
+															+ SENSORTYPE	+","
+															+ ISDELETED		+","
+															+ OTHERTYPE		+","
+															+ IMAGEURL		+"	) values ('" 	
+															
+															+ sensor.getName()			+"'"+","+"'"
+															+ sensor.getId()			+"'"+","+"'"
+															+ sensor.getDescription()  	+"'"+","+"'"
+															+ sensor.getType()			+"'"+","+"'"
+															+ sensor.isDeleted()		+"'"+","+"'"
+															+ sensor.getOtherType()		+"'"+","+"'"
+															+ sensor.getImageUrl()		+"')")).execute();
 	}
 
 	/**
@@ -104,17 +118,25 @@ public class CreateService implements AbstractService{
 	 *
 	 * @param user the user
 	 */
-	public CreateService(User user){		
+	public CreateService(User user){	
 		
-		graph.command(new OCommandSQL("insert into User (" + FIRSTNAME 	+ ") values ('" + user.getFirstName()	+ "')")).execute();	
-		graph.command(new OCommandSQL("insert into User (" + LASTNAME 	+ ") values ('" + user.getLastName()	+ "')")).execute();		
-		graph.command(new OCommandSQL("insert into User (" + PASSWORD 	+ ") values ('" + user.getPassword()	+ "')")).execute();		
-		graph.command(new OCommandSQL("insert into User (" + EMAIL 		+ ") values ('" + user.getEmail() 		+ "')")).execute();		
-		graph.command(new OCommandSQL("insert into User (" + SALT 		+ ") values ('" + user.getSalt() 		+ "')")).execute();		
-		graph.command(new OCommandSQL("insert into User (" + ID 		+ ") values ('" + user.getUid()			+ "')")).execute();		
-		graph.command(new OCommandSQL("insert into User (" + IMAGEURL 	+ ") values ('" + user.getImageUrl() 	+ "')")).execute();		
-		graph.command(new OCommandSQL("insert into User (" + ISDELETED 	+ ") values ('" + user.isDeleted() 		+ "')")).execute();		
-
+		graph.command(new OCommandSQL("insert into User (" 	+ FIRSTNAME 	+","
+															+ LASTNAME		+","
+															+ PASSWORD		+","
+															+ EMAIL			+","
+															+ SALT			+","
+															+ ID			+","
+															+ IMAGEURL		+","
+															+ ISDELETED		+"	) values ('" 	
+															
+															+ user.getFirstName()	+"'"+","+"'"
+															+ user.getLastName()	+"'"+","+"'"
+															+ user.getPassword()  	+"'"+","+"'"
+															+ user.getEmail()		+"'"+","+"'"
+															+ user.getSalt()		+"'"+","+"'"
+															+ user.getUid()			+"'"+","+"'"
+															+ user.getImageUrl()	+"'"+","+"'"
+															+ user.isDeleted()		+"')")).execute();
 	}
 	
 	
@@ -123,12 +145,15 @@ public class CreateService implements AbstractService{
 	 *
 	 * @param payload the payload
 	 */
-	public CreateService(Payload payload){		
+	public CreateService(Payload payload){			
 		
-		graph.command(new OCommandSQL("insert into Payload (" + MESSAGE 	+ ") values ('" + payload.getMessage()		+ "')")).execute();		
-		graph.command(new OCommandSQL("insert into Payload (" + DATETIME 	+ ") values ('" + payload.getDateTime()		+ "')")).execute();		
-		graph.command(new OCommandSQL("insert into Payload (" + ISDELETED	+ ") values ('" + payload.isDeleted() 		+ "')")).execute();		
-		
+		graph.command(new OCommandSQL("insert into Payload (" 	+ MESSAGE 	+","
+																+ DATETIME	+","
+																+ ISDELETED + ") values ('" 
+																
+																+ payload.getMessage()	+"'"+","+"'"
+																+ payload.getDateTime()	+"'"+","+"'"
+																+ payload.isDeleted()	+ "')")).execute();	
 	}
 	
 	/**

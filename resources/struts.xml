@@ -38,7 +38,7 @@
 		
 		<!--   register action  -->
 		<action name="registerUser" class="com.cobweb.io.action.RegisterAction" method="register">
-			<result name="success">Welcome.jsp</result>
+			<result name="success" type="redirect">initializeList.action</result>
 		</action>		
 		
 		<action name="initializeList" class="com.cobweb.io.action.Initialize" method="initializeList">

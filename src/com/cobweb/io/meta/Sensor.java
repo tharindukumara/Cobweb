@@ -26,7 +26,7 @@ public class Sensor implements Item{
 	private SensorType sensortype;
 	
 	/** The is deleated. */
-	private boolean isDeleated=false;
+	private boolean isDeleted=false;
 	
 	/** The id. */
 	private String otherType ="default";
@@ -132,15 +132,15 @@ public class Sensor implements Item{
 	 */
 	@Override
 	public void setDeleted(boolean deleted) {
-		this.isDeleated = deleted;
+		this.isDeleted = deleted;
 	}
 
 	/* (non-Javadoc)
 	 * @see com.cobweb.io.core.Item#isDeleated()
 	 */
 	@Override
-	public boolean isDeleated() {
-		return isDeleated;
+	public boolean isDeleted() {
+		return isDeleted;
 	}
 
 	/* (non-Javadoc)
