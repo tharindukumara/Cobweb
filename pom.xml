@@ -34,6 +34,8 @@
 	</build>
 
 	<dependencies>
+
+		<!-- OrientDB -->
 		<dependency>
 			<groupId>com.orientechnologies</groupId>
 			<artifactId>orient-commons</artifactId>
@@ -70,18 +72,22 @@
 			<version>1.2</version>
 		</dependency>
 
-		<!-- Struts2 -->
+		<!-- Jercey -->
 
 		<dependency>
-			<groupId>org.apache.struts</groupId>
-			<artifactId>struts2-core</artifactId>
-			<version>2.3.20</version>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-server</artifactId>
+			<version>2.17</version>
 		</dependency>
-
 		<dependency>
-			<groupId>com.googlecode.struts2scopeplugin</groupId>
-			<artifactId>struts2-scope-plugin</artifactId>
-			<version>2.0.0</version>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-common</artifactId>
+			<version>2.17</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-servlet</artifactId>
+			<version>2.17</version>
 		</dependency>
 
 	</dependencies>
