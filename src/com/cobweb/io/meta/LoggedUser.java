@@ -18,18 +18,16 @@ public class LoggedUser {
 	/** The password. */
 	private String password;
 	
+	
+	
 	/**
 	 * Instantiates a new logged user.
 	 *
-	 * @param firstName the first name
-	 * @param lastName the last name
 	 * @param email the email
 	 * @param password the password
 	 */
-	public LoggedUser(String firstName,String lastName,String email,String password){
-		
-		this.firstName	=	firstName;
-		this.lastName	=	lastName;
+	public LoggedUser(String email,String password){
+				
 		this.email		=	email;
 		this.password	=	password;
 	}

@@ -43,7 +43,7 @@ public class ReadPropertyFile {
     	
     	databaseUrl = "remote:127.0.0.1/Cobweb";
 	    databaseUserName = "root";
-	    databasePassword = "root";
+	    databasePassword = "C08w38";
     	
     	/*try {
  

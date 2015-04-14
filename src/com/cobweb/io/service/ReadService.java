@@ -1,8 +1,14 @@
 package com.cobweb.io.service;
 
+import java.util.List;
+
 import com.cobweb.io.meta.Device;
+import com.cobweb.io.meta.LoggedUser;
 import com.cobweb.io.meta.Sensor;
 import com.cobweb.io.meta.User;
+import com.orientechnologies.orient.core.record.impl.ODocument;
+import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
+import com.tinkerpop.blueprints.Vertex;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -13,6 +19,9 @@ import com.cobweb.io.meta.User;
 
 public class ReadService implements AbstractService{
 
+	/** The invalid. */
+	private final String INVALID = "Invalid user name or password"; 
+	
 	/**
 	 * Instantiates a new read service.
 	 *
@@ -30,14 +39,39 @@ public class ReadService implements AbstractService{
 	public ReadService(Sensor sensor){
 		
 	}
-
+	
 	/**
 	 * Instantiates a new read service.
-	 *
-	 * @param user the user
 	 */
-	public ReadService(User user){
+	public ReadService(){
+		
+	}
+
+
 	
+	/**
+	 * Read.
+	 *
+	 * @param loggedUser the logged user
+	 * @param data the data
+	 * @return the string
+	 */
+	public String Read(LoggedUser loggedUser,String data){
+	
+		String email= loggedUser.getEmail();
+		String password = loggedUser.getPassword();
+		String info;
+		
+		List<ODocument> result =  graph.getRawGraph().query(new OSQLSynchQuery<Object>("select from User where email=\""+email+"\" and password=\""+password+"\""));
+		 		
+		if(!result.isEmpty()){			
+			Vertex v = graph.getVertex(result.get(0).getIdentity());
+			info = v.getProperty(data);
+			return info;
+		}else{
+			return INVALID;
+		}
+		
 	}
 
 }
