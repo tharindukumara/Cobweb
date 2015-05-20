@@ -5,7 +5,6 @@ import java.util.List;
 import com.cobweb.io.meta.Device;
 import com.cobweb.io.meta.LoggedUser;
 import com.cobweb.io.meta.Sensor;
-import com.cobweb.io.meta.User;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
 import com.tinkerpop.blueprints.Vertex;
