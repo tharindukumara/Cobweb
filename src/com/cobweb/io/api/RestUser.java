@@ -24,7 +24,8 @@ public class RestUser {
 		
 		
 		User userObj = new User(firstName,lastName, email, password,""); 
-    	CreateService createService = new CreateService(userObj);
+    	CreateService createService = new CreateService();
+        createService.CreateUser(userObj);
         
 		return Response.ok("SUCCESS", MediaType.TEXT_PLAIN).build();
     }                   

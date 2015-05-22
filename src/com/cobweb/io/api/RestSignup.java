@@ -61,7 +61,8 @@ public class RestSignup {
 		}
 		
 		User userObj = new User(firstName,lastName, email, password,""); 
-    	CreateService createService = new CreateService(userObj);
+    	CreateService createService = new CreateService();
+    	createService.CreateUser(userObj);
 	
 		Cookie myCookie = new Cookie("accountHref", email);
 		NewCookie newCookie = new NewCookie(myCookie, null, 60 * 60, true);

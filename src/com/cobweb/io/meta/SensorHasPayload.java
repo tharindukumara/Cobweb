@@ -4,17 +4,16 @@ import com.tinkerpop.blueprints.Vertex;
 
 
 /**
- * The Class DeviceHasSensors.
+ * The Class SensorHasPayload.
  * @author YasithLokuge
  */
-public class DeviceHasSensors {
+public class SensorHasPayload {
 
-	/** The device. */
-	private Vertex device;
-	
 	/** The sensor. */
 	private Vertex sensor;
 	
+	/** The payload. */
+	private Vertex payload;
 	
 	/**
 	 * Gets the sensor.
@@ -35,22 +34,21 @@ public class DeviceHasSensors {
 	}
 	
 	/**
-	 * Gets the device.
+	 * Gets the payload.
 	 *
-	 * @return the device
+	 * @return the payload
 	 */
-	public Vertex getDevice() {
-		return device;
+	public Vertex getPayload() {
+		return payload;
 	}
 	
 	/**
-	 * Sets the device.
+	 * Sets the payload.
 	 *
-	 * @param device the new device
+	 * @param payload the new payload
 	 */
-	public void setDevice(Vertex device) {
-		this.device = device;
+	public void setPayload(Vertex payload) {
+		this.payload = payload;
 	}
-	
 	
 }

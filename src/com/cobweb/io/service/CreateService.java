@@ -1,12 +1,20 @@
 package com.cobweb.io.service;
 
 import com.cobweb.io.meta.Device;
+import com.cobweb.io.meta.DeviceHasPayload;
+import com.cobweb.io.meta.DeviceHasSensors;
 import com.cobweb.io.meta.Payload;
 import com.cobweb.io.meta.Sensor;
+import com.cobweb.io.meta.SensorHasPayload;
 import com.cobweb.io.meta.User;
+import com.cobweb.io.meta.UserHasDevices;
 import com.cobweb.io.meta.UserSubscribes;
+import com.orientechnologies.orient.core.command.OCommandRequest;
 import com.orientechnologies.orient.core.sql.OCommandSQL;
+import com.tinkerpop.blueprints.Edge;
+import com.tinkerpop.blueprints.Vertex;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class CreateService.
  *
@@ -58,20 +66,35 @@ public class CreateService implements AbstractService{
 	private final String ISPARENTONLY 	= "isParentOnly";
 	
 	/** The message. */
-	private final String MESSAGE 		= "message";
+	private final String MESSAGE 		= "message";	
 	
-	/** The message. */
-	private final String DATETIME 		= "dateTime";
+	/** The datetime. */
+	private final String DATETIME 		= "dateTime";	
+
+	/** The usersubscribes. */
+	private final String USERSUBSCRIBES	= "subscribes";	
 	
+	/** The userhasdevices. */
+	private final String USERHASDEVICES 		= "hasDevices";
+	
+	/** The devicehassensors. */
+	private final String DEVICEHASSENSORS 		= "hasSensors";
+	
+	/** The devicehaspayload. */
+	private final String DEVICEHASPAYLOAD 		= "deviceHasPayload";
+	
+	/** The sensorhaspayload. */
+	private final String SENSORHASPAYLOAD 		= "sensorHasPayload";
 	
 	/**
 	 * Creates the device.
 	 *
 	 * @param device the device
+	 * @return the vertex
 	 */
-	public CreateService(Device device){
+	public Vertex CreateDevice(Device device){
 		
-		graph.command(new OCommandSQL("insert into Device ("+ NAME 			+","
+		Vertex v = graph.command(new OCommandSQL("insert into Device ("+ NAME 			+","
 															+ ID			+","
 															+ DESCRIPTION	+","
 															+ DEVICETYPE	+","
@@ -87,16 +110,18 @@ public class CreateService implements AbstractService{
 															+ device.getOtherType()		+"'"+","+"'"
 															+ device.getImageUrl()		+"')")).execute();
 		
+		return v;
 	}
 	
 	/**
 	 * Creates the sensor.
 	 *
 	 * @param sensor the sensor
+	 * @return the vertex
 	 */
-	public CreateService(Sensor sensor){	
+	public Vertex CreateSensor(Sensor sensor){	
 
-		graph.command(new OCommandSQL("insert into Sensor ("+ NAME 			+","
+		Vertex v = graph.command(new OCommandSQL("insert into Sensor ("+ NAME 			+","
 															+ ID			+","
 															+ DESCRIPTION	+","
 															+ SENSORTYPE	+","
@@ -111,16 +136,18 @@ public class CreateService implements AbstractService{
 															+ sensor.isDeleted()		+"'"+","+"'"
 															+ sensor.getOtherType()		+"'"+","+"'"
 															+ sensor.getImageUrl()		+"')")).execute();
+		return v;
 	}
 
 	/**
 	 * Creates the user.
 	 *
 	 * @param user the user
+	 * @return the vertex
 	 */
-	public CreateService(User user){	
+	public Vertex CreateUser(User user){	
 		
-		graph.command(new OCommandSQL("insert into User (" 	+ FIRSTNAME 	+","
+		Vertex v = graph.command(new OCommandSQL("insert into User (" 	+ FIRSTNAME 	+","
 															+ LASTNAME		+","
 															+ PASSWORD		+","
 															+ EMAIL			+","
@@ -137,41 +164,90 @@ public class CreateService implements AbstractService{
 															+ user.getUid()			+"'"+","+"'"
 															+ user.getImageUrl()	+"'"+","+"'"
 															+ user.isDeleted()		+"')")).execute();
+	
+		return v;
 	}
+	
 	
 	
 	/**
 	 * Creates the payload.
 	 *
 	 * @param payload the payload
+	 * @return the vertex
 	 */
-	public CreateService(Payload payload){			
+	public Vertex CreatePayload(Payload payload){			
 		
-		graph.command(new OCommandSQL("insert into Payload (" 	+ MESSAGE 	+","
+		Vertex v = graph.command(new OCommandSQL("insert into Payload (" 	+ MESSAGE 	+","
 																+ DATETIME	+","
 																+ ISDELETED + ") values ('" 
 																
 																+ payload.getMessage()	+"'"+","+"'"
 																+ payload.getDateTime()	+"'"+","+"'"
 																+ payload.isDeleted()	+ "')")).execute();	
+	
+		return v;		
 	}
 	
 	/**
 	 * Creates the userSubscribes.
 	 *
 	 * @param userSubscribes the userSubscribes
+	 * @return the edge
 	 */
-	public CreateService(UserSubscribes userSubscribes){
+	public Edge CreateUserSubscribes(UserSubscribes userSubscribes){
 		
-		graph.command(new OCommandSQL("insert into Payload (" + ISPARENTONLY + ") values ('" + userSubscribes.isParentOnly() + "')")).execute();		
-		
+		Edge e = graph.addEdge(null, userSubscribes.getUserOut()	, userSubscribes.getUserIn(), USERSUBSCRIBES);
+		return e;
 	}
 	
-	public void addDevice(User user, Device device){
+	/**
+	 * Creates the user has devices.
+	 *
+	 * @param userHasDevices the user has devices
+	 * @return the edge
+	 */
+	public Edge CreateUserHasDevices(UserHasDevices userHasDevices){
 		
-		
+		Edge e = graph.addEdge(null, userHasDevices.getUser(), userHasDevices.getDevice(), USERHASDEVICES);		
+		return e;		
 	}
 	
+	/**
+	 * Creates the device has sensors.
+	 *
+	 * @param deviceHasSensors the device has sensors
+	 * @return the edge
+	 */
+	public Edge CreateDeviceHasSensors(DeviceHasSensors deviceHasSensors){
+		
+		Edge e = graph.addEdge(null, deviceHasSensors.getDevice(), deviceHasSensors.getSensor(), DEVICEHASSENSORS);		
+		return e;		
+	}
+	
+	/**
+	 * Creates the sensor has payload.
+	 *
+	 * @param sensorHasPayload the sensor has payload
+	 * @return the edge
+	 */
+	public Edge CreateSensorHasPayload(SensorHasPayload sensorHasPayload){
+		
+		Edge e = graph.addEdge(null, sensorHasPayload.getSensor(), sensorHasPayload.getPayload(), SENSORHASPAYLOAD);		
+		return e;		
+	}
 
+	
+	/**
+	 * Creates the device has payload.
+	 *
+	 * @param deviceHasPayload the device has payload
+	 * @return the edge
+	 */
+	public Edge CreateDeviceHasPayload(DeviceHasPayload deviceHasPayload){
+		
+		Edge e = graph.addEdge(null, deviceHasPayload.getDevice(), deviceHasPayload.getPayload(), DEVICEHASPAYLOAD);
+		return e;		
+	}
 	
 }
