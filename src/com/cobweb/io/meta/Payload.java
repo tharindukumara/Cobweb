@@ -1,8 +1,12 @@
 package com.cobweb.io.meta;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class Payload {
+	
+	/** The id. */
+	private String id;
 	
 	/** The message. */
 	private String message = "default meaasage";
@@ -21,7 +25,10 @@ public class Payload {
 	 */
 	public Payload(String message, Date dateTime){
 		this.message = message;
-		this.dateTime = dateTime;		
+		this.dateTime = dateTime;
+		
+		UUID uuid = UUID.randomUUID();
+		setId(uuid.toString());
 	}
 
 	/**
@@ -64,6 +71,24 @@ public class Payload {
 	 */
 	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
+	}
+
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }

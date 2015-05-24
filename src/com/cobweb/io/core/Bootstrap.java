@@ -3,6 +3,10 @@
  */
 package com.cobweb.io.core;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+
 import com.cobweb.io.service.AbstractService;
 import com.orientechnologies.orient.core.metadata.schema.OType;
 import com.tinkerpop.blueprints.Vertex;
@@ -10,8 +14,9 @@ import com.tinkerpop.blueprints.impls.orient.OrientEdgeType;
 import com.tinkerpop.blueprints.impls.orient.OrientVertexType;
 
 /**
- * @author Yasith Lokuge
+ * The Class Bootstrap.
  *
+ * @author Yasith Lokuge
  */
 public class Bootstrap implements AbstractService {
 
@@ -63,6 +68,8 @@ public class Bootstrap implements AbstractService {
 	/** The isParentOnly. */
 	private final static String ISPARENTONLY 	= "isParentOnly";
 	
+	/** The log. */
+	private static Log log = LogFactory.getLog(Bootstrap.class);
 
 	/**
 	 * @param args
@@ -71,11 +78,11 @@ public class Bootstrap implements AbstractService {
 		
 			
 		//------------------Creating Vertices----------------------------//
-		System.out.println("//------------------Creating Vertices----------------------------//");			
+		log.debug("//------------------Creating Vertices----------------------------//");			
 		/**
 		 * Create User Class
 		 */
-		System.out.println("--Creating User Vertex Class--");		
+		log.debug("--Creating User Vertex Class--");		
 		OrientVertexType User = graph.createVertexType("User");
 		Vertex user = graph.addVertex("class:User");		
 		User.createProperty(FIRSTNAME, 	OType.STRING	);
@@ -91,7 +98,7 @@ public class Bootstrap implements AbstractService {
 		/**
 		 * Create Device Class
 		 */
-		System.out.println("--Creating Device Vertex Class--");		
+		log.debug("--Creating Device Vertex Class--");		
 		OrientVertexType Device = graph.createVertexType("Device");
 		Vertex device = graph.addVertex("class:Device");	
 		
@@ -106,7 +113,7 @@ public class Bootstrap implements AbstractService {
 		/**
 		 * Create Sensor Class
 		 */		
-		System.out.println("--Creating Sensor Vertex Class--/");		
+		log.debug("--Creating Sensor Vertex Class--/");		
 		OrientVertexType Sensor = graph.createVertexType("Sensor");
 		Vertex sensor = graph.addVertex("class:Sensor");
 		
@@ -121,47 +128,55 @@ public class Bootstrap implements AbstractService {
 		/**
 		 * Create Payload Class
 		 */
-		System.out.println("--Creating Payload Vertex Class--");		
+		log.debug("--Creating Payload Vertex Class--");		
 		OrientVertexType Payload = graph.createVertexType("Payload");
 		Vertex payload = graph.addVertex("class:Payload");
 		
 		Payload.createProperty(MESSAGE, 	OType.STRING	);
 		Payload.createProperty(DATETIME, 	OType.DATETIME	);
+		Payload.createProperty(ID, 			OType.STRING	);
 		Payload.createProperty(ISDELETED, 	OType.BOOLEAN	);
 		graph.commit();
 		
 		//------------------Creating Edges----------------------------//
-		System.out.println("//------------------Creating Edges----------------------------//");		
+		log.debug("//------------------Creating Edges----------------------------//");		
 		
 		/**
 		 * Create UserHasDevices Class
 		 */
-		System.out.println("--Creating UserHasDevices Edge--");		
+		log.debug("--Creating UserHasDevices Edge--");		
 		graph.createEdgeType("UserHasDevices");		
 		graph.addEdge(null, user, device, "UserHasDevices");
 		/**
 		 * Create DeviceHasSensors Class
 		 */
-		System.out.println("--Creating DeviceHasSensors Edge--");		
+		log.debug("--Creating DeviceHasSensors Edge--");		
 		graph.createEdgeType("DeviceHasSensors");	
 		graph.addEdge(null, device, sensor, "DeviceHasSensors");
 
 		/**
 		 * Create UserSubscribes Class
 		 */
-		System.out.println("--Creating UserSubscribes Edge--");		
+		log.debug("--Creating UserSubscribes Edge--");		
 		OrientEdgeType UserSubscribes = graph.createEdgeType("UserSubscribes");				
 		UserSubscribes.createProperty(ISPARENTONLY	, OType.BOOLEAN );
 		graph.addEdge(null, user, device, "UserSubscribes");
 		graph.addEdge(null, user, sensor, "UserSubscribes");
 
 		/**
-		 * Create HasPayload Class
+		 * Create DeviceHasPayload Class
 		 */
-		System.out.println("--Creating HasPayload Edge--");		
+		log.debug("--Creating DeviceHasPayload Edge--");		
 		graph.createEdgeType("HasPayload");	
 		graph.addEdge(null, device, payload, "HasPayload");
-		graph.addEdge(null, sensor, payload, "HasPayload");
+		
+		/**
+		 * Create SensorHasPayload Class
+		 */
+		log.debug("--Creating SensorHasPayload Edge--");		
+		graph.createEdgeType("SensorHasPayload");	
+		graph.addEdge(null, sensor, payload, "SensorHasPayload");
+		
 		graph.commit();
 		
 	}

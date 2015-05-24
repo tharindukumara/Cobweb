@@ -9,7 +9,7 @@ import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
 import com.tinkerpop.blueprints.Vertex;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class ReadService.
  *
