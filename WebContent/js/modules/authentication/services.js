@@ -19,7 +19,7 @@ angular.module('Authentication')
         	
             /* Use this for real authentication
             ----------------------------------------------*/
-           $http.post('/core/api/login',data)
+           $http.post('/cobweb/api/login',data)
                .success(function (response) {
             	   console.log(response)
             	   console.log(data)

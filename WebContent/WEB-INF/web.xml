@@ -1,33 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
-  <display-name>cobweb</display-name>
- 
-    <filter>
-  		<filter-name>Jersey Filter</filter-name>
-  		<filter-class>org.glassfish.jersey.servlet.ServletContainer</filter-class>
-  		
-  		<init-param>
-    		<param-name>jersey.config.server.provider.packages</param-name>
-    		<param-value>com.cobweb.io.api</param-value>
-  		</init-param>
-  		
-<!--   <init-param> -->
-<!--     <param-name>jersey.config.servlet.filter.staticContentRegex</param-name> -->
-<!--     <param-value>/.*html</param-value> -->
-<!--   </init-param> -->
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	id="WebApp_ID" version="3.1">
+	<display-name>cobweb</display-name>
 
-	</filter> 
-	
+	<filter>
+		<filter-name>Jersey Filter</filter-name>
+		<filter-class>org.glassfish.jersey.servlet.ServletContainer</filter-class>
+
+		<init-param>
+			<param-name>jersey.config.server.provider.packages</param-name>
+			<param-value>com.cobweb.io.api</param-value>
+		</init-param>
+
+		<!-- <init-param> -->
+		<!-- <param-name>jersey.config.servlet.filter.staticContentRegex</param-name> -->
+		<!-- <param-value>/.*html</param-value> -->
+		<!-- </init-param> -->
+
+	</filter>
+
+
 	<filter-mapping>
-	  <filter-name>Jersey Filter</filter-name>
-	  <url-pattern>/api/*</url-pattern> 
+		<filter-name>Jersey Filter</filter-name>
+		<url-pattern>/api/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>ShiroFilter</filter-name>
+		<filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>ShiroFilter</filter-name>
+		<url-pattern>/api/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
 	</filter-mapping>
 	
 	<welcome-file-list>
-<!--         <welcome-file>Login.jsp</welcome-file> -->
-        <welcome-file>index.html</welcome-file>
+		<!-- <welcome-file>Login.jsp</welcome-file> -->
+		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
-<!--     	<session-config> -->
-<!-- 		<session-timeout>1</session-timeout> -->
-<!-- 	</session-config> -->
+	
+	<!-- <session-config> -->
+	<!-- <session-timeout>1</session-timeout> -->
+	<!-- </session-config> -->
 </web-app>

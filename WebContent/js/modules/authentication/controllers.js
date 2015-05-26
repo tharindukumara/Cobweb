@@ -22,7 +22,7 @@ angular.module('Authentication')
         
         $scope.submitSignupForm = function() {
             var data = $scope.fields;
-            $http.post("/core/api/signup", data);
+            $http.post("/cobweb/api/signup", data);
             console.log(data);
           };
       
