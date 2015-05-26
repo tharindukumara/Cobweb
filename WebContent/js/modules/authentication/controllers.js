@@ -1,16 +1,16 @@
 angular.module('Authentication')
  
 .controller('LoginController',
-    ['$scope', '$rootScope', '$location', 'AuthenticationService',
-    function ($scope, $rootScope, $location, AuthenticationService) {
+    ['$http','$scope', '$rootScope', '$location', 'AuthenticationService',
+    function ($http, $scope, $rootScope, $location, AuthenticationService) {
         // reset login status
         AuthenticationService.ClearCredentials();
  
         $scope.submitLoginForm = function () {
             $scope.dataLoading = true;
-            AuthenticationService.Login($scope.user.username, $scope.user.password, function(response) {
+            AuthenticationService.Login($scope.user, function(response) {
             	if(response.success) {
-                    AuthenticationService.SetCredentials($scope.user.username, $scope.user.password);
+                    AuthenticationService.SetCredentials($scope.user.email, $scope.user.password);
                     var data = $scope.user;                    
                     $location.path('/home');
                 } else {
@@ -22,7 +22,7 @@ angular.module('Authentication')
         
         $scope.submitSignupForm = function() {
             var data = $scope.fields;
-            $http.post("/api/signup", data);
+            $http.post("/core/api/signup", data);
             console.log(data);
           };
       

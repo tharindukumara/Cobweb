@@ -5,26 +5,27 @@ angular.module('Authentication')
     function (Base64, $http, $cookieStore, $rootScope, $timeout) {
         var service = {};
 
-        service.Login = function (username, password, callback) {
+        service.Login = function (data , callback) {
 
             /* Dummy authentication for testing, uses $timeout to simulate api call
              ----------------------------------------------*/
-            $timeout(function(){
-                var response = { success: username === 'test@t' && password === 'test' };
-                if(!response.success) {
-                    response.message = 'Username or password is incorrect';
-               }
-                callback(response);
-            }, 1000);
+//            $timeout(function(){
+//                var response = { success: username === 'test@t' && password === 'test' };
+//                if(!response.success) {
+//                    response.message = 'Username or password is incorrect';
+//               }
+//                callback(response);
+//            }, 1000);
         	
-            //var data = $scope.fields;
-
             /* Use this for real authentication
-             ----------------------------------------------*/
-            //$http.post('/api/signup', data);
-             //   .success(function (response) {
-              //      callback(response);
-              //  });
+            ----------------------------------------------*/
+           $http.post('/core/api/login',data)
+               .success(function (response) {
+            	   console.log(response)
+            	   console.log(data)
+            	   var message = { success: response === 'SUCCESS' };
+                   callback(message);
+               });
 
         };
  
