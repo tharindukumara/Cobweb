@@ -5,6 +5,11 @@
 	id="WebApp_ID" version="3.1">
 	<display-name>cobweb</display-name>
 
+	<context-param>
+	  	<param-name>shiroConfigLocations</param-name>
+	  	<param-value>classpath:shiro.ini</param-value>
+	</context-param>
+
 	<listener>
 		<listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
 	</listener>
