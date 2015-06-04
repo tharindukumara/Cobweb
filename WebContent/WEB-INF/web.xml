@@ -5,37 +5,24 @@
 	id="WebApp_ID" version="3.1">
 	<display-name>cobweb</display-name>
 
-	<context-param>
-	  	<param-name>shiroConfigLocations</param-name>
-	  	<param-value>classpath:shiro.ini</param-value>
-	</context-param>
-
-	<listener>
-		<listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
-	</listener>
-
-
-	<filter>
-		<filter-name>Jersey Filter</filter-name>
-		<filter-class>org.glassfish.jersey.servlet.ServletContainer</filter-class>
-
+	<servlet>
+		<servlet-name>Jersey</servlet-name>
+		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
 		<init-param>
 			<param-name>jersey.config.server.provider.packages</param-name>
 			<param-value>com.cobweb.io.api</param-value>
 		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 
-		<!-- <init-param> -->
-		<!-- <param-name>jersey.config.servlet.filter.staticContentRegex</param-name> -->
-		<!-- <param-value>/.*html</param-value> -->
-		<!-- </init-param> -->
-
-	</filter>
-
-
-	<filter-mapping>
-		<filter-name>Jersey Filter</filter-name>
+	<servlet-mapping>
+		<servlet-name>Jersey</servlet-name>
 		<url-pattern>/api/*</url-pattern>
-	</filter-mapping>
+	</servlet-mapping>
+
+	<listener>
+		<listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
+	</listener>
 
 	<filter>
 		<filter-name>ShiroFilter</filter-name>
@@ -52,11 +39,7 @@
 	</filter-mapping>
 
 	<welcome-file-list>
-		<!-- <welcome-file>Login.jsp</welcome-file> -->
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
 
-	<!-- <session-config> -->
-	<!-- <session-timeout>1</session-timeout> -->
-	<!-- </session-config> -->
 </web-app>

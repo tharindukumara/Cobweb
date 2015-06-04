@@ -18,7 +18,7 @@ import org.codehaus.jettison.json.JSONObject;
 import com.cobweb.io.meta.User;
 import com.cobweb.io.service.CreateService;
 
-@Path("/api/signup")
+@Path("/data/api/signup")
 public class RestSignup {
 
 

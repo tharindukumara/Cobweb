@@ -7,26 +7,29 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.SecurityUtils;
 
-@Path("/api")
+@Path("/data")
 public class RestDemo {
 
-//	 	@POST
-//	    @Path("/post")	 
-//	    @Consumes(MediaType.TEXT_PLAIN)
-//	 	@RequiresAuthentication
-//	    public Response createDataInJSON(String data) { 
-//
-//	        String result = "Data post: "+data;
-//
-//	        System.out.println(data);
-//	        return Response.status(201).entity(result).build(); 
-//	    }
-	
-	
-	@GET
+	@GET	
+	@Path("/get")
 	public String get() {
-        return "OK";
-    }
+		return "OK";
+	}
+	
+
+	
+
+	@POST
+	@Path("/post")
+	@Consumes(MediaType.TEXT_PLAIN)
+	public Response createDataInJSON(String data) {
+
+		String result = "Data post: " + data;
+
+		System.out.println(data);
+		return Response.status(201).entity(result).build();
+	}
+
 }
