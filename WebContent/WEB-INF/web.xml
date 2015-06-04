@@ -18,6 +18,7 @@
 	<servlet-mapping>
 		<servlet-name>Jersey</servlet-name>
 		<url-pattern>/api/*</url-pattern>
+<!-- 		<url-pattern>/logout</url-pattern> -->
 	</servlet-mapping>
 
 	<listener>
@@ -31,7 +32,8 @@
 
 	<filter-mapping>
 		<filter-name>ShiroFilter</filter-name>
-		<url-pattern>/api/*</url-pattern>
+		<url-pattern>/*</url-pattern>
+<!-- 		<url-pattern>/logout</url-pattern> -->
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
