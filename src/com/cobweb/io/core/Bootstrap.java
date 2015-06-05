@@ -37,6 +37,9 @@ public class Bootstrap implements AbstractService {
 	
 	/** The salt. */
 	private final static String SALT 			= "salt";	
+		
+	/** The Constant ROLE. */
+	private final static String ROLE			= "role";
 	
 	/** The id. */
 	private final static String ID 				= "id";	
@@ -90,6 +93,7 @@ public class Bootstrap implements AbstractService {
 		User.createProperty(PASSWORD, 	OType.STRING	);
 		User.createProperty(EMAIL, 		OType.STRING	);
 		User.createProperty(SALT, 		OType.STRING	);
+		User.createProperty(ROLE, 		OType.STRING	);
 		User.createProperty(ID, 		OType.STRING	);
 		User.createProperty(IMAGEURL, 	OType.STRING	);
 		User.createProperty(ISDELETED, 	OType.BOOLEAN	);

@@ -39,6 +39,9 @@ public class User implements AbstractService{
 	/** The is deleted. */
 	private boolean isDeleted = false;	
 	
+	/** The role. */
+	private String role = "standard";		
+	
 	/**
 	 * Instantiates a new user.
 	 *
@@ -231,6 +234,24 @@ public class User implements AbstractService{
 	 */
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	/**
+	 * Gets the role.
+	 *
+	 * @return the role
+	 */
+	public String getRole() {
+		return role;
+	}
+
+	/**
+	 * Sets the role.
+	 *
+	 * @param role the new role
+	 */
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	

@@ -44,6 +44,9 @@ public class CreateService implements AbstractService{
 	/** The id. */
 	private final String ID 			= "id";	
 	
+	/** The role. */
+	private final String ROLE			= "role";
+	
 	/** The description. */
 	private final String DESCRIPTION 	= "description";	
 	
@@ -152,6 +155,7 @@ public class CreateService implements AbstractService{
 															+ PASSWORD		+","
 															+ EMAIL			+","
 															+ SALT			+","
+															+ ROLE			+","
 															+ ID			+","
 															+ IMAGEURL		+","
 															+ ISDELETED		+"	) values ('" 	
@@ -161,6 +165,7 @@ public class CreateService implements AbstractService{
 															+ user.getPassword()  	+"'"+","+"'"
 															+ user.getEmail()		+"'"+","+"'"
 															+ user.getSalt()		+"'"+","+"'"
+															+ user.getRole()		+"'"+","+"'"
 															+ user.getUid()			+"'"+","+"'"
 															+ user.getImageUrl()	+"'"+","+"'"
 															+ user.isDeleted()		+"')")).execute();
