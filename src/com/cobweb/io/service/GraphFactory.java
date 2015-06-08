@@ -18,9 +18,9 @@ public class GraphFactory implements AbstractService{
 	 * @param userId the user id
 	 * @return the user vertex
 	 */
-	public Vertex getUserVertex(String userId){		
+	public Vertex getUserVertex(String email){		
 		
-		Vertex v 		= graph.command(new OCommandSQL("select from User where id=\""+userId+"\"")).execute();		
+		Vertex v 		= graph.command(new OCommandSQL("select from User where email=\""+email+"\"")).execute();		
 		return v;		
 	}
 	

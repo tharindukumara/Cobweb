@@ -11,7 +11,7 @@ import com.cobweb.io.meta.User;
 import com.cobweb.io.service.CreateService;
 
 
-@Path("/data/api/users")
+@Path("/users")
 public class RestUser {
 
 	@POST

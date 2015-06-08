@@ -44,8 +44,8 @@ public class Sensor implements Item{
 	 * @param imageUrl the image url
 	 */
 	public Sensor(String name, String description, SensorType sensortype, String otherType, URL imageUrl){
-		this.name = name;
 		
+		this.name = name;		
 		this.description = description;
 		this.sensortype = sensortype;
 		this.otherType = otherType;

@@ -21,7 +21,10 @@ import org.codehaus.jettison.json.JSONObject;
 import com.cobweb.io.meta.LoggedUser;
 import com.cobweb.io.service.ReadService;
 
-@Path("/data/api/login")
+/**
+ * The Class RestLogin.
+ */
+@Path("/login")
 public class RestLogin {
    
 	/** The invalid. */

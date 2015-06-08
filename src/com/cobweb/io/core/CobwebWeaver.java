@@ -34,13 +34,13 @@ public class CobwebWeaver extends GraphFactory{
 	/**
 	 * Adds the device.
 	 *
-	 * @param userId the user id
+	 * @param userEmail the user email
 	 * @param device the device
 	 */
-	public void addDevice(String userId, Device device){
+	public void addDevice(String userEmail, Device device){
 		
 		UserHasDevices userHasDevices = new UserHasDevices();		
-		Vertex userVertex = getUserVertex(userId); 
+		Vertex userVertex = getUserVertex(userEmail); 
 		Vertex deviceVertex = createService.CreateDevice(device);		
 		userHasDevices.setUser(userVertex);
 		userHasDevices.setDevice(deviceVertex);
@@ -93,5 +93,12 @@ public class CobwebWeaver extends GraphFactory{
 		sensorHasPayload.setPayload(payloadVertex);
 		sensorHasPayload.setPayload(sensorVertex);
 		createService.CreateSensorHasPayload(sensorHasPayload);		
+	}
+	
+	public boolean isAuthorizedDevice(String userEmail, Device device){
+		
+		
+		return false;
+		
 	}
 }
