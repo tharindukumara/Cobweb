@@ -13,6 +13,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
@@ -27,7 +29,6 @@ public class RestSensor {
 	@Path("/create")
 	@Consumes(MediaType.APPLICATION_JSON)	
 	public ResponseBuilder create(InputStream jsonData) {
-
 		
 		String sensorName 		= null;
 		String parentDeviceId	= null;
@@ -35,8 +36,6 @@ public class RestSensor {
 		String type 			= null;
 		String imageUrl 		= null;
 		String otherType		= null;
-		
-		
 		
 		StringBuilder stringData = new StringBuilder();
 		try {
@@ -75,9 +74,10 @@ public class RestSensor {
 		}		
 				
 		CobwebWeaver cobwebWeaver = new CobwebWeaver();
+		Subject currentUser = SecurityUtils.getSubject();
+		String email = (String) currentUser.getPrincipal();
 		
-		if(!cobwebWeaver.isAuthorizedDevice()){
-			
+		if(!cobwebWeaver.isAuthorizedDevice(email, parentDeviceId)){
 			return Response.ok("Not Authorized", MediaType.TEXT_PLAIN);
 		}
 		

@@ -9,7 +9,6 @@ import com.cobweb.io.meta.SensorHasPayload;
 import com.cobweb.io.meta.User;
 import com.cobweb.io.meta.UserHasDevices;
 import com.cobweb.io.meta.UserSubscribes;
-import com.orientechnologies.orient.core.command.OCommandRequest;
 import com.orientechnologies.orient.core.sql.OCommandSQL;
 import com.tinkerpop.blueprints.Edge;
 import com.tinkerpop.blueprints.Vertex;
@@ -203,6 +202,7 @@ public class CreateService implements AbstractService{
 	public Edge CreateUserSubscribes(UserSubscribes userSubscribes){
 		
 		Edge e = graph.addEdge(null, userSubscribes.getUserOut()	, userSubscribes.getUserIn(), USERSUBSCRIBES);
+		e.setProperty(ISPARENTONLY, false);
 		return e;
 	}
 	

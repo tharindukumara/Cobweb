@@ -1,32 +1,25 @@
 package com.cobweb.io.core;
 
-import java.util.List;
-
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
-
-
-
-
-import com.cobweb.io.meta.User;
 import com.cobweb.io.service.AbstractService;
-import com.cobweb.io.service.CreateService;
 import com.cobweb.io.service.ReadService;
-import com.orientechnologies.orient.core.record.impl.ODocument;
-import com.orientechnologies.orient.core.sql.OCommandSQL;
-import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
-import com.tinkerpop.blueprints.Vertex;
 
 public class DemoTest implements AbstractService{
 
 	public static void main(String args[]){
 		
 		
-		User userObj = new User("firstName","lastName", "email", "password",""); 
-    	CreateService createService = new CreateService();
-        Vertex v = createService.CreateUser(userObj);
+//		User userObj = new User("firstName","lastName", "email", "password",""); 
+//    	CreateService createService = new CreateService();
+//        Vertex v = createService.CreateUser(userObj);
+//		
+//        
+//        System.out.println(v.getId());
 		
-        System.out.println(v.getId());
+		CobwebWeaver cobwebWeaver = new CobwebWeaver();
+		ReadService readService = new ReadService();
+		
+		//System.out.println(readService.ReadDeviceIds("yasith1@gmail.com"));
+		System.out.println(cobwebWeaver.isAuthorizedDevice("yasith1@gmail.com", "12234"));
         
 //		try {
 //			JSONObject jsonObject = new JSONObject("{\"firstname\":\"Yasith\",\"lastname\":\"Lokuge\",\"email\":\"yasith1@gmail.com\",\"password\":\"Yasith1991\"}");

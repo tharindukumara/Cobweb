@@ -1,5 +1,6 @@
 package com.cobweb.io.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.cobweb.io.meta.Device;
@@ -71,6 +72,13 @@ public class ReadService implements AbstractService{
 			return INVALID;
 		}
 		
+	}
+	
+	public List<String> ReadDeviceIds(String email){
+		List<String> idList = new ArrayList<>();
+		ODocument result =  (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select out('UserHasDevices').id from User where email='"+email+"'")).get(0);
+		idList = result.field("out");
+		return idList;
 	}
 
 }

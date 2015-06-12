@@ -1,7 +1,5 @@
 package com.cobweb.io.service;
 
-import java.io.InputStream;
-import java.util.Properties;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -14,13 +12,13 @@ public class ReadPropertyFile {
 	
 	
 	/** The database. */
-	private String DATABASE = "database_path";
+	//private String DATABASE = "database_path";
 	
 	/** The db user. */
-	private String DB_USER  = "database_username";
+	//private String DB_USER  = "database_username";
 	
 	/** The db password. */
-	private String DB_PASSWORD = "database_password";
+	//private String DB_PASSWORD = "database_password";
 	
 	/** The database url. */
 	private String databaseUrl;
@@ -36,8 +34,8 @@ public class ReadPropertyFile {
 	 */
 	public ReadPropertyFile(){		
 		
-		Properties settings = new Properties();
-    	InputStream input = null;
+		//Properties settings = new Properties();
+    	//InputStream input = null;
     	
     	databaseUrl = "remote:127.0.0.1/Cobweb";
 	    databaseUserName = "root";

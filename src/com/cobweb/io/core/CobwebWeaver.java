@@ -1,5 +1,8 @@
 package com.cobweb.io.core;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.cobweb.io.meta.Device;
 import com.cobweb.io.meta.DeviceHasPayload;
 import com.cobweb.io.meta.DeviceHasSensors;
@@ -10,6 +13,7 @@ import com.cobweb.io.meta.User;
 import com.cobweb.io.meta.UserHasDevices;
 import com.cobweb.io.service.CreateService;
 import com.cobweb.io.service.GraphFactory;
+import com.cobweb.io.service.ReadService;
 import com.tinkerpop.blueprints.Vertex;
 
 /**
@@ -21,6 +25,9 @@ public class CobwebWeaver extends GraphFactory{
 
 	/** The create service. */
 	CreateService createService = new CreateService();		
+	
+	/** The read service. */
+	ReadService readService = new ReadService();
 	
 	/**
 	 * Adds the user.
@@ -86,7 +93,7 @@ public class CobwebWeaver extends GraphFactory{
 	 * @param payload the payload
 	 */
 	public void addSensorPayload(String sensorId, Payload payload){
-		
+
 		SensorHasPayload sensorHasPayload = new SensorHasPayload();
 		Vertex sensorVertex  = getSensorVertex(sensorId);
 		Vertex payloadVertex = createService.CreatePayload(payload);
@@ -95,10 +102,17 @@ public class CobwebWeaver extends GraphFactory{
 		createService.CreateSensorHasPayload(sensorHasPayload);		
 	}
 	
-	public boolean isAuthorizedDevice(String userEmail, Device device){
+	/**
+	 * Checks if is authorized device.
+	 *
+	 * @param userEmail the user email
+	 * @param deviceId the device id
+	 * @return true, if is authorized device
+	 */
+	public boolean isAuthorizedDevice(String userEmail, String deviceId){
 		
-		
-		return false;
-		
+		List<String> idList = new ArrayList<>();		
+		idList = readService.ReadDeviceIds(userEmail);		
+		return idList.contains(deviceId);		
 	}
 }
