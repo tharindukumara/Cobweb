@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html ng-app="HttpAuth">
 
 <head>
