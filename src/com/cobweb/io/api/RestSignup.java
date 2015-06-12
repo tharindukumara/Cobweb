@@ -18,11 +18,22 @@ import org.codehaus.jettison.json.JSONObject;
 import com.cobweb.io.meta.User;
 import com.cobweb.io.service.CreateService;
 
+/**
+ * The Class RestSignup.
+ * @author Yasith Lokuge
+ */
+
 @Path("/signup")
 public class RestSignup {
 
 
 	
+	/**
+	 * Signup.
+	 *
+	 * @param jsonData the json data
+	 * @return the response
+	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response signup(InputStream jsonData) {

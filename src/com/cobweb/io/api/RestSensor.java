@@ -22,9 +22,22 @@ import com.cobweb.io.core.CobwebWeaver;
 import com.cobweb.io.meta.Sensor;
 import com.cobweb.io.meta.SensorType;
 
+
+/**
+ * The Class RestSensor
+ * @author Yasith Lokuge
+ * 
+ */
+
 @Path("/sensor")
 public class RestSensor {
 
+	/**
+	 * Creates the.
+	 *
+	 * @param jsonData the json data
+	 * @return the response builder
+	 */
 	@POST
 	@Path("/create")
 	@Consumes(MediaType.APPLICATION_JSON)	

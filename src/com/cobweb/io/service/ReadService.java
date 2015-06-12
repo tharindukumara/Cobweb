@@ -74,6 +74,12 @@ public class ReadService implements AbstractService{
 		
 	}
 	
+	/**
+	 * Read device ids.
+	 *
+	 * @param email the email
+	 * @return the list
+	 */
 	public List<String> ReadDeviceIds(String email){
 		List<String> idList = new ArrayList<>();
 		ODocument result =  (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select out('UserHasDevices').id from User where email='"+email+"'")).get(0);

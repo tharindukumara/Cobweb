@@ -10,10 +10,23 @@ import javax.ws.rs.core.Response;
 import com.cobweb.io.meta.User;
 import com.cobweb.io.service.CreateService;
 
-
+/**
+ * The Class RestUser.
+ * @author Yasith Lokuge
+ * 
+ */
 @Path("/users")
 public class RestUser {
 
+	/**
+	 * Creates the user.
+	 *
+	 * @param firstName the first name
+	 * @param lastName the last name
+	 * @param email the email
+	 * @param password the password
+	 * @return the response
+	 */
 	@POST
 	@Path("/create")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)

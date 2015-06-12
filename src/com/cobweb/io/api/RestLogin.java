@@ -23,6 +23,8 @@ import com.cobweb.io.service.ReadService;
 
 /**
  * The Class RestLogin.
+ * @author Yasith Lokuge
+ * 
  */
 @Path("/login")
 public class RestLogin {
@@ -31,6 +33,12 @@ public class RestLogin {
 	private final String INVALID = "Invalid user name or password";
 
     
+    /**
+     * Login.
+     *
+     * @param jsonData the json data
+     * @return the response
+     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response login(InputStream jsonData){
@@ -77,6 +85,12 @@ public class RestLogin {
         
     }
     
+    /**
+     * User exists.
+     *
+     * @param loggedUser the logged user
+     * @return true, if successful
+     */
     public boolean UserExists(LoggedUser loggedUser){
     	
     	ReadService readService = new ReadService();

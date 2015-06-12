@@ -23,6 +23,7 @@ import com.cobweb.io.meta.Device;
 import com.cobweb.io.meta.DeviceType;
 
 /**
+ * @author Yasith Lokuge
  * The Class RestDevice.
  */
 @Path("/device")
