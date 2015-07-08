@@ -63,7 +63,7 @@ public class Sensor implements Item{
 	 * @param description the description
 	 * @param sensortype the sensortype
 	 */
-	public Sensor(String name, String id, String description, SensorType sensortype){
+	public Sensor(String name, String description, SensorType sensortype){
 		this.name = name;		
 		this.description = description;
 		this.sensortype = sensortype;

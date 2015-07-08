@@ -11,6 +11,9 @@ import com.cobweb.io.meta.Sensor;
 import com.cobweb.io.meta.SensorHasPayload;
 import com.cobweb.io.meta.User;
 import com.cobweb.io.meta.UserHasDevices;
+import com.cobweb.io.meta.UserFollowsUser;
+import com.cobweb.io.meta.UserSubscribesDevice;
+import com.cobweb.io.meta.UserSubscribesSensor;
 import com.cobweb.io.service.CreateService;
 import com.cobweb.io.service.GraphFactory;
 import com.cobweb.io.service.ReadService;
@@ -102,6 +105,58 @@ public class CobwebWeaver extends GraphFactory{
 		createService.CreateSensorHasPayload(sensorHasPayload);		
 	}
 	
+	/**
+	 * Adds the follow user.
+	 *
+	 * @param userOutEmail the user out email
+	 * @param userInEmail the user in email
+	 */
+	public void addFollowUser(String userOutEmail, String userInEmail ){
+		
+		UserFollowsUser userFollowsUser = new UserFollowsUser();
+		Vertex userInVertex  = getUserVertex(userInEmail);
+		Vertex userOutVertex = getUserVertex(userOutEmail);
+		userFollowsUser.setUserIn(userInVertex);
+		userFollowsUser.setUserOut(userOutVertex);
+		createService.CreateUserFollowsUser(userFollowsUser);
+		
+	}
+	
+	/**
+	 * Adds the device subscription.
+	 *
+	 * @param email the email
+	 * @param deviceId the device id
+	 */
+	public void addDeviceSubscription(String email, String deviceId ){
+		
+		UserSubscribesDevice userSubscribesDevice = new UserSubscribesDevice();
+		Vertex user = getUserVertex(email);
+		Vertex device = getDeviceVertex(deviceId);
+		userSubscribesDevice.setUser(user);
+		userSubscribesDevice.setDevice(device);
+		createService.CreateUserSubscribesDevice(userSubscribesDevice);
+		
+	}
+
+	
+	/**
+	 * Adds the sensor subscription.
+	 *
+	 * @param email the email
+	 * @param sensorId the sensor id
+	 */
+	public void addSensorSubscription(String email, String sensorId ){
+		
+		UserSubscribesSensor userSubscribesSensor = new UserSubscribesSensor();
+		Vertex user = getUserVertex(email);
+		Vertex sensor = getDeviceVertex(sensorId);
+		userSubscribesSensor.setUser(user);
+		userSubscribesSensor.setSensor(sensor);
+		createService.CreateUserSubscribesSensor(userSubscribesSensor);
+		
+	}
+
 	/**
 	 * Checks if is authorized device.
 	 *

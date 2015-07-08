@@ -68,8 +68,8 @@ public class Bootstrap implements AbstractService {
 	/** The date and time. */
 	private final static String DATETIME 		= "dateTime";
 	
-	/** The isParentOnly. */
-	private final static String ISPARENTONLY 	= "isParentOnly";
+	/** The isAccepted. */
+	private final static String ISACCEPTED 		= "isAccepted";
 	
 	/** The log. */
 	private static Log log = LogFactory.getLog(Bootstrap.class);
@@ -151,6 +151,8 @@ public class Bootstrap implements AbstractService {
 		log.debug("--Creating UserHasDevices Edge--");		
 		graph.createEdgeType("UserHasDevices");		
 		graph.addEdge(null, user, device, "UserHasDevices");
+		
+		
 		/**
 		 * Create DeviceHasSensors Class
 		 */
@@ -158,14 +160,33 @@ public class Bootstrap implements AbstractService {
 		graph.createEdgeType("DeviceHasSensors");	
 		graph.addEdge(null, device, sensor, "DeviceHasSensors");
 
+		
 		/**
-		 * Create UserSubscribes Class
+		 * Create UserFollowsUser Class
 		 */
-		log.debug("--Creating UserSubscribes Edge--");		
-		OrientEdgeType UserSubscribes = graph.createEdgeType("UserSubscribes");				
-		UserSubscribes.createProperty(ISPARENTONLY	, OType.BOOLEAN );
-		graph.addEdge(null, user, device, "UserSubscribes");
-		graph.addEdge(null, user, sensor, "UserSubscribes");
+		log.debug("--Creating UserFollowsUser Edge--");		
+		OrientEdgeType UserFollowsUser = graph.createEdgeType("UserFollowsUser");				
+		UserFollowsUser.createProperty(ISACCEPTED	, OType.BOOLEAN );
+		graph.addEdge(null, user, user, "UserFollowsUser");
+		
+		
+		/**
+		 * Create UserSubscribesDevice Class
+		 */
+		log.debug("--Creating UserSubscribesDevice Edge--");		
+		OrientEdgeType UserSubscribesDevice = graph.createEdgeType("UserSubscribesDevice");				
+		UserSubscribesDevice.createProperty(ISACCEPTED	, OType.BOOLEAN );
+		graph.addEdge(null, user, device, "UserSubscribesDevice");
+		
+		
+		/**
+		 * Create UserSubscribesSensor Class
+		 */
+		log.debug("--Creating UserSubscribesSensor Edge--");		
+		OrientEdgeType UserSubscribesSensor = graph.createEdgeType("UserSubscribesSensor");				
+		UserSubscribesSensor.createProperty(ISACCEPTED	, OType.BOOLEAN );
+		graph.addEdge(null, user, device, "UserSubscribesSensor");
+		
 
 		/**
 		 * Create DeviceHasPayload Class

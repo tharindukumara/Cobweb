@@ -6,35 +6,15 @@ import com.tinkerpop.blueprints.Vertex;
 /**
  * The Class UserSubscribes.
  */
-public class UserSubscribes {
+public class UserFollowsUser {
 	
-	/** The is parent only. */
-	private boolean isParentOnly = true;
-
+	
 	/** The user in. */
 	private Vertex userIn;
 	
 	/** The user out. */
 	private Vertex userOut;
 	
-	/**
-	 * Checks if is parent only.
-	 *
-	 * @return the parentOnly
-	 */
-	public boolean isParentOnly() {
-		return isParentOnly;
-	}
-
-	/**
-	 * Sets the parent only.
-	 *
-	 * @param isParentOnly the new parent only
-	 */
-	public void setParentOnly(boolean isParentOnly) {
-		this.isParentOnly = isParentOnly;
-	}
-
 	/**
 	 * Gets the user in.
 	 *

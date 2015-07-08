@@ -8,7 +8,9 @@ import com.cobweb.io.meta.Sensor;
 import com.cobweb.io.meta.SensorHasPayload;
 import com.cobweb.io.meta.User;
 import com.cobweb.io.meta.UserHasDevices;
-import com.cobweb.io.meta.UserSubscribes;
+import com.cobweb.io.meta.UserFollowsUser;
+import com.cobweb.io.meta.UserSubscribesDevice;
+import com.cobweb.io.meta.UserSubscribesSensor;
 import com.orientechnologies.orient.core.sql.OCommandSQL;
 import com.tinkerpop.blueprints.Edge;
 import com.tinkerpop.blueprints.Vertex;
@@ -64,8 +66,8 @@ public class CreateService implements AbstractService{
 	/** The other type. */
 	private final String OTHERTYPE 		= "otherType";
 	
-	/** The isParentOnly. */
-	private final String ISPARENTONLY 	= "isParentOnly";
+	/** The isAccepted. */
+	private final String ISACCEPTED 	= "isAccepted";
 	
 	/** The message. */
 	private final String MESSAGE 		= "message";	
@@ -73,8 +75,14 @@ public class CreateService implements AbstractService{
 	/** The datetime. */
 	private final String DATETIME 		= "dateTime";	
 
-	/** The usersubscribes. */
-	private final String USERSUBSCRIBES	= "subscribes";	
+	/** The userfollowsuser. */
+	private final String USERFOLLOWSUSER	= "userFollowsUser";	
+	
+	/** The usersubscribesdevice. */
+	private final String USERSUBSCRIBESDEVICE	= "userSubscribesDevice";	
+	
+	/** The usersubscribessensor. */
+	private final String USERSUBSCRIBESSENSOR	= "userSubscribesSensor";		
 	
 	/** The userhasdevices. */
 	private final String USERHASDEVICES 		= "hasDevices";
@@ -199,13 +207,27 @@ public class CreateService implements AbstractService{
 	 * @param userSubscribes the userSubscribes
 	 * @return the edge
 	 */
-	public Edge CreateUserSubscribes(UserSubscribes userSubscribes){
+	public Edge CreateUserFollowsUser(UserFollowsUser userFollowsUser){
 		
-		Edge e = graph.addEdge(null, userSubscribes.getUserOut()	, userSubscribes.getUserIn(), USERSUBSCRIBES);
-		e.setProperty(ISPARENTONLY, false);
+		Edge e = graph.addEdge(null, userFollowsUser.getUserOut()	, userFollowsUser.getUserIn(), USERFOLLOWSUSER);
+		e.setProperty(ISACCEPTED, false);
 		return e;
 	}
 	
+	public Edge CreateUserSubscribesDevice(UserSubscribesDevice userSubscribesDevice){
+		
+		Edge e = graph.addEdge(null, userSubscribesDevice.getUser()	, userSubscribesDevice.getDevice(), USERSUBSCRIBESDEVICE);
+		e.setProperty(ISACCEPTED, false);
+		return e;
+	}
+	
+	public Edge CreateUserSubscribesSensor(UserSubscribesSensor userSubscribesSensor){
+		
+		Edge e = graph.addEdge(null, userSubscribesSensor.getUser()	, userSubscribesSensor.getSensor(), USERSUBSCRIBESSENSOR);
+		e.setProperty(ISACCEPTED, false);
+		return e;
+	}
+
 	/**
 	 * Creates the user has devices.
 	 *
