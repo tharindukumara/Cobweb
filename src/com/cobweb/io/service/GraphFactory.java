@@ -20,8 +20,9 @@ public class GraphFactory implements AbstractService{
 	 */
 	public Vertex getUserVertex(String email){		
 		
-		Vertex v 		= graph.command(new OCommandSQL("select from User where email=\""+email+"\"")).execute();		
-		return v;		
+		
+		Iterable<Vertex> v 		= graph.command(new OCommandSQL("select from User where email=\""+email+"\"")).execute();		
+		return graph.getVertex(v.iterator().next().getId());		
 	}
 	
 	/**
@@ -33,8 +34,8 @@ public class GraphFactory implements AbstractService{
 	 */
 	public Vertex getUserVertex(String email, String password){		
 		
-		Vertex v 		= graph.command(new OCommandSQL("select from User where email=\""+email+"\" and password=\""+password+"\"")).execute();		
-		return v;		
+		Iterable<Vertex> v 		= graph.command(new OCommandSQL("select from User where email=\""+email+"\" and password=\""+password+"\"")).execute();		
+		return graph.getVertex(v.iterator().next().getId());		
 	}
 
 	
@@ -46,8 +47,8 @@ public class GraphFactory implements AbstractService{
 	 */
 	public Vertex getDeviceVertex(String deviceId){
 		
-		Vertex v 		= graph.command(new OCommandSQL("select from User where id=\""+deviceId+"\"")).execute();		
-		return v;	
+		Iterable<Vertex> v 		= graph.command(new OCommandSQL("select from Device where idValue=\""+deviceId+"\"")).execute();		
+		return graph.getVertex(v.iterator().next().getId());	
 	}
 	
 	
@@ -59,8 +60,8 @@ public class GraphFactory implements AbstractService{
 	 */
 	public Vertex getSensorVertex(String sensorId){
 		
-		Vertex v 		= graph.command(new OCommandSQL("select from User where id=\""+sensorId+"\"")).execute();		
-		return v;	
+		Iterable<Vertex> v 		= graph.command(new OCommandSQL("select from Sensor where idValue=\""+sensorId+"\"")).execute();		
+		return graph.getVertex(v.iterator().next().getId());	
 	}
 		
 	/**
@@ -71,8 +72,8 @@ public class GraphFactory implements AbstractService{
 	 */
 	public Vertex getPayloadVertex(String payloadId){
 		
-		Vertex v 		= graph.command(new OCommandSQL("select from User where id=\""+payloadId+"\"")).execute();		
-		return v;	
+		Iterable<Vertex> v 		= graph.command(new OCommandSQL("select from Payload where idValue=\""+payloadId+"\"")).execute();		
+		return graph.getVertex(v.iterator().next().getId());	
 	}
 
 	

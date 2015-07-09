@@ -6,12 +6,9 @@ package com.cobweb.io.core;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 import com.cobweb.io.service.AbstractService;
 import com.orientechnologies.orient.core.metadata.schema.OType;
 import com.tinkerpop.blueprints.Vertex;
-import com.tinkerpop.blueprints.impls.orient.OrientEdgeType;
-import com.tinkerpop.blueprints.impls.orient.OrientVertexType;
 
 /**
  * The Class Bootstrap.
@@ -42,7 +39,7 @@ public class Bootstrap implements AbstractService {
 	private final static String ROLE			= "role";
 	
 	/** The id. */
-	private final static String ID 				= "id";	
+	private final static String ID 				= "idValue";	
 	
 	/** The image url. */
 	private final static String IMAGEURL 		= "imageUrl";	
@@ -68,9 +65,6 @@ public class Bootstrap implements AbstractService {
 	/** The date and time. */
 	private final static String DATETIME 		= "dateTime";
 	
-	/** The isAccepted. */
-	private final static String ISACCEPTED 		= "isAccepted";
-	
 	/** The log. */
 	private static Log log = LogFactory.getLog(Bootstrap.class);
 
@@ -86,122 +80,60 @@ public class Bootstrap implements AbstractService {
 		 * Create User Class
 		 */
 		log.debug("--Creating User Vertex Class--");		
-		OrientVertexType User = graph.createVertexType("User");
+		graph.createVertexType("User");
 		Vertex user = graph.addVertex("class:User");		
-		User.createProperty(FIRSTNAME, 	OType.STRING	);
-		User.createProperty(LASTNAME, 	OType.STRING	);
-		User.createProperty(PASSWORD, 	OType.STRING	);
-		User.createProperty(EMAIL, 		OType.STRING	);
-		User.createProperty(SALT, 		OType.STRING	);
-		User.createProperty(ROLE, 		OType.STRING	);
-		User.createProperty(ID, 		OType.STRING	);
-		User.createProperty(IMAGEURL, 	OType.STRING	);
-		User.createProperty(ISDELETED, 	OType.BOOLEAN	);
+		user.setProperty(FIRSTNAME, 	OType.STRING	);		
+		user.setProperty(LASTNAME, 	OType.STRING	);
+		user.setProperty(PASSWORD, 	OType.STRING	);
+		user.setProperty(EMAIL, 		OType.STRING	);
+		user.setProperty(SALT, 		OType.STRING	);
+		user.setProperty(ROLE, 		OType.STRING	);
+		user.setProperty(ID, 		OType.STRING	);
+		user.setProperty(IMAGEURL, 	OType.STRING	);
+		user.setProperty(ISDELETED, 	OType.BOOLEAN	);
 		
 		
 		/**
 		 * Create Device Class
 		 */
 		log.debug("--Creating Device Vertex Class--");		
-		OrientVertexType Device = graph.createVertexType("Device");
+		graph.createVertexType("Device");
 		Vertex device = graph.addVertex("class:Device");	
 		
-		Device.createProperty(NAME, 		OType.STRING	);
-		Device.createProperty(DESCRIPTION,	OType.STRING	);
-		Device.createProperty(DEVICETYPE, 	OType.STRING	);
-		Device.createProperty(ID, 			OType.STRING	);
-		Device.createProperty(IMAGEURL, 	OType.STRING	);
-		Device.createProperty(ISDELETED,	OType.BOOLEAN	);
-		Device.createProperty(OTHERTYPE, 	OType.STRING	);
+		device.setProperty(NAME, 		OType.STRING	);
+		device.setProperty(DESCRIPTION,	OType.STRING	);
+		device.setProperty(DEVICETYPE, 	OType.STRING	);
+		device.setProperty(ID, 			OType.STRING	);
+		device.setProperty(IMAGEURL, 	OType.STRING	);
+		device.setProperty(ISDELETED,	OType.BOOLEAN	);
+		device.setProperty(OTHERTYPE, 	OType.STRING	);
 				
 		/**
 		 * Create Sensor Class
 		 */		
 		log.debug("--Creating Sensor Vertex Class--/");		
-		OrientVertexType Sensor = graph.createVertexType("Sensor");
+		graph.createVertexType("Sensor");
 		Vertex sensor = graph.addVertex("class:Sensor");
 		
-		Sensor.createProperty(NAME, 		OType.STRING	);
-		Sensor.createProperty(ID, 			OType.STRING	);
-		Sensor.createProperty(DESCRIPTION, 	OType.STRING	);
-		Sensor.createProperty(SENSORTYPE, 	OType.STRING	);		
-		Sensor.createProperty(IMAGEURL, 	OType.STRING	);
-		Sensor.createProperty(ISDELETED, 	OType.BOOLEAN	);
-		Sensor.createProperty(OTHERTYPE, 	OType.STRING	);
+		sensor.setProperty(NAME, 		OType.STRING	);
+		sensor.setProperty(ID, 			OType.STRING	);
+		sensor.setProperty(DESCRIPTION, 	OType.STRING	);
+		sensor.setProperty(SENSORTYPE, 	OType.STRING	);		
+		sensor.setProperty(IMAGEURL, 	OType.STRING	);
+		sensor.setProperty(ISDELETED, 	OType.BOOLEAN	);
+		sensor.setProperty(OTHERTYPE, 	OType.STRING	);
 
 		/**
 		 * Create Payload Class
 		 */
 		log.debug("--Creating Payload Vertex Class--");		
-		OrientVertexType Payload = graph.createVertexType("Payload");
+		graph.createVertexType("Payload");
 		Vertex payload = graph.addVertex("class:Payload");
 		
-		Payload.createProperty(MESSAGE, 	OType.STRING	);
-		Payload.createProperty(DATETIME, 	OType.DATETIME	);
-		Payload.createProperty(ID, 			OType.STRING	);
-		Payload.createProperty(ISDELETED, 	OType.BOOLEAN	);
-		graph.commit();
-		
-		//------------------Creating Edges----------------------------//
-		log.debug("//------------------Creating Edges----------------------------//");		
-		
-		/**
-		 * Create UserHasDevices Class
-		 */
-		log.debug("--Creating UserHasDevices Edge--");		
-		graph.createEdgeType("UserHasDevices");		
-		graph.addEdge(null, user, device, "UserHasDevices");
-		
-		
-		/**
-		 * Create DeviceHasSensors Class
-		 */
-		log.debug("--Creating DeviceHasSensors Edge--");		
-		graph.createEdgeType("DeviceHasSensors");	
-		graph.addEdge(null, device, sensor, "DeviceHasSensors");
-
-		
-		/**
-		 * Create UserFollowsUser Class
-		 */
-		log.debug("--Creating UserFollowsUser Edge--");		
-		OrientEdgeType UserFollowsUser = graph.createEdgeType("UserFollowsUser");				
-		UserFollowsUser.createProperty(ISACCEPTED	, OType.BOOLEAN );
-		graph.addEdge(null, user, user, "UserFollowsUser");
-		
-		
-		/**
-		 * Create UserSubscribesDevice Class
-		 */
-		log.debug("--Creating UserSubscribesDevice Edge--");		
-		OrientEdgeType UserSubscribesDevice = graph.createEdgeType("UserSubscribesDevice");				
-		UserSubscribesDevice.createProperty(ISACCEPTED	, OType.BOOLEAN );
-		graph.addEdge(null, user, device, "UserSubscribesDevice");
-		
-		
-		/**
-		 * Create UserSubscribesSensor Class
-		 */
-		log.debug("--Creating UserSubscribesSensor Edge--");		
-		OrientEdgeType UserSubscribesSensor = graph.createEdgeType("UserSubscribesSensor");				
-		UserSubscribesSensor.createProperty(ISACCEPTED	, OType.BOOLEAN );
-		graph.addEdge(null, user, device, "UserSubscribesSensor");
-		
-
-		/**
-		 * Create DeviceHasPayload Class
-		 */
-		log.debug("--Creating DeviceHasPayload Edge--");		
-		graph.createEdgeType("HasPayload");	
-		graph.addEdge(null, device, payload, "HasPayload");
-		
-		/**
-		 * Create SensorHasPayload Class
-		 */
-		log.debug("--Creating SensorHasPayload Edge--");		
-		graph.createEdgeType("SensorHasPayload");	
-		graph.addEdge(null, sensor, payload, "SensorHasPayload");
-		
+		payload.setProperty(MESSAGE, 	OType.STRING	);
+		payload.setProperty(DATETIME, 	OType.DATETIME	);
+		payload.setProperty(ID, 			OType.STRING	);
+		payload.setProperty(ISDELETED, 	OType.BOOLEAN	);
 		graph.commit();
 		
 	}

@@ -101,7 +101,7 @@ public class CobwebWeaver extends GraphFactory{
 		Vertex sensorVertex  = getSensorVertex(sensorId);
 		Vertex payloadVertex = createService.CreatePayload(payload);
 		sensorHasPayload.setPayload(payloadVertex);
-		sensorHasPayload.setPayload(sensorVertex);
+		sensorHasPayload.setSensor(sensorVertex);
 		createService.CreateSensorHasPayload(sensorHasPayload);		
 	}
 	
@@ -150,7 +150,7 @@ public class CobwebWeaver extends GraphFactory{
 		
 		UserSubscribesSensor userSubscribesSensor = new UserSubscribesSensor();
 		Vertex user = getUserVertex(email);
-		Vertex sensor = getDeviceVertex(sensorId);
+		Vertex sensor = getSensorVertex(sensorId);
 		userSubscribesSensor.setUser(user);
 		userSubscribesSensor.setSensor(sensor);
 		createService.CreateUserSubscribesSensor(userSubscribesSensor);

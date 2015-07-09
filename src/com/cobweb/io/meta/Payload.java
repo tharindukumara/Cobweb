@@ -1,5 +1,6 @@
 package com.cobweb.io.meta;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
@@ -23,9 +24,10 @@ public class Payload {
 	 * @param message the message
 	 * @param dateTime the date time
 	 */
-	public Payload(String message, Date dateTime){
-		this.message = message;
-		this.dateTime = dateTime;
+	public Payload(String message){
+		this.message = message;		
+		Date date = new Date();
+		this.dateTime = date;
 		
 		UUID uuid = UUID.randomUUID();
 		setId(uuid.toString());
@@ -91,4 +93,14 @@ public class Payload {
 		this.id = id;
 	}
 
+	
+	/**
+	 * Gets the time stamp.
+	 *
+	 * @return the time stamp
+	 */
+	public String getTimeStamp(){
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return simpleDateFormat.format(dateTime);
+	}
 }

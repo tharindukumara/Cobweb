@@ -82,7 +82,7 @@ public class ReadService implements AbstractService{
 	 */
 	public List<String> ReadDeviceIds(String email){
 		List<String> idList = new ArrayList<>();
-		ODocument result =  (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select out('UserHasDevices').id from User where email='"+email+"'")).get(0);
+		ODocument result =  (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select out('UserHasDevices').idValue from User where email='"+email+"'")).get(0);
 		idList = result.field("out");
 		return idList;
 	}

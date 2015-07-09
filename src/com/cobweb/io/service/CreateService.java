@@ -7,8 +7,8 @@ import com.cobweb.io.meta.Payload;
 import com.cobweb.io.meta.Sensor;
 import com.cobweb.io.meta.SensorHasPayload;
 import com.cobweb.io.meta.User;
-import com.cobweb.io.meta.UserHasDevices;
 import com.cobweb.io.meta.UserFollowsUser;
+import com.cobweb.io.meta.UserHasDevices;
 import com.cobweb.io.meta.UserSubscribesDevice;
 import com.cobweb.io.meta.UserSubscribesSensor;
 import com.orientechnologies.orient.core.sql.OCommandSQL;
@@ -25,76 +25,76 @@ import com.tinkerpop.blueprints.Vertex;
 public class CreateService implements AbstractService{
 	
 	/** The name. */
-	private final String NAME 			= "name";
+	private final static String NAME 			= "name";
 	
 	/** The firstname. */
-	private final String FIRSTNAME 		= "firstname";
+	private final static String FIRSTNAME 		= "firstname";
 	
 	/** The lastname. */
-	private final String LASTNAME 		= "lastname";
+	private final static String LASTNAME 		= "lastname";
 	
 	/** The password. */
-	private final String PASSWORD 		= "password";
+	private final static String PASSWORD 		= "password";
 	
 	/** The email. */
-	private final String EMAIL 			= "email";
+	private final static String EMAIL 			= "email";
 	
 	/** The salt. */
-	private final String SALT 			= "salt";	
+	private final static String SALT 			= "salt";	
 	
 	/** The id. */
-	private final String ID 			= "id";	
+	private final static String ID 				= "idValue";	
 	
 	/** The role. */
-	private final String ROLE			= "role";
+	private final static String ROLE			= "role";
 	
 	/** The description. */
-	private final String DESCRIPTION 	= "description";	
+	private final static String DESCRIPTION 	= "description";	
 	
 	/** The devicetype. */
-	private final String DEVICETYPE 	= "deviceType";	
+	private final static String DEVICETYPE 		= "deviceType";	
 	
 	/** The sensortype. */
-	private final String SENSORTYPE 	= "sensorType";	
+	private final static String SENSORTYPE 		= "sensorType";	
 	
 	/** The isdeleted. */
-	private final String ISDELETED 		= "isDeleted";	
+	private final static String ISDELETED 		= "isDeleted";	
 	
 	/** The image url. */
-	private final String IMAGEURL 		= "imageUrl";
+	private final static String IMAGEURL 		= "imageUrl";
 
 	/** The other type. */
-	private final String OTHERTYPE 		= "otherType";
+	private final static String OTHERTYPE 		= "otherType";
 	
 	/** The isAccepted. */
-	private final String ISACCEPTED 	= "isAccepted";
+	private final static String ISACCEPTED 		= "isAccepted";
 	
 	/** The message. */
-	private final String MESSAGE 		= "message";	
+	private final static String MESSAGE 		= "message";	
 	
 	/** The datetime. */
-	private final String DATETIME 		= "dateTime";	
+	private final static String DATETIME 		= "dateTime";	
 
 	/** The userfollowsuser. */
-	private final String USERFOLLOWSUSER	= "userFollowsUser";	
+	private final static String USERFOLLOWSUSER	= "UserFollowsUser";	
 	
 	/** The usersubscribesdevice. */
-	private final String USERSUBSCRIBESDEVICE	= "userSubscribesDevice";	
+	private final static String USERSUBSCRIBESDEVICE	= "UserSubscribesDevice";	
 	
 	/** The usersubscribessensor. */
-	private final String USERSUBSCRIBESSENSOR	= "userSubscribesSensor";		
+	private final static String USERSUBSCRIBESSENSOR	= "UserSubscribesSensor";		
 	
 	/** The userhasdevices. */
-	private final String USERHASDEVICES 		= "hasDevices";
+	private final static String USERHASDEVICES 			= "UserHasDevices";
 	
 	/** The devicehassensors. */
-	private final String DEVICEHASSENSORS 		= "hasSensors";
+	private final static String DEVICEHASSENSORS 		= "DeviceHasSensors";
 	
 	/** The devicehaspayload. */
-	private final String DEVICEHASPAYLOAD 		= "deviceHasPayload";
+	private final static String DEVICEHASPAYLOAD 		= "DeviceHasPayload";
 	
 	/** The sensorhaspayload. */
-	private final String SENSORHASPAYLOAD 		= "sensorHasPayload";
+	private final static String SENSORHASPAYLOAD 		= "SensorHasPayload";
 	
 	/**
 	 * Creates the device.
@@ -102,7 +102,7 @@ public class CreateService implements AbstractService{
 	 * @param device the device
 	 * @return the vertex
 	 */
-	public Vertex CreateDevice(Device device){
+	public Vertex CreateDevice(Device device){			
 		
 		Vertex v = graph.command(new OCommandSQL("insert into Device ("+ NAME 			+","
 															+ ID			+","
@@ -120,6 +120,7 @@ public class CreateService implements AbstractService{
 															+ device.getOtherType()		+"'"+","+"'"
 															+ device.getImageUrl()		+"')")).execute();
 		
+		graph.commit();
 		return v;
 	}
 	
@@ -130,7 +131,7 @@ public class CreateService implements AbstractService{
 	 * @return the vertex
 	 */
 	public Vertex CreateSensor(Sensor sensor){	
-
+				
 		Vertex v = graph.command(new OCommandSQL("insert into Sensor ("+ NAME 			+","
 															+ ID			+","
 															+ DESCRIPTION	+","
@@ -146,6 +147,7 @@ public class CreateService implements AbstractService{
 															+ sensor.isDeleted()		+"'"+","+"'"
 															+ sensor.getOtherType()		+"'"+","+"'"
 															+ sensor.getImageUrl()		+"')")).execute();
+		graph.commit();
 		return v;
 	}
 
@@ -155,7 +157,7 @@ public class CreateService implements AbstractService{
 	 * @param user the user
 	 * @return the vertex
 	 */
-	public Vertex CreateUser(User user){	
+	public Vertex CreateUser(User user){			
 		
 		Vertex v = graph.command(new OCommandSQL("insert into User (" 	+ FIRSTNAME 	+","
 															+ LASTNAME		+","
@@ -177,6 +179,7 @@ public class CreateService implements AbstractService{
 															+ user.getImageUrl()	+"'"+","+"'"
 															+ user.isDeleted()		+"')")).execute();
 	
+		graph.commit();
 		return v;
 	}
 	
@@ -188,16 +191,17 @@ public class CreateService implements AbstractService{
 	 * @param payload the payload
 	 * @return the vertex
 	 */
-	public Vertex CreatePayload(Payload payload){			
+	public Vertex CreatePayload(Payload payload){				
 		
 		Vertex v = graph.command(new OCommandSQL("insert into Payload (" 	+ MESSAGE 	+","
-																+ DATETIME	+","
-																+ ISDELETED + ") values ('" 
-																
-																+ payload.getMessage()	+"'"+","+"'"
-																+ payload.getDateTime()	+"'"+","+"'"
-																+ payload.isDeleted()	+ "')")).execute();	
-	
+																			+ DATETIME	+","
+																			+ ISDELETED + ") values ('" 
+																			
+																			+ payload.getMessage()	+"'"+","+"'"
+																			+ payload.getTimeStamp()	+"'"+","+"'"
+																			+ payload.isDeleted()	+ "')")).execute();	
+				
+		graph.commit();
 		return v;		
 	}
 	
@@ -211,20 +215,38 @@ public class CreateService implements AbstractService{
 		
 		Edge e = graph.addEdge(null, userFollowsUser.getUserOut()	, userFollowsUser.getUserIn(), USERFOLLOWSUSER);
 		e.setProperty(ISACCEPTED, false);
+		
+		graph.commit();
 		return e;
 	}
 	
+	/**
+	 * Creates the user subscribes device.
+	 *
+	 * @param userSubscribesDevice the user subscribes device
+	 * @return the edge
+	 */
 	public Edge CreateUserSubscribesDevice(UserSubscribesDevice userSubscribesDevice){
 		
 		Edge e = graph.addEdge(null, userSubscribesDevice.getUser()	, userSubscribesDevice.getDevice(), USERSUBSCRIBESDEVICE);
 		e.setProperty(ISACCEPTED, false);
+		
+		graph.commit();
 		return e;
 	}
 	
+	/**
+	 * Creates the user subscribes sensor.
+	 *
+	 * @param userSubscribesSensor the user subscribes sensor
+	 * @return the edge
+	 */
 	public Edge CreateUserSubscribesSensor(UserSubscribesSensor userSubscribesSensor){
 		
 		Edge e = graph.addEdge(null, userSubscribesSensor.getUser()	, userSubscribesSensor.getSensor(), USERSUBSCRIBESSENSOR);
 		e.setProperty(ISACCEPTED, false);
+		
+		graph.commit();
 		return e;
 	}
 
@@ -237,6 +259,8 @@ public class CreateService implements AbstractService{
 	public Edge CreateUserHasDevices(UserHasDevices userHasDevices){
 		
 		Edge e = graph.addEdge(null, userHasDevices.getUser(), userHasDevices.getDevice(), USERHASDEVICES);		
+		
+		graph.commit();
 		return e;		
 	}
 	
@@ -249,6 +273,8 @@ public class CreateService implements AbstractService{
 	public Edge CreateDeviceHasSensors(DeviceHasSensors deviceHasSensors){
 		
 		Edge e = graph.addEdge(null, deviceHasSensors.getDevice(), deviceHasSensors.getSensor(), DEVICEHASSENSORS);		
+		
+		graph.commit();
 		return e;		
 	}
 	
@@ -261,6 +287,8 @@ public class CreateService implements AbstractService{
 	public Edge CreateSensorHasPayload(SensorHasPayload sensorHasPayload){
 		
 		Edge e = graph.addEdge(null, sensorHasPayload.getSensor(), sensorHasPayload.getPayload(), SENSORHASPAYLOAD);		
+		
+		graph.commit();
 		return e;		
 	}
 
@@ -274,6 +302,8 @@ public class CreateService implements AbstractService{
 	public Edge CreateDeviceHasPayload(DeviceHasPayload deviceHasPayload){
 		
 		Edge e = graph.addEdge(null, deviceHasPayload.getDevice(), deviceHasPayload.getPayload(), DEVICEHASPAYLOAD);
+		
+		graph.commit();
 		return e;		
 	}
 	
