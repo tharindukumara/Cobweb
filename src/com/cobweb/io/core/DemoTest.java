@@ -12,6 +12,16 @@ public class DemoTest implements AbstractService{
 
 	public static void main(String args[]){
 		
+		HashGenerator hashGenerator = new HashGenerator();
+		
+		String salt1 = hashGenerator.generateSalt();
+		String salt2 = hashGenerator.generateSalt();
+		String salt3 = hashGenerator.generateSalt();
+		
+		//User user1 = new User("Yasith", "Lokuge", "yasith1@gmail.com", hashGenerator.generateHash("qwerty"+salt1), salt1);
+		//User user2 = new User("Tharindu", "Kumara", "hatkumara@yahoo.com", hashGenerator.generateHash("1qaz"+salt2), salt2);
+		//User user3 = new User("Sandaruwan", "Gunasinghe", "sandaruwan.gunasinghe@gmail.com", hashGenerator.generateHash("2wsx"+salt3), salt3);
+		
 		User user1 = new User("Yasith", "Lokuge", "yasith1@gmail.com", "qwerty", "2wsx");
 		User user2 = new User("Tharindu", "Kumara", "hatkumara@yahoo.com", "1qaz", "2wsx");
 		User user3 = new User("Sandaruwan", "Gunasinghe", "sandaruwan.gunasinghe@gmail.com", "2wsx", "1qaz");
