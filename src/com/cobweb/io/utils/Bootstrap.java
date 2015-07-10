@@ -1,7 +1,7 @@
 /**
  * Run only once
  */
-package com.cobweb.io.core;
+package com.cobweb.io.utils;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

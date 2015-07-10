@@ -1,46 +1,50 @@
 package com.cobweb.io.api;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.POST;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 
 import com.cobweb.io.meta.User;
-import com.cobweb.io.service.CreateService;
+import com.cobweb.io.service.GraphFactory;
+import com.cobweb.io.transformers.VertexToUser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class RestUser.
- * @author Yasith Lokuge
- * 
  */
-@Path("/users")
+@Path("/user")
 public class RestUser {
-
+	
 	/**
-	 * Creates the user.
+	 * Gets the user.
 	 *
-	 * @param firstName the first name
-	 * @param lastName the last name
-	 * @param email the email
-	 * @param password the password
-	 * @return the response
+	 * @return the user
 	 */
-	@POST
-	@Path("/create")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Response createUser(	@FormParam("firstname") String firstName,
-    							@FormParam("lastname") String lastName,
-    							@FormParam("email") String email,
-    							@FormParam("password") String password) {
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getUser(){
 		
+		Subject currentUser = SecurityUtils.getSubject();
+		String email = (String) currentUser.getPrincipal();
 		
-		User userObj = new User(firstName,lastName, email, password,""); 
-    	CreateService createService = new CreateService();
-        createService.CreateUser(userObj);
-        
-		return Response.ok("SUCCESS", MediaType.TEXT_PLAIN).build();
-    }                   
-
+		GraphFactory graphFactory = new GraphFactory();
+		VertexToUser vertexToUser = new VertexToUser();
+		
+		User user = vertexToUser.transform(graphFactory.getUserVertex(email));	
+		 
+		ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();		
+		
+		try {
+			return objectWriter.writeValueAsString(user);
+		} catch (JsonProcessingException e) {			
+			return e.toString();
+		}		
+	}	
 }

@@ -1,4 +1,4 @@
-package com.cobweb.io.core;
+package com.cobweb.io.utils;
 
 import org.apache.shiro.realm.jdbc.JdbcRealm;
 

@@ -18,9 +18,9 @@ import org.apache.shiro.subject.Subject;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
-import com.cobweb.io.core.CobwebWeaver;
 import com.cobweb.io.meta.Sensor;
 import com.cobweb.io.meta.SensorType;
+import com.cobweb.io.utils.CobwebWeaver;
 
 
 /**

@@ -80,6 +80,27 @@ public class Device implements Item{
 		
 	}
 	
+	/**
+	 * Instantiates a new device.
+	 *
+	 * @param name the name
+	 * @param description the description
+	 */
+	public Device(String name, String description){
+		this.name = name;		
+		this.description = description;
+				
+		UUID uuid = UUID.randomUUID();
+		id = uuid.toString();
+		
+		try {
+			imageUrl = new URL("www.cobweb.io/default/device/devicedefault.jpg");
+		} catch (MalformedURLException e) {
+			imageUrl = null;
+		}
+		
+	}
+	
 	/* (non-Javadoc)
 	 * @see com.cobweb.io.core.Item#setName(java.lang.String)
 	 */

@@ -3,87 +3,139 @@ package com.cobweb.io.api;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
-import com.cobweb.io.core.CobwebWeaver;
 import com.cobweb.io.meta.Device;
 import com.cobweb.io.meta.DeviceType;
+import com.cobweb.io.service.GraphFactory;
+import com.cobweb.io.service.ReadService;
+import com.cobweb.io.transformers.VertexToDevice;
+import com.cobweb.io.utils.CobwebWeaver;
+import com.cobweb.io.validator.DeviceValidator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.tinkerpop.blueprints.Vertex;
 
 /**
  * @author Yasith Lokuge
  * The Class RestDevice.
  */
-@Path("/device")
-public class RestDevice {
+@Path("/devices")
+public class RestDevice {	
+	
+	/** The Constant SUCCESS. */
+	private static final String SUCCESS					= "SUCCESS";
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getDevice(){
+		
+		Subject currentUser = SecurityUtils.getSubject();
+		String email = (String) currentUser.getPrincipal();
+		ReadService readService = new ReadService();
+		
+		GraphFactory graphFactory = new GraphFactory();
+		List<String> deviceIdList = new ArrayList<String>();
+		
+		deviceIdList = readService.ReadDeviceIds(email);		
+		List<Vertex> deviceVertexList = new ArrayList<Vertex>();	
+		List<Device> deviceObjectList = new ArrayList<Device>();		
+		Map<String, Object> deviceMap = new LinkedHashMap<>();
+		
+		VertexToDevice vertexToDevice = new VertexToDevice();
 
-	@POST
-	@Path("/create")
+		  
+		for (String string : deviceIdList) {			
+			deviceVertexList.add(graphFactory.getDeviceVertex(string));
+		}
+		
+		for (Vertex vertex : deviceVertexList) {
+			deviceObjectList.add(vertexToDevice.transform(vertex));
+		}
+		
+		for (Device device : deviceObjectList) {
+			deviceMap.put(device.getName(), device);
+		}
+
+		ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		
+		try {
+			return objectWriter.writeValueAsString(deviceMap);
+		} catch (JsonProcessingException e) {		
+			return e.toString();
+		}		
+	} 	
+
+	@POST	
 	@Consumes(MediaType.APPLICATION_JSON)	
-	public ResponseBuilder create(InputStream jsonData) {
+	public String create(InputStream jsonData) {
 
+		
 		
 		String deviceName 	= null;
 		String description	= null;
-		String type 		= null;
-		String imageUrl 	= null;
+		String type 		= null;		
 		String otherType	= null;
 		
 		
 		StringBuilder stringData = new StringBuilder();
+		JSONObject incomingData;
+		
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(jsonData));
 			String line = null;
 			while ((line = in.readLine()) != null) {
 				stringData.append(line);
 			}
-		} catch (Exception e) {
-			System.out.println("Error Parsing: - ");
-		}
-		System.out.println("Data Received: " + stringData.toString());
-
-		JSONObject incomingData;
-
-		try {
+			
 			incomingData = new JSONObject(stringData.toString());
 			deviceName 	= (String) incomingData.get("name");
 			description = (String) incomingData.get("description");
-			type 		= (String) incomingData.get("type");
-			imageUrl 	= (String) incomingData.get("imageUrl");		
+			type 		= (String) incomingData.get("type");				
 			otherType 	= (String) incomingData.get("otherType");
 			
-		} catch (JSONException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			return e.toString();
 		}
+		
+		
+		DeviceValidator deviceValidator = new DeviceValidator();
+		String validatorStatus = deviceValidator.validate(incomingData);
+		
+		if(!validatorStatus.equals(SUCCESS))	
+			return validatorStatus;			
+		
+		
+		
 		Subject currentUser = SecurityUtils.getSubject();
 		String email = (String) currentUser.getPrincipal();
 
-		DeviceType deviceType = DeviceType.valueOf(type);
-		URL url = null;
+		DeviceType deviceType = DeviceType.valueOf(type.toUpperCase());
+				
+		Device device = new Device(deviceName,description,deviceType);
 		
-		try {
-			url = new URL(imageUrl);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
+		if(type.equalsIgnoreCase("OTHER")){
+			device.setOtherType(otherType);
 		}
 		
-		Device device = new Device(deviceName, description,deviceType,otherType, url);
-		CobwebWeaver cobwebWeaver = new CobwebWeaver();
-		
+		CobwebWeaver cobwebWeaver = new CobwebWeaver();		
 		cobwebWeaver.addDevice(email, device);
 
-		return Response.ok("SUCCESS", MediaType.TEXT_PLAIN);
+		return SUCCESS;
 	}
 }

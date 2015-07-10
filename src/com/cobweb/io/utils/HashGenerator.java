@@ -1,4 +1,4 @@
-package com.cobweb.io.core;
+package com.cobweb.io.utils;
  
 import java.math.BigInteger;
 import java.security.SecureRandom;

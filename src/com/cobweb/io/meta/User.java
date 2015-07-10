@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.UUID;
 
 import com.cobweb.io.service.AbstractService;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -13,6 +14,7 @@ import com.cobweb.io.service.AbstractService;
  * @author Yasith Lokuge
  */
 
+@JsonIgnoreProperties({"salt","deleted"})
 public class User implements AbstractService{
 	
 	/** The firstname. */
