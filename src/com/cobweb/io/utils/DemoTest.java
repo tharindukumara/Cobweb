@@ -10,6 +10,7 @@ import com.cobweb.io.meta.Sensor;
 import com.cobweb.io.meta.SensorType;
 import com.cobweb.io.meta.User;
 import com.cobweb.io.service.AbstractService;
+import com.cobweb.io.service.ReadService;
 
 public class DemoTest implements AbstractService{
 
@@ -72,12 +73,20 @@ public class DemoTest implements AbstractService{
 //		cobwebWeaver.addDeviceSubscription(user1.getEmail(), device1.getId());
 		
 		
-		System.out.println(regexCheck("samsung galaxy y","^[a-zA-Z0-9 ]*{3,15}$"));
+		//System.out.println(regexCheck("samsung galaxy y","^[a-zA-Z0-9 ]*{3,15}$"));
 		
+		ReadService readService = new ReadService();
 		
-		
+		//readService.ReadUserNames();
+		//System.out.println(readService.ReadDeviceIds("yasith1@gmail.com").get(1));
+		//System.out.println(readService.CheckUserNameExists("yasith1@gmail.com"));
 		//System.out.println(validate("aaa  "));
+		//MosquittoAuth mosquittoAuth = new MosquittoAuth();
 		
+		System.out.println(readService.getUserId("yasith1@gmail.com"));
+		//System.out.println(mosquittoAuth.checkPassword("yasith1@gmail.com", "qwerty"));
+		
+		//System.out.println(readService.getSalt("yasith1@gmail.com"));
 	}
 	
 	

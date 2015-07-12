@@ -18,6 +18,7 @@
 	<servlet-mapping>
 		<servlet-name>Jersey</servlet-name>
 		<url-pattern>/api/*</url-pattern>
+		<url-pattern>/mosquitto/*</url-pattern>
 		<!-- <url-pattern>/logout</url-pattern> -->
 	</servlet-mapping>
 

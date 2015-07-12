@@ -18,27 +18,14 @@ public class GraphFactory implements AbstractService{
 	 * @param userId the user id
 	 * @return the user vertex
 	 */
-	public Vertex getUserVertex(String email){		
+	public Vertex getUserVertex(String userId){		
 		
 		
-		Iterable<Vertex> v 		= graph.command(new OCommandSQL("select from User where email=\""+email+"\"")).execute();		
+		Iterable<Vertex> v 		= graph.command(new OCommandSQL("select from User where userId=\""+userId+"\"")).execute();		
 		return graph.getVertex(v.iterator().next().getId());		
 	}
 	
-	/**
-	 * Gets the user vertex.
-	 *
-	 * @param email the email
-	 * @param password the password
-	 * @return the user vertex
-	 */
-	public Vertex getUserVertex(String email, String password){		
-		
-		Iterable<Vertex> v 		= graph.command(new OCommandSQL("select from User where email=\""+email+"\" and password=\""+password+"\"")).execute();		
-		return graph.getVertex(v.iterator().next().getId());		
-	}
 
-	
 	/**
 	 * Gets the device vertex.
 	 *

@@ -47,10 +47,10 @@ public class CobwebWeaver extends GraphFactory{
 	 * @param userEmail the user email
 	 * @param device the device
 	 */
-	public void addDevice(String userEmail, Device device){
+	public void addDevice(String userId, Device device){
 		
 		UserHasDevices userHasDevices = new UserHasDevices();		
-		Vertex userVertex = getUserVertex(userEmail); 
+		Vertex userVertex = getUserVertex(userId); 
 		Vertex deviceVertex = createService.CreateDevice(device);		
 		userHasDevices.setUser(userVertex);
 		userHasDevices.setDevice(deviceVertex);
@@ -111,11 +111,11 @@ public class CobwebWeaver extends GraphFactory{
 	 * @param userOutEmail the user out email
 	 * @param userInEmail the user in email
 	 */
-	public void addFollowUser(String userOutEmail, String userInEmail ){
+	public void addFollowUser(String userOutId, String userInId ){
 		
 		UserFollowsUser userFollowsUser = new UserFollowsUser();
-		Vertex userInVertex  = getUserVertex(userInEmail);
-		Vertex userOutVertex = getUserVertex(userOutEmail);
+		Vertex userInVertex  = getUserVertex(userInId);
+		Vertex userOutVertex = getUserVertex(userOutId);
 		userFollowsUser.setUserIn(userInVertex);
 		userFollowsUser.setUserOut(userOutVertex);
 		createService.CreateUserFollowsUser(userFollowsUser);
@@ -128,10 +128,10 @@ public class CobwebWeaver extends GraphFactory{
 	 * @param email the email
 	 * @param deviceId the device id
 	 */
-	public void addDeviceSubscription(String email, String deviceId ){
+	public void addDeviceSubscription(String userId, String deviceId ){
 		
 		UserSubscribesDevice userSubscribesDevice = new UserSubscribesDevice();
-		Vertex user = getUserVertex(email);
+		Vertex user = getUserVertex(userId);
 		Vertex device = getDeviceVertex(deviceId);
 		userSubscribesDevice.setUser(user);
 		userSubscribesDevice.setDevice(device);
@@ -146,10 +146,10 @@ public class CobwebWeaver extends GraphFactory{
 	 * @param email the email
 	 * @param sensorId the sensor id
 	 */
-	public void addSensorSubscription(String email, String sensorId ){
+	public void addSensorSubscription(String userId, String sensorId ){
 		
 		UserSubscribesSensor userSubscribesSensor = new UserSubscribesSensor();
-		Vertex user = getUserVertex(email);
+		Vertex user = getUserVertex(userId);
 		Vertex sensor = getSensorVertex(sensorId);
 		userSubscribesSensor.setUser(user);
 		userSubscribesSensor.setSensor(sensor);
@@ -164,10 +164,10 @@ public class CobwebWeaver extends GraphFactory{
 	 * @param deviceId the device id
 	 * @return true, if is authorized device
 	 */
-	public boolean isAuthorizedDevice(String userEmail, String deviceId){
+	public boolean isAuthorizedDevice(String userId, String deviceId){
 		
 		List<String> idList = new ArrayList<>();		
-		idList = readService.ReadDeviceIds(userEmail);		
+		idList = readService.ReadDeviceIds(userId);		
 		return idList.contains(deviceId);		
 	}
 }

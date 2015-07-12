@@ -10,6 +10,7 @@ import org.apache.shiro.subject.Subject;
 
 import com.cobweb.io.meta.User;
 import com.cobweb.io.service.GraphFactory;
+import com.cobweb.io.service.ReadService;
 import com.cobweb.io.transformers.VertexToUser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,10 +35,12 @@ public class RestUser {
 		Subject currentUser = SecurityUtils.getSubject();
 		String email = (String) currentUser.getPrincipal();
 		
+		ReadService readService = new ReadService();
 		GraphFactory graphFactory = new GraphFactory();
 		VertexToUser vertexToUser = new VertexToUser();
-		
-		User user = vertexToUser.transform(graphFactory.getUserVertex(email));	
+		String userId = readService.getUserId(email); 
+
+		User user = vertexToUser.transform(graphFactory.getUserVertex(userId));	
 		 
 		ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();		
 		

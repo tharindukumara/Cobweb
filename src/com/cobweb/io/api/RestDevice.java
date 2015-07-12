@@ -48,11 +48,12 @@ public class RestDevice {
 		Subject currentUser = SecurityUtils.getSubject();
 		String email = (String) currentUser.getPrincipal();
 		ReadService readService = new ReadService();
+		String userId = readService.getUserId(email);
 		
 		GraphFactory graphFactory = new GraphFactory();
 		List<String> deviceIdList = new ArrayList<String>();
 		
-		deviceIdList = readService.ReadDeviceIds(email);		
+		deviceIdList = readService.ReadDeviceIds(userId);		
 		List<Vertex> deviceVertexList = new ArrayList<Vertex>();	
 		List<Device> deviceObjectList = new ArrayList<Device>();		
 		Map<String, Object> deviceMap = new LinkedHashMap<>();
@@ -121,10 +122,11 @@ public class RestDevice {
 			return validatorStatus;			
 		
 		
-		
+		ReadService readService = new ReadService();
 		Subject currentUser = SecurityUtils.getSubject();
 		String email = (String) currentUser.getPrincipal();
-
+		String userId = readService.getUserId(email);
+		
 		DeviceType deviceType = DeviceType.valueOf(type.toUpperCase());
 				
 		Device device = new Device(deviceName,description,deviceType);
@@ -134,7 +136,7 @@ public class RestDevice {
 		}
 		
 		CobwebWeaver cobwebWeaver = new CobwebWeaver();		
-		cobwebWeaver.addDevice(email, device);
+		cobwebWeaver.addDevice(userId, device);
 
 		return SUCCESS;
 	}
