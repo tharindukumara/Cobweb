@@ -15,6 +15,7 @@ import com.cobweb.io.transformers.VertexToUser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.tinkerpop.blueprints.Vertex;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -39,8 +40,8 @@ public class RestUser {
 		GraphFactory graphFactory = new GraphFactory();
 		VertexToUser vertexToUser = new VertexToUser();
 		String userId = readService.getUserId(email); 
-
-		User user = vertexToUser.transform(graphFactory.getUserVertex(userId));	
+		Vertex userVertex = graphFactory.getUserVertex(userId);
+		User user = vertexToUser.transform(userVertex);	
 		 
 		ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();		
 		

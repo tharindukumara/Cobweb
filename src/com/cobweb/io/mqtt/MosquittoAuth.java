@@ -1,6 +1,7 @@
-package com.cobweb.io.utils;
+package com.cobweb.io.mqtt;
 
 import com.cobweb.io.service.ReadService;
+import com.cobweb.io.utils.HashGenerator;
 
 /**
  * The Class MosquittoAuth.

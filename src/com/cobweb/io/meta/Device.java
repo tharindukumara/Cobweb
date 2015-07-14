@@ -4,13 +4,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class Device.
  *
  * @author Yasith Lokuge
  */
-
+@JsonIgnoreProperties({"deleted"})
 public class Device implements Item{
 	
 	/** The name. */

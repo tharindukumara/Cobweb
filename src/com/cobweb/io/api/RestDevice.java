@@ -41,6 +41,11 @@ public class RestDevice {
 	/** The Constant SUCCESS. */
 	private static final String SUCCESS					= "SUCCESS";
 	
+	/**
+	 * Gets the device.
+	 *
+	 * @return the device
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getDevice(){
@@ -53,7 +58,7 @@ public class RestDevice {
 		GraphFactory graphFactory = new GraphFactory();
 		List<String> deviceIdList = new ArrayList<String>();
 		
-		deviceIdList = readService.ReadDeviceIds(userId);		
+		deviceIdList = readService.getDeviceIds(userId);		
 		List<Vertex> deviceVertexList = new ArrayList<Vertex>();	
 		List<Device> deviceObjectList = new ArrayList<Device>();		
 		Map<String, Object> deviceMap = new LinkedHashMap<>();
@@ -61,8 +66,8 @@ public class RestDevice {
 		VertexToDevice vertexToDevice = new VertexToDevice();
 
 		  
-		for (String string : deviceIdList) {			
-			deviceVertexList.add(graphFactory.getDeviceVertex(string));
+		for (String deviceId : deviceIdList) {			
+			deviceVertexList.add(graphFactory.getDeviceVertex(deviceId));
 		}
 		
 		for (Vertex vertex : deviceVertexList) {
@@ -82,6 +87,12 @@ public class RestDevice {
 		}		
 	} 	
 
+	/**
+	 * Creates the.
+	 *
+	 * @param jsonData the json data
+	 * @return the string
+	 */
 	@POST	
 	@Consumes(MediaType.APPLICATION_JSON)	
 	public String create(InputStream jsonData) {

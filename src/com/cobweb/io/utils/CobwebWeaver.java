@@ -167,7 +167,7 @@ public class CobwebWeaver extends GraphFactory{
 	public boolean isAuthorizedDevice(String userId, String deviceId){
 		
 		List<String> idList = new ArrayList<>();		
-		idList = readService.ReadDeviceIds(userId);		
+		idList = readService.getDeviceIds(userId);		
 		return idList.contains(deviceId);		
 	}
 }

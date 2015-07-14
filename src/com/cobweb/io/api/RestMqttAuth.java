@@ -44,7 +44,7 @@ public class RestMqttAuth {
 		//System.out.println("superuser");
 		//System.out.println(username+" : "+password+" : "+topic);
 		
-		if(username.equals("c08w385up3ru53r")){			
+		if(username.equals("yasith")){			
 			return Response.status(Response.Status.OK).build();			
 		}
 

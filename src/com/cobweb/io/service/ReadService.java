@@ -129,9 +129,9 @@ public class ReadService implements AbstractService{
 	 * @param userId the user id
 	 * @return the list
 	 */
-	public List<String> ReadDeviceIds(String userId){
+	public List<String> getDeviceIds(String userId){
 		List<String> idList = new ArrayList<>();
-		ODocument result =  (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select out('UserHasDevices').idValue from User where idValue='"+userId+"'")).get(0);
+		ODocument result =  (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select out('UserHasDevices')[isDeleted = false].idValue from User where idValue='"+userId+"'")).get(0);
 		idList = result.field("out");
 		return idList;
 	}
@@ -159,6 +159,20 @@ public class ReadService implements AbstractService{
 		ODocument result =  (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select salt from User where idValue='"+userId+"'")).get(0);
 		String salt = result.field("salt");
 		return salt;
+	}
+	
+	
+	/**
+	 * Gets the sensor ids.
+	 *
+	 * @param userId the user id
+	 * @return the sensor ids
+	 */
+	public List<String> getSensorIds(String userId){
+		List<String> idList = new ArrayList<>();
+		ODocument result =  (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select out('UserHasDevices')[isDeleted = false].out('DeviceHasSensors')[isDeleted = false].idValue from User where idValue='"+userId+"'")).get(0);
+		idList = result.field("out");
+		return idList;		
 	}
 
 }

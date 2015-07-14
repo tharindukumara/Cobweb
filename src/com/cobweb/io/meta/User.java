@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * @author Yasith Lokuge
  */
 
-@JsonIgnoreProperties({"salt","deleted"})
+@JsonIgnoreProperties({"salt","deleted","password"})
 public class User implements AbstractService{
 	
 	/** The firstname. */

@@ -21,7 +21,7 @@ public class GraphFactory implements AbstractService{
 	public Vertex getUserVertex(String userId){		
 		
 		
-		Iterable<Vertex> v 		= graph.command(new OCommandSQL("select from User where userId=\""+userId+"\"")).execute();		
+		Iterable<Vertex> v 		= graph.command(new OCommandSQL("select from User where idValue=\""+userId+"\"")).execute();		
 		return graph.getVertex(v.iterator().next().getId());		
 	}
 	
