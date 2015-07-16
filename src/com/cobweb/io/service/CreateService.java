@@ -115,7 +115,7 @@ public class CreateService implements AbstractService{
 															+ device.getName()			+"'"+","+"'"
 															+ device.getId()			+"'"+","+"'"
 															+ device.getDescription()  	+"'"+","+"'"
-															+ device.getType()			+"'"+","+"'"
+															+ device.getDeviceType()			+"'"+","+"'"
 															+ device.isDeleted()		+"'"+","+"'"
 															+ device.getOtherType()		+"'"+","+"'"
 															+ device.getImageUrl()		+"')")).execute();
@@ -143,7 +143,7 @@ public class CreateService implements AbstractService{
 															+ sensor.getName()			+"'"+","+"'"
 															+ sensor.getId()			+"'"+","+"'"
 															+ sensor.getDescription()  	+"'"+","+"'"
-															+ sensor.getType()			+"'"+","+"'"
+															+ sensor.getSensorType()	+"'"+","+"'"
 															+ sensor.isDeleted()		+"'"+","+"'"
 															+ sensor.getOtherType()		+"'"+","+"'"
 															+ sensor.getImageUrl()		+"')")).execute();
@@ -195,11 +195,13 @@ public class CreateService implements AbstractService{
 		
 		Vertex v = graph.command(new OCommandSQL("insert into Payload (" 	+ MESSAGE 	+","
 																			+ DATETIME	+","
-																			+ ISDELETED + ") values ('" 
+																			+ ISDELETED +","
+																			+ ID		+") values ('" 
 																			
-																			+ payload.getMessage()	+"'"+","+"'"
+																			+ payload.getMessage()		+"'"+","+"'"
 																			+ payload.getTimeStamp()	+"'"+","+"'"
-																			+ payload.isDeleted()	+ "')")).execute();	
+																			+ payload.isDeleted()		+"'"+","+"'"
+																			+ payload.getId()+ "')")).execute();	
 				
 		graph.commit();
 		return v;		

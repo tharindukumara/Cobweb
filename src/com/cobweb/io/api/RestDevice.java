@@ -4,9 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -21,21 +19,18 @@ import org.codehaus.jettison.json.JSONObject;
 
 import com.cobweb.io.meta.Device;
 import com.cobweb.io.meta.DeviceType;
-import com.cobweb.io.service.GraphFactory;
 import com.cobweb.io.service.ReadService;
-import com.cobweb.io.transformers.VertexToDevice;
 import com.cobweb.io.utils.CobwebWeaver;
 import com.cobweb.io.validator.DeviceValidator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.tinkerpop.blueprints.Vertex;
 
 /**
  * @author Yasith Lokuge
  * The Class RestDevice.
  */
-@Path("/devices")
+@Path("/device")
 public class RestDevice {	
 	
 	/** The Constant SUCCESS. */
@@ -50,41 +45,20 @@ public class RestDevice {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getDevice(){
 		
+		ReadService readService = new ReadService();
 		Subject currentUser = SecurityUtils.getSubject();
 		String email = (String) currentUser.getPrincipal();
-		ReadService readService = new ReadService();
 		String userId = readService.getUserId(email);
-		
-		GraphFactory graphFactory = new GraphFactory();
-		List<String> deviceIdList = new ArrayList<String>();
-		
-		deviceIdList = readService.getDeviceIds(userId);		
-		List<Vertex> deviceVertexList = new ArrayList<Vertex>();	
-		List<Device> deviceObjectList = new ArrayList<Device>();		
-		Map<String, Object> deviceMap = new LinkedHashMap<>();
-		
-		VertexToDevice vertexToDevice = new VertexToDevice();
-
-		  
-		for (String deviceId : deviceIdList) {			
-			deviceVertexList.add(graphFactory.getDeviceVertex(deviceId));
-		}
-		
-		for (Vertex vertex : deviceVertexList) {
-			deviceObjectList.add(vertexToDevice.transform(vertex));
-		}
-		
-		for (Device device : deviceObjectList) {
-			deviceMap.put(device.getName(), device);
-		}
-
+				
 		ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		List<Device> deviceList = new ArrayList<Device>(); 
+		deviceList = readService.getDeviceList(userId);
 		
 		try {
-			return objectWriter.writeValueAsString(deviceMap);
+			return objectWriter.writeValueAsString(deviceList);
 		} catch (JsonProcessingException e) {		
 			return e.toString();
-		}		
+		}			
 	} 	
 
 	/**

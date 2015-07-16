@@ -4,13 +4,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class Sensor.
- *
- * @author Yasith Lokuge
  */
-
+@JsonIgnoreProperties({"deleted","deviceType"})
 public class Sensor implements Item{
 
 	/** The name. */
@@ -22,22 +22,26 @@ public class Sensor implements Item{
 	/** The description. */
 	private String description;
 	
-	/** The devicetype. */
+	/** The sensortype. */
 	private SensorType sensortype;
 	
-	/** The is deleated. */
+	/** The is deleted. */
 	private boolean isDeleted=false;
 	
-	/** The id. */
+	/** The other type. */
 	private String otherType ="default";
 	
 	/** The image url. */
 	private URL imageUrl;
 	
+	
+	/** The parent device id. */
+	private String parentDeviceId;	
+	
 	/**
 	 * Instantiates a new sensor.
 	 *
-	 * @param name the name 
+	 * @param name the name
 	 * @param description the description
 	 * @param sensortype the sensortype
 	 * @param otherType the other type
@@ -59,7 +63,7 @@ public class Sensor implements Item{
 	/**
 	 * Instantiates a new sensor.
 	 *
-	 * @param name the name 
+	 * @param name the name
 	 * @param description the description
 	 * @param sensortype the sensortype
 	 */
@@ -72,9 +76,9 @@ public class Sensor implements Item{
 		id = uuid.toString();
 		
 		try {
-			imageUrl = new URL("www.cobweb.io/default/sensor/sensordefault.jpg");
+			this.imageUrl = new URL("www.cobweb.io/default/sensor/sensordefault.jpg");
 		} catch (MalformedURLException e) {
-			imageUrl = null;
+			this.imageUrl = null;
 		}
 		
 	}
@@ -143,13 +147,7 @@ public class Sensor implements Item{
 		return isDeleted;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.cobweb.io.core.Item#setType(com.cobweb.io.core.DeviceType)
-	 */
-	@Override
-	public void setType(DeviceType devicetype) {
-
-	}
+	
 
 	/* (non-Javadoc)
 	 * @see com.cobweb.io.core.Item#setType(com.cobweb.io.core.SensorType)
@@ -158,20 +156,13 @@ public class Sensor implements Item{
 	public void setType(SensorType sensortype) {
 		this.sensortype = sensortype;
 	}
-
-	/* (non-Javadoc)
-	 * @see com.cobweb.io.core.Item#getType()
-	 */
-	@Override
-	public DeviceType getType() {
-		return null;
-	}
+	
 
 	/* (non-Javadoc)
 	 * @see com.cobweb.io.core.Item#sensortype()
 	 */
 	@Override
-	public SensorType sensortype() {
+	public SensorType getSensorType() {
 		return sensortype;
 	}
 
@@ -205,6 +196,46 @@ public class Sensor implements Item{
 	@Override
 	public void setImageUrl(URL imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see com.cobweb.io.meta.Item#setType(com.cobweb.io.meta.DeviceType)
+	 */
+	@Override
+	public void setType(DeviceType devicetype) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	/* (non-Javadoc)
+	 * @see com.cobweb.io.meta.Item#getDeviceType()
+	 */
+	@Override
+	public DeviceType getDeviceType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	/**
+	 * Gets the parent device id.
+	 *
+	 * @return the parent device id
+	 */	
+	public String getParentDeviceId() {
+		return parentDeviceId;
+	}
+
+
+	/**
+	 * Sets the parent device id.
+	 *
+	 * @param deviceId the new parent device id
+	 */
+	public void setParentDeviceId(String deviceId) {
+		this.parentDeviceId = deviceId;
 	}
 
 }

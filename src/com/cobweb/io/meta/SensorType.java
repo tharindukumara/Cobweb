@@ -7,7 +7,7 @@ package com.cobweb.io.meta;
 /**
  * The Enum SensorType.
  *
- * @author Yasith
+ * @author Yasith Lokuge
  */
 public enum SensorType {
 	

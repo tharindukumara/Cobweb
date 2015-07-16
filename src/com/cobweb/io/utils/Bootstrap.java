@@ -82,15 +82,15 @@ public class Bootstrap implements AbstractService {
 		log.debug("--Creating User Vertex Class--");		
 		graph.createVertexType("User");
 		Vertex user = graph.addVertex("class:User");		
-		user.setProperty(FIRSTNAME, 	OType.STRING	);		
+		user.setProperty(FIRSTNAME, OType.STRING	);		
 		user.setProperty(LASTNAME, 	OType.STRING	);
 		user.setProperty(PASSWORD, 	OType.STRING	);
-		user.setProperty(EMAIL, 		OType.STRING	);
+		user.setProperty(EMAIL, 	OType.STRING	);
 		user.setProperty(SALT, 		OType.STRING	);
 		user.setProperty(ROLE, 		OType.STRING	);
 		user.setProperty(ID, 		OType.STRING	);
 		user.setProperty(IMAGEURL, 	OType.STRING	);
-		user.setProperty(ISDELETED, 	OType.BOOLEAN	);
+		user.setProperty(ISDELETED, OType.BOOLEAN	);
 		
 		
 		/**
@@ -117,7 +117,7 @@ public class Bootstrap implements AbstractService {
 		
 		sensor.setProperty(NAME, 		OType.STRING	);
 		sensor.setProperty(ID, 			OType.STRING	);
-		sensor.setProperty(DESCRIPTION, 	OType.STRING	);
+		sensor.setProperty(DESCRIPTION, OType.STRING	);
 		sensor.setProperty(SENSORTYPE, 	OType.STRING	);		
 		sensor.setProperty(IMAGEURL, 	OType.STRING	);
 		sensor.setProperty(ISDELETED, 	OType.BOOLEAN	);
@@ -132,7 +132,7 @@ public class Bootstrap implements AbstractService {
 		
 		payload.setProperty(MESSAGE, 	OType.STRING	);
 		payload.setProperty(DATETIME, 	OType.DATETIME	);
-		payload.setProperty(ID, 			OType.STRING	);
+		payload.setProperty(ID, 		OType.STRING	);
 		payload.setProperty(ISDELETED, 	OType.BOOLEAN	);
 		graph.commit();
 		

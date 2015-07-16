@@ -4,6 +4,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Payload.
+ */
+@JsonIgnoreProperties({"isDeleted"})
 public class Payload {
 	
 	/** The id. */
@@ -16,13 +23,21 @@ public class Payload {
 	private Date dateTime;
 	
 	/** The is deleted. */
-	private boolean isDeleted = false;
+	private boolean isDeleted = false;	
+	
+	/** The device id. */
+	private String deviceId;
+	
+	/** The sensor id. */
+	private String sensorId;
+	
+	/** The user id. */
+	private String userId;
 	
 	/**
 	 * Instantiates a new payload.
 	 *
 	 * @param message the message
-	 * @param dateTime the date time
 	 */
 	public Payload(String message){
 		this.message = message;		
@@ -34,6 +49,8 @@ public class Payload {
 	}
 
 	/**
+	 * Gets the message.
+	 *
 	 * @return the message
 	 */
 	public String getMessage() {
@@ -41,35 +58,45 @@ public class Payload {
 	}
 
 	/**
-	 * @param message the message to set
+	 * Sets the message.
+	 *
+	 * @param message the new message
 	 */
 	public void setMessage(String message) {
 		this.message = message;
 	}
 
 	/**
-	 * @return the dateTime
+	 * Gets the date time.
+	 *
+	 * @return the date time
 	 */
 	public Date getDateTime() {
 		return dateTime;
 	}
 
 	/**
-	 * @param dateTime the dateTime to set
+	 * Sets the date time.
+	 *
+	 * @param dateTime the new date time
 	 */
 	public void setDateTime(Date dateTime) {
 		this.dateTime = dateTime;
 	}
 
 	/**
-	 * @return the isDeleted
+	 * Checks if is deleted.
+	 *
+	 * @return true, if is deleted
 	 */
 	public boolean isDeleted() {
 		return isDeleted;
 	}
 
 	/**
-	 * @param isDeleted the isDeleted to set
+	 * Sets the deleted.
+	 *
+	 * @param isDeleted the new deleted
 	 */
 	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
@@ -102,5 +129,59 @@ public class Payload {
 	public String getTimeStamp(){
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return simpleDateFormat.format(dateTime);
+	}
+
+	/**
+	 * Gets the device id.
+	 *
+	 * @return the device id
+	 */
+	public String getDeviceId() {
+		return deviceId;
+	}
+
+	/**
+	 * Sets the device id.
+	 *
+	 * @param deviceId the new device id
+	 */
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
+	}
+
+	/**
+	 * Gets the sensor id.
+	 *
+	 * @return the sensor id
+	 */
+	public String getSensorId() {
+		return sensorId;
+	}
+
+	/**
+	 * Sets the sensor id.
+	 *
+	 * @param sensorId the new sensor id
+	 */
+	public void setSensorId(String sensorId) {
+		this.sensorId = sensorId;
+	}
+
+	/**
+	 * Gets the user id.
+	 *
+	 * @return the user id
+	 */
+	public String getUserId() {
+		return userId;
+	}
+
+	/**
+	 * Sets the user id.
+	 *
+	 * @param userId the new user id
+	 */
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 }

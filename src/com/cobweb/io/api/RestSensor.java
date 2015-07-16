@@ -4,9 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -21,21 +19,18 @@ import org.codehaus.jettison.json.JSONObject;
 
 import com.cobweb.io.meta.Sensor;
 import com.cobweb.io.meta.SensorType;
-import com.cobweb.io.service.GraphFactory;
 import com.cobweb.io.service.ReadService;
-import com.cobweb.io.transformers.VertexToSensor;
 import com.cobweb.io.utils.CobwebWeaver;
 import com.cobweb.io.validator.SensorValidator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.tinkerpop.blueprints.Vertex;
 
 /**
  * @author Yasith Lokuge
  * The Class RestSensor.
  */
-@Path("/sensors")
+@Path("/sensor")
 public class RestSensor {	
 	
 	/** The Constant SUCCESS. */
@@ -50,41 +45,20 @@ public class RestSensor {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getSensor(){
 		
+		ReadService readService = new ReadService();
 		Subject currentUser = SecurityUtils.getSubject();
 		String email = (String) currentUser.getPrincipal();
-		ReadService readService = new ReadService();
 		String userId = readService.getUserId(email);
-		
-		GraphFactory graphFactory = new GraphFactory();
-		List<String> sensorIdList = new ArrayList<String>();
-		
-		sensorIdList = readService.getSensorIds(userId);		
-		List<Vertex> sensorVertexList = new ArrayList<Vertex>();	
-		List<Sensor> sensorObjectList = new ArrayList<Sensor>();		
-		Map<String, Object> sensorMap = new LinkedHashMap<>();
-		
-		VertexToSensor vertexToSensor = new VertexToSensor();
-
-		  
-		for (String sensorId : sensorIdList) {			
-			sensorVertexList.add(graphFactory.getSensorVertex(sensorId));
-		}
-		
-		for (Vertex vertex : sensorVertexList) {
-			sensorObjectList.add(vertexToSensor.transform(vertex));
-		}
-		
-		for (Sensor sensor : sensorObjectList) {
-			sensorMap.put(sensor.getName(), sensor);
-		}
-
+				
 		ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		List<Sensor> sensorList = new ArrayList<Sensor>(); 
+		sensorList = readService.getSensorList(userId);
 		
 		try {
-			return objectWriter.writeValueAsString(sensorMap);
+			return objectWriter.writeValueAsString(sensorList);
 		} catch (JsonProcessingException e) {		
 			return e.toString();
-		}		
+		}	
 	} 	
 
 	/**

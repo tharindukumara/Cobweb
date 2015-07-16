@@ -87,9 +87,9 @@ public class User implements AbstractService{
 		uid = uuid.toString();	
 		
 		try {
-			imageUrl = new URL("www.cobweb.io/default/user/userdefault.jpg");
+			this.imageUrl = new URL("www.cobweb.io/default/user/userdefault.jpg");
 		} catch (MalformedURLException e) {
-			imageUrl = null;
+			this.imageUrl = null;
 		}
 	}
 		

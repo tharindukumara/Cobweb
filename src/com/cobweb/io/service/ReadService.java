@@ -1,11 +1,21 @@
 package com.cobweb.io.service;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import com.cobweb.io.meta.Device;
+import com.cobweb.io.meta.DeviceType;
 import com.cobweb.io.meta.LoggedUser;
+import com.cobweb.io.meta.Payload;
 import com.cobweb.io.meta.Sensor;
+import com.cobweb.io.meta.SensorType;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
 import com.tinkerpop.blueprints.Vertex;
@@ -56,7 +66,7 @@ public class ReadService implements AbstractService{
 	 * @param data the data
 	 * @return the string
 	 */
-	public String Read(LoggedUser loggedUser,String data){
+	public String read(LoggedUser loggedUser,String data){
 	
 		String email= loggedUser.getEmail();
 		String password = loggedUser.getPassword();
@@ -79,7 +89,7 @@ public class ReadService implements AbstractService{
 	 *
 	 * @return the list
 	 */
-	public List<String> GetUserNamesList(){
+	public List<String> getUserNamesList(){
 		
 		List<String> userNameList = new ArrayList<>();
 		List<ODocument> result =  graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select email from User"));		
@@ -97,7 +107,7 @@ public class ReadService implements AbstractService{
 	 * @param email the email
 	 * @return true, if successful
 	 */
-	public boolean CheckUserNameExists(String email){				
+	public boolean checkUserNameExists(String email){				
 		try {
 			ODocument result = (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select email from User where email='"+email+"'")).get(0);
 			String data = result.field("email");
@@ -113,7 +123,7 @@ public class ReadService implements AbstractService{
 	 * @param password the password
 	 * @return true, if successful
 	 */
-	public boolean CheckPasswordExists(String password){				
+	public boolean checkPasswordExists(String password){				
 		try {
 			ODocument result = (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select password from User where password='"+password+"'")).get(0);
 			String data = result.field("password");
@@ -122,20 +132,6 @@ public class ReadService implements AbstractService{
 			return false;
 		}	
 	}
-	
-	/**
-	 * Read device ids.
-	 *
-	 * @param userId the user id
-	 * @return the list
-	 */
-	public List<String> getDeviceIds(String userId){
-		List<String> idList = new ArrayList<>();
-		ODocument result =  (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select out('UserHasDevices')[isDeleted = false].idValue from User where idValue='"+userId+"'")).get(0);
-		idList = result.field("out");
-		return idList;
-	}
-	
 	
 	/**
 	 * Gets the user id.
@@ -163,16 +159,385 @@ public class ReadService implements AbstractService{
 	
 	
 	/**
-	 * Gets the sensor ids.
+	 * Gets the device id list.
 	 *
 	 * @param userId the user id
-	 * @return the sensor ids
+	 * @return the device id list
 	 */
-	public List<String> getSensorIds(String userId){
-		List<String> idList = new ArrayList<>();
-		ODocument result =  (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select out('UserHasDevices')[isDeleted = false].out('DeviceHasSensors')[isDeleted = false].idValue from User where idValue='"+userId+"'")).get(0);
-		idList = result.field("out");
-		return idList;		
+	public List<String> getDeviceIdList(String userId){
+		
+		List<ODocument> resultList = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(out('UserHasDevices')[isDeleted = false].idValue) from User where idValue='"+userId+"'"));
+		List<String>	deviceIdList = new ArrayList<String>();
+		
+		for (ODocument result:resultList) {			
+			deviceIdList.add(result.field("value"));			
+		}		
+		return deviceIdList;		
+	}
+	
+	
+	/**
+	 * Gets the sensor id list.
+	 *
+	 * @param userId the user id
+	 * @return the sensor id list
+	 */
+	public List<String> getSensorIdList(String userId){
+		
+		List<ODocument> resultList = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(out('UserHasDevices')[isDeleted = false].out('DeviceHasSensors')[isDeleted = false].idValue) from User where idValue='"+userId+"'"));
+		List<String>	sensorIdList = new ArrayList<String>();
+		
+		for (ODocument result:resultList) {			
+			sensorIdList.add(result.field("value"));			
+		}		
+		return sensorIdList;		
+	}
+	
+	
+	
+	/**
+	 * Gets the sensor list.
+	 *
+	 * @param userId the user id
+	 * @return the sensor list
+	 */
+	public List<Sensor> getSensorList(String userId){
+		
+		List<ODocument> resultList = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(out('UserHasDevices')[isDeleted = false].out('DeviceHasSensors')[isDeleted = false]) from User where idValue='"+ userId+"'"));
+		List<Sensor>	sensorList = new ArrayList<Sensor>();
+		
+		for (ODocument result:resultList) {
+			
+			String name 		= result.field("name"); 
+			String id 			= result.field("idValue");
+			String description 	= result.field("description");
+			String sensorType 	= result.field("sensorType");
+			String otherType 	= result.field("otherType");
+			String imageUrl		= result.field("imageUrl");
+			String parentDevice = getParentDeviceIdFromSensor(id);
+			
+			Sensor sensor = new Sensor(name, description, SensorType.valueOf(sensorType));
+			sensor.setId(id);
+			sensor.setOtherType(otherType);
+			sensor.setParentDeviceId(parentDevice);
+			
+			try {
+				sensor.setImageUrl(new URL(imageUrl));
+			} catch (MalformedURLException e) {				
+				e.printStackTrace();
+			}						
+			sensorList.add(sensor);
+		}		
+		return sensorList;				
+	}
+	
+	
+	/**
+	 * Gets the device list.
+	 *
+	 * @param userId the user id
+	 * @return the device list
+	 */
+	public List<Device> getDeviceList(String userId){
+		
+		List<ODocument> resultList = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(out('UserHasDevices')[isDeleted = false]) from User where idValue='"+ userId+"'"));
+		List<Device>	deviceList = new ArrayList<Device>();
+		
+		for (ODocument result:resultList) {
+			
+			String name 		= result.field("name"); 
+			String id 			= result.field("idValue");
+			String description 	= result.field("description");
+			String deviceType 	= result.field("deviceType");
+			String otherType 	= result.field("otherType");
+			String imageUrl		= result.field("imageUrl");
+			
+			List<String> attachedSensorList = getAttachedSensorList(id);
+			
+			Device device = new Device(name, description, DeviceType.valueOf(deviceType));
+			device.setId(id);
+			device.setOtherType(otherType);
+			device.setSensorIdList(attachedSensorList);
+			try {
+				device.setImageUrl(new URL(imageUrl));
+			} catch (MalformedURLException e) {				
+				e.printStackTrace();
+			}						
+			deviceList.add(device);
+		}		
+		return deviceList;				
+	}
+	
+	/**
+	 * Check device exists.
+	 *
+	 * @param deviceId the device id
+	 * @return true, if successful
+	 */
+	public boolean checkDeviceExists(String deviceId){
+		try {
+			ODocument result = (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select idValue from Device where idValue='"+deviceId+"'")).get(0);
+			String data = result.field("idValue");
+			return data.equals(deviceId);
+		} catch (Exception e) {			
+			return false;
+		}
 	}
 
+	/**
+	 * Gets the payload list.
+	 *
+	 * @param sensorId the sensor id
+	 * @return the payload list
+	 */
+	public List<Payload> getDevicePayloadList(String deviceId){
+		List<ODocument> resultList = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(out('DeviceHasPayload')[isDeleted = false]) from Device where idValue='"+deviceId+"'"));
+		
+		List<Payload>	payloadList = new ArrayList<Payload>();
+
+		
+		for (ODocument result:resultList) {
+			
+			String id = result.field("idValue");
+			String message = result.field("message");
+			String dateTime = result.field("dateTime");
+			
+			Payload payload = new Payload(message);
+			payload.setId(id);
+			payload.setMessage(message);
+			
+			payload.setDeviceId(deviceId);			
+			String userId = getParentUserId(deviceId);		
+			payload.setUserId(userId);			
+			
+			DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+			
+			
+			try {
+				Date date = format.parse(dateTime);
+				payload.setDateTime(date);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
+			payloadList.add(payload);
+		}
+		
+		return payloadList;		
+	}
+	
+	
+	/**
+	 * Gets the sensor payload list.
+	 *
+	 * @param sensorId the sensor id
+	 * @return the sensor payload list
+	 */
+	public List<Payload> getSensorPayloadList(String sensorId){
+		List<ODocument> resultList = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(out('SensorHasPayload')[isDeleted = false]) from Sensor where idValue='"+sensorId+"'"));
+		
+		List<Payload>	payloadList = new ArrayList<Payload>();
+
+		
+		for (ODocument result:resultList) {
+			
+			String id = result.field("idValue");
+			String message = result.field("message");
+			String dateTime = result.field("dateTime");
+			
+			Payload payload = new Payload(message);
+			payload.setId(id);
+			payload.setMessage(message);
+			payload.setSensorId(sensorId);
+			
+			String deviceId = getParentDeviceIdFromSensor(sensorId);
+			String userId = getParentUserId(deviceId);
+			
+			payload.setDeviceId(deviceId);
+			payload.setUserId(userId);
+			
+			DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+			
+			
+			try {
+				Date date = format.parse(dateTime);
+				payload.setDateTime(date);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
+			payloadList.add(payload);
+		}
+		
+		return payloadList;		
+	}
+	
+	
+	
+	/**
+	 * Gets the attached sensor list.
+	 *
+	 * @param deviceId the device id
+	 * @return the attached sensor list
+	 */
+	public List<String> getAttachedSensorList(String deviceId){
+		
+		List<ODocument> resultList = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(out('DeviceHasSensors')[isDeleted = false].idValue) from Device where idValue='"+deviceId+"'"));
+		List<String>	sensorIdList = new ArrayList<String>();
+		
+		for (ODocument result:resultList) {			
+			String id = result.field("value");			
+			sensorIdList.add(id);
+		}		
+		return sensorIdList;		
+	}
+	
+	
+	/**
+	 * Gets the parent device id.
+	 *
+	 * @param sensorId the sensor id
+	 * @return the parent device id
+	 */
+	public String getParentDeviceIdFromSensor(String sensorId){
+		
+		ODocument result = (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(in('DeviceHasSensors').idValue) from Sensor where idValue='"+sensorId+"'")).get(0);
+		String data = result.field("value");
+		return data;		
+	}
+	
+	/**
+	 * Gets the parent device id from payload.
+	 *
+	 * @param payloadId the payload id
+	 * @return the parent device id from payload
+	 */
+	public String getParentDeviceIdFromPayload(String payloadId){
+		
+		ODocument result = (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(in('DeviceHasPayload').idValue) from Payload where idValue='"+payloadId+"'")).get(0);
+		String data = result.field("value");
+		return data;		
+	}
+	
+	/**
+	 * Gets the parent sensor id from payload.
+	 *
+	 * @param payloadId the payload id
+	 * @return the parent sensor id from payload
+	 */
+	public String getParentSensorIdFromPayload(String payloadId){
+		
+		ODocument result = (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(in('SensorHasPayload').idValue) from Payload where idValue='"+payloadId+"'")).get(0);
+		String data = result.field("value");
+		return data;		
+	}
+	
+	
+	
+	/**
+	 * Gets the parent user id.
+	 *
+	 * @param deviceId the device id
+	 * @return the parent user id
+	 */
+	public String getParentUserId(String deviceId){
+		
+		ODocument result = (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(in('UserHasDevices').idValue) from Device where idValue='"+deviceId+"'")).get(0);
+		String data = result.field("value");
+		return data;		
+	}
+	
+	
+	/**
+	 * Gets the subscribed device payloads.
+	 *
+	 * @param userId the user id
+	 * @return the subscribed device payloads
+	 */
+	public List<Payload> getSubscribedDevicePayloads(String userId){
+		
+		List<ODocument> resultList = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(outE('UserSubscribesDevice')[isAccepted=true].inV().out('DeviceHasPayload')[isDeleted=false]) from User where idValue='"+userId+"'"));
+		List<Payload>	payloadList = new ArrayList<Payload>();
+
+		
+		for (ODocument result:resultList) {
+			
+			String id = result.field("idValue");
+			String message = result.field("message");
+			String dateTime = result.field("dateTime");
+			//String sensorId = getParentSensorIdFromPayload(id);
+			
+			Payload payload = new Payload(message);
+			payload.setId(id);
+			payload.setMessage(message);
+			//payload.setSensorId(sensorId);
+			
+			String deviceId = getParentDeviceIdFromPayload(id);
+			String ownerId = getParentUserId(deviceId);
+			
+			payload.setDeviceId(deviceId);
+			payload.setUserId(ownerId);
+			
+			DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+			
+			
+			try {
+				Date date = format.parse(dateTime);
+				payload.setDateTime(date);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
+			payloadList.add(payload);	
+				
+		}
+		return payloadList;			
+	}
+	
+	
+	/**
+	 * Gets the subscribed sensor payloads.
+	 *
+	 * @param userId the user id
+	 * @return the subscribed sensor payloads
+	 */
+	public List<Payload> getSubscribedSensorPayloads(String userId){
+		
+		List<ODocument> resultList = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(outE('UserSubscribesSensor')[isAccepted=true].inV().out('SensorHasPayload')[isDeleted=false]) from User where idValue='"+userId+"'"));
+		List<Payload>	payloadList = new ArrayList<Payload>();
+
+		
+		for (ODocument result:resultList) {
+			
+			String id = result.field("idValue");
+			String message = result.field("message");
+			String dateTime = result.field("dateTime");
+			String sensorId = getParentSensorIdFromPayload(id);
+			
+			Payload payload = new Payload(message);
+			payload.setId(id);
+			payload.setMessage(message);
+			payload.setSensorId(sensorId);
+			
+			String deviceId = getParentDeviceIdFromPayload(id);
+			String ownerId = getParentUserId(deviceId);
+			
+			payload.setDeviceId(deviceId);
+			payload.setUserId(ownerId);
+			
+			DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+			
+			
+			try {
+				Date date = format.parse(dateTime);
+				payload.setDateTime(date);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
+			payloadList.add(payload);	
+				
+		}
+		return payloadList;			
+	}
 }

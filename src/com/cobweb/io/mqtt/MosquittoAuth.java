@@ -19,7 +19,7 @@ public class MosquittoAuth {
 	 * @return true, if successful
 	 */
 	public boolean checkUserName(String username){
-		return readService.CheckUserNameExists(username);
+		return readService.checkUserNameExists(username);
 	}
 	
 	/**
@@ -35,6 +35,6 @@ public class MosquittoAuth {
 		String salt = readService.getSalt(email);
 		String saltedPass = hashGenerator.saltHashPassword(password, salt);
 		
-		return readService.CheckPasswordExists(saltedPass);		 
+		return readService.checkPasswordExists(saltedPass);		 
 	}
 }

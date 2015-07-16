@@ -85,14 +85,14 @@ public interface Item {
 	 *
 	 * @return the type
 	 */
-	public DeviceType getType();
+	public DeviceType getDeviceType();
 	
 	/**
 	 * Sensortype.
 	 *
 	 * @return the sensor type
 	 */
-	public SensorType sensortype();
+	public SensorType getSensorType();
 
 	
 	/**
