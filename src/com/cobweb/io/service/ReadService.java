@@ -307,7 +307,7 @@ public class ReadService implements AbstractService{
 			payload.setMessage(message);
 			
 			payload.setDeviceId(deviceId);			
-			String userId = getParentUserId(deviceId);		
+			String userId = getParentUserIdFromDevice(deviceId);		
 			payload.setUserId(userId);			
 			
 			DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
@@ -351,7 +351,7 @@ public class ReadService implements AbstractService{
 			payload.setSensorId(sensorId);
 			
 			String deviceId = getParentDeviceIdFromSensor(sensorId);
-			String userId = getParentUserId(deviceId);
+			String userId = getParentUserIdFromDevice(deviceId);
 			
 			payload.setDeviceId(deviceId);
 			payload.setUserId(userId);
@@ -440,13 +440,25 @@ public class ReadService implements AbstractService{
 	 * @param deviceId the device id
 	 * @return the parent user id
 	 */
-	public String getParentUserId(String deviceId){
+	public String getParentUserIdFromDevice(String deviceId){
 		
 		ODocument result = (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(in('UserHasDevices').idValue) from Device where idValue='"+deviceId+"'")).get(0);
 		String data = result.field("value");
 		return data;		
 	}
 	
+	/**
+	 * Gets the parent user id from sensor.
+	 *
+	 * @param sensorId the sensor id
+	 * @return the parent user id from sensor
+	 */
+	public String getParentUserIdFromSensor(String sensorId){
+		
+		ODocument result = (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(in('DeviceHasSensors').in('UserHasDevices').idValue) from Sensor where idValue='"+sensorId+"'")).get(0);
+		String data = result.field("value");
+		return data;		
+	}
 	
 	/**
 	 * Gets the subscribed device payloads.
@@ -473,7 +485,7 @@ public class ReadService implements AbstractService{
 			//payload.setSensorId(sensorId);
 			
 			String deviceId = getParentDeviceIdFromPayload(id);
-			String ownerId = getParentUserId(deviceId);
+			String ownerId = getParentUserIdFromDevice(deviceId);
 			
 			payload.setDeviceId(deviceId);
 			payload.setUserId(ownerId);
@@ -520,7 +532,7 @@ public class ReadService implements AbstractService{
 			payload.setSensorId(sensorId);
 			
 			String deviceId = getParentDeviceIdFromSensor(sensorId);
-			String ownerId = getParentUserId(deviceId);
+			String ownerId = getParentUserIdFromDevice(deviceId);
 			
 			payload.setDeviceId(deviceId);
 			payload.setUserId(ownerId);
@@ -652,4 +664,105 @@ public class ReadService implements AbstractService{
 		}		
 		return sensorSubscriberRequestList;		
 	}
+	
+	
+	/**
+	 * Gets the device subscription list.
+	 *
+	 * @param deviceId the device id
+	 * @return the device subscription list
+	 */
+	public List<String> getDeviceSubscriptionList(String deviceId){
+		
+		List<ODocument> resultList = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(inE('UserSubscribesDevice')[isAccepted=true].outV()) from Device where idValue='"+deviceId+"'"));
+		List<String>	deviceSubscriptionList = new ArrayList<String>();
+		
+		for (ODocument result:resultList) {			
+			String id = result.field("idValue");	
+			deviceSubscriptionList.add(id);
+		}		
+		return deviceSubscriptionList;		
+	}
+	
+	
+	/**
+	 * Gets the sensor subscription list.
+	 *
+	 * @param sensorId the sensor id
+	 * @return the sensor subscription list
+	 */
+	public List<String> getSensorSubscriptionList(String sensorId){
+		
+		List<ODocument> resultList = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(inE('UserSubscribesSensor')[isAccepted=true].outV()) from Sensor where idValue='"+sensorId+"'"));
+		List<String>	sensorSubscriptionList = new ArrayList<String>();
+		
+		for (ODocument result:resultList) {			
+			String id = result.field("idValue");			
+			sensorSubscriptionList.add(id);
+		}		
+		return sensorSubscriptionList;		
+	}
+	
+	
+	/**
+	 * Gets the user subscribed device list.
+	 *
+	 * @param userId the user id
+	 * @return the user subscribed device list
+	 */
+	public List<String> getUserSubscribedDeviceList(String userId){
+		
+		List<ODocument> resultList = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(outE('UserSubscribesDevice')[isAccepted=true].inV()[isDeleted=false]) from User where idValue='"+userId+"'"));
+		List<String>	deviceSubscriptionList = new ArrayList<String>();
+		
+		for (ODocument result:resultList) {			
+			String id = result.field("idValue");			
+			deviceSubscriptionList.add(id);
+		}		
+		return deviceSubscriptionList;		
+	}
+	
+	/**
+	 * Gets the user subscribed sensor list.
+	 *
+	 * @param userId the user id
+	 * @return the user subscribed sensor list
+	 */
+	public List<String> getUserSubscribedSensorList(String userId){
+		
+		List<ODocument> resultList = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(outE('UserSubscribesSensor')[isAccepted=true].inV()[isDeleted=false]) from User where idValue='"+userId+"'"));
+		List<String>	sensorSubscriptionList = new ArrayList<String>();
+		
+		for (ODocument result:resultList) {			
+			String id = result.field("idValue");			
+			sensorSubscriptionList.add(id);
+		}		
+		return sensorSubscriptionList;		
+	}
+
+	
+	/**
+	 * Gets the user followers id list.
+	 *
+	 * @param userId the user id
+	 * @return the user followers id list
+	 */
+	public List<String> getUserFollowersIdList(String userId){
+		
+		List<String>	followerIdList = new ArrayList<String>();
+		List<ODocument> resultList1 = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(in('UserFollowsUser')) from User where idValue='"+userId+"'"));
+		List<ODocument> resultList2 = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(out('UserFollowsUser')) from User where idValue='"+userId+"'"));
+		
+		for (ODocument result:resultList1) {			
+			String id = result.field("idValue");			
+			followerIdList.add(id);
+		}		
+		
+		for (ODocument result:resultList2) {			
+			String id = result.field("idValue");			
+			followerIdList.add(id);
+		}			
+		return followerIdList;
+	}
+
 }

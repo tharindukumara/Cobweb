@@ -114,7 +114,7 @@ public class DemoTest implements AbstractService{
 		//System.out.println(regexCheck("samsung galaxy y","^[a-zA-Z0-9 ]*{3,15}$"));
 		
 		ReadService readService = new ReadService();
-		System.out.println(readService.getDeviceSubscriberRequestList("2d3a60b2-7a45-4d9f-a5fb-4199f31f81b2").isEmpty());
+		System.out.println(readService.getUserFollowersIdList("c4256165-d20c-409c-8818-4832e7dfcc65"));
 		
 		
 		//System.out.println(readService.getSensorIds(readService.getUserId("yasith1@gmail.com")));
