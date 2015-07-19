@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 /**
  * The Class Payload.
  */
-@JsonIgnoreProperties({"isDeleted"})
+@JsonIgnoreProperties({"deleted"})
 public class Payload {
 	
 	/** The id. */

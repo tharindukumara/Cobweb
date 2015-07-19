@@ -20,6 +20,9 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 @Path("/newsfeed")
 public class RestNewsfeed {
 
+	/** The Constant JSON_ERROR. */
+	private static final String JSON_ERROR				= "{\"error\":\"JSON Parsing error\"}";	
+	
 	
 	@GET
 	@Path("/device")
@@ -37,7 +40,7 @@ public class RestNewsfeed {
 		try {
 			return objectWriter.writeValueAsString(devicePayloadList);
 		} catch (JsonProcessingException e) {		
-			return e.toString();
+			return JSON_ERROR;
 		}
 		
 	}
@@ -58,7 +61,7 @@ public class RestNewsfeed {
 		try {
 			return objectWriter.writeValueAsString(sensorPayloadList);
 		} catch (JsonProcessingException e) {		
-			return e.toString();
+			return JSON_ERROR;
 		}
 		
 	}

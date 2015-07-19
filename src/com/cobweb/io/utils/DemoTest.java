@@ -11,6 +11,7 @@ import com.cobweb.io.meta.Sensor;
 import com.cobweb.io.meta.SensorType;
 import com.cobweb.io.meta.User;
 import com.cobweb.io.service.AbstractService;
+import com.cobweb.io.service.DeleteService;
 import com.cobweb.io.service.ReadService;
 
 public class DemoTest implements AbstractService{
@@ -44,6 +45,18 @@ public class DemoTest implements AbstractService{
 //		Payload payload5 = new Payload("45cm");
 //		Payload payload6 = new Payload("222");
 //		Payload payload7 = new Payload("ffff");
+//		Payload payload8 = new Payload("ert");
+//		Payload payload9 = new Payload("def");
+//		
+//		Payload payload10 = new Payload("_q32C");
+//		Payload payload11 = new Payload("_qweeC");
+//		Payload payload12 = new Payload("_q23e");
+//		Payload payload13 = new Payload("_q34m");
+//		Payload payload14 = new Payload("_q45cm");
+//		Payload payload15 = new Payload("_q222");
+//		Payload payload16 = new Payload("_qffff");
+//		Payload payload17 = new Payload("_qert");
+//		Payload payload18 = new Payload("_qdef");
 //		
 //		CobwebWeaver cobwebWeaver = new CobwebWeaver();
 //		
@@ -66,7 +79,21 @@ public class DemoTest implements AbstractService{
 //		cobwebWeaver.addSensorPayload(sensor3.getId(), payload5);
 //		cobwebWeaver.addSensorPayload(sensor3.getId(), payload6);
 //		
-//		cobwebWeaver.addDevicePayload(device2.getId(), payload7);
+//		cobwebWeaver.addDevicePayload(device1.getId(), payload7);
+//		cobwebWeaver.addDevicePayload(device2.getId(), payload8);
+//		cobwebWeaver.addDevicePayload(device3.getId(), payload9);
+//		
+//		cobwebWeaver.addSensorPayload(sensor1.getId(), payload10);
+//		cobwebWeaver.addSensorPayload(sensor1.getId(), payload11);
+//		cobwebWeaver.addSensorPayload(sensor2.getId(), payload12);
+//		cobwebWeaver.addSensorPayload(sensor2.getId(), payload13);
+//		cobwebWeaver.addSensorPayload(sensor3.getId(), payload14);
+//		cobwebWeaver.addSensorPayload(sensor3.getId(), payload15);
+//		
+//		cobwebWeaver.addDevicePayload(device1.getId(), payload16);
+//		cobwebWeaver.addDevicePayload(device2.getId(), payload17);
+//		cobwebWeaver.addDevicePayload(device3.getId(), payload18);
+//		
 //		
 //		cobwebWeaver.addFollowUser(user1.getUid(),user2.getUid());
 //		cobwebWeaver.addFollowUser(user2.getUid(),user3.getUid());
@@ -74,13 +101,19 @@ public class DemoTest implements AbstractService{
 //		
 //		cobwebWeaver.addSensorSubscription(user3.getUid(), sensor1.getId());
 //		cobwebWeaver.addSensorSubscription(user2.getUid(), sensor3.getId());
+//		cobwebWeaver.addSensorSubscription(user1.getUid(), sensor3.getId());
+//		cobwebWeaver.addSensorSubscription(user1.getUid(), sensor2.getId());
+//		
+//		
 //		cobwebWeaver.addDeviceSubscription(user1.getUid(), device2.getId());
+//		cobwebWeaver.addDeviceSubscription(user1.getUid(), device3.getId());
+		
 		
 	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>//
 		
 		//System.out.println(regexCheck("samsung galaxy y","^[a-zA-Z0-9 ]*{3,15}$"));
 		
-		ReadService readService = new ReadService();
+		//ReadService readService = new ReadService();
 		
 		//System.out.println(readService.getSensorIds(readService.getUserId("yasith1@gmail.com")));
 		//readService.ReadUserNames();
@@ -104,6 +137,8 @@ public class DemoTest implements AbstractService{
 //			System.out.println(payload.getTimeStamp());
 //		}
 		
+		DeleteService deleteService = new DeleteService();
+		deleteService.deleteDevice("2d3a60b2-7a45-4d9f-a5fb-4199f31f81b2");
 		
 	}
 	

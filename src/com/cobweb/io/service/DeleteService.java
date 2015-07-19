@@ -1,10 +1,8 @@
 package com.cobweb.io.service;
 
-import com.cobweb.io.meta.Device;
-import com.cobweb.io.meta.Sensor;
-import com.cobweb.io.meta.User;
+import com.orientechnologies.orient.core.sql.OCommandSQL;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class DeleteService.
  *
@@ -14,30 +12,36 @@ import com.cobweb.io.meta.User;
 public class DeleteService implements AbstractService{
 
 	/**
-	 * Instantiates a new delete service.
+	 * Delete device.
 	 *
-	 * @param device the device
+	 * @param deviceId the device id
+	 * @return true, if successful
 	 */
-	public DeleteService(Device device){
-		
+	public boolean deleteDevice(String deviceId){		
+		int result = graph.command(new OCommandSQL("UPDATE Device SET isDeleted=true WHERE idValue = '"+deviceId+"'")).execute();
+		return result == 1;
+	}
+	
+	
+	/**
+	 * Delete sensor.
+	 *
+	 * @param sensorId the sensor id
+	 * @return true, if successful
+	 */
+	public boolean deleteSensor(String sensorId){		
+		int result = graph.command(new OCommandSQL("UPDATE Sensor SET isDeleted=true WHERE idValue = '"+sensorId+"'")).execute();
+		return result == 1;
 	}
 	
 	/**
-	 * Instantiates a new delete service.
+	 * Delete payload.
 	 *
-	 * @param sensor the sensor
+	 * @param payloadId the payload id
+	 * @return true, if successful
 	 */
-	public DeleteService(Sensor sensor){
-		
+	public boolean deletePayload(String payloadId){		
+		int result = graph.command(new OCommandSQL("UPDATE Payload SET isDeleted=true WHERE idValue = '"+payloadId+"'")).execute();
+		return result == 1;
 	}
-
-	/**
-	 * Instantiates a new delete service.
-	 *
-	 * @param user the user
-	 */
-	public DeleteService(User user){
-	
-	}
-	
 }

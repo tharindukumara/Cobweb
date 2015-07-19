@@ -7,11 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -19,6 +21,7 @@ import org.codehaus.jettison.json.JSONObject;
 
 import com.cobweb.io.meta.Sensor;
 import com.cobweb.io.meta.SensorType;
+import com.cobweb.io.service.DeleteService;
 import com.cobweb.io.service.ReadService;
 import com.cobweb.io.utils.CobwebWeaver;
 import com.cobweb.io.validator.SensorValidator;
@@ -36,6 +39,12 @@ public class RestSensor {
 	/** The Constant SUCCESS. */
 	private static final String SUCCESS					= "SUCCESS";
 	
+	/** The Constant ERROR. */
+	private static final String ERROR					= "ERROR";
+	
+	/** The Constant JSON_ERROR. */
+	private static final String JSON_ERROR				= "{\"error\":\"JSON Parsing error\"}";	
+
 	/**
 	 * Gets the sensor.
 	 *
@@ -57,19 +66,19 @@ public class RestSensor {
 		try {
 			return objectWriter.writeValueAsString(sensorList);
 		} catch (JsonProcessingException e) {		
-			return e.toString();
+			return JSON_ERROR;
 		}	
 	} 	
 
 	/**
-	 * Creates the.
+	 * Creates the sensor.
 	 *
 	 * @param jsonData the json data
 	 * @return the string
 	 */
 	@POST	
 	@Consumes(MediaType.APPLICATION_JSON)	
-	public String create(InputStream jsonData) {
+	public String createSensor(InputStream jsonData) {
 
 		
 		
@@ -96,7 +105,7 @@ public class RestSensor {
 			otherType 	= (String) incomingData.get("otherType");
 			
 		} catch (Exception e) {
-			return e.toString();
+			return ERROR;
 		}
 		
 		
@@ -124,5 +133,34 @@ public class RestSensor {
 		cobwebWeaver.addSensor(userId, sensor);
 
 		return SUCCESS;
+	}
+	
+	/**
+	 * Delete sensor.
+	 *
+	 * @param sensorId the sensor id
+	 * @return the response
+	 */
+	@DELETE
+	@Consumes(MediaType.TEXT_PLAIN)
+	public Response deleteSensor(String sensorId) {
+		
+		
+		DeleteService deleteService = new DeleteService();
+		ReadService readService = new ReadService();
+		
+		Subject currentUser = SecurityUtils.getSubject();
+		String email = (String) currentUser.getPrincipal();
+		String userId = readService.getUserId(email);
+		
+		List<String> sensorIdList = readService.getSensorIdList(userId);
+			
+		if(!sensorIdList.contains(sensorId))
+			return Response.status(Response.Status.UNAUTHORIZED).build();
+		
+		if(deleteService.deleteSensor(sensorId))
+			return Response.status(Response.Status.OK).build();
+		else
+			return Response.status(Response.Status.NOT_ACCEPTABLE).build();
 	}
 }
