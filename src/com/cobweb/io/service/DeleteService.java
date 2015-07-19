@@ -88,4 +88,15 @@ public class DeleteService implements AbstractService{
 			return true;
 	}
 	
+	/**
+	 * Delete user request user.
+	 *
+	 * @param friendId the friend id
+	 * @param userId the user id
+	 * @return true, if successful
+	 */
+	public boolean deleteUserRequestUser(String friendId, String userId){
+		int result = graph.command(new OCommandSQL("DELETE EDGE UserFollowsUser WHERE outV().idValue ='"+friendId+"' AND inV().idValue ='"+userId+"'")).execute();
+		return result == 1;	
+	}
 }

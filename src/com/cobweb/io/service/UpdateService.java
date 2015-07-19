@@ -34,4 +34,16 @@ public class UpdateService implements AbstractService{
 		int result = graph.command(new OCommandSQL("UPDATE UserSubscribesSensor SET isAccepted=true WHERE outV().idValue = '"+userId+"' AND inV().idValue ='"+sensorId+"'")).execute();
 		return result == 1;	
 	}
+	
+	/**
+	 * Sets the user follows user.
+	 *
+	 * @param friendId the friend id
+	 * @param userId the user id
+	 * @return true, if successful
+	 */
+	public boolean setUserFollowsUser(String friendId, String userId){
+		int result = graph.command(new OCommandSQL("UPDATE UserFollowsUser SET isAccepted=true WHERE outV().idValue = '"+friendId+"' AND inV().idValue ='"+userId+"'")).execute();
+		return result == 1;	
+	}
 }

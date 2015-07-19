@@ -12,6 +12,7 @@ import java.util.Locale;
 
 import com.cobweb.io.meta.Device;
 import com.cobweb.io.meta.DeviceType;
+import com.cobweb.io.meta.FriendRequest;
 import com.cobweb.io.meta.LoggedUser;
 import com.cobweb.io.meta.Payload;
 import com.cobweb.io.meta.Sensor;
@@ -766,8 +767,8 @@ public class ReadService implements AbstractService{
 	public List<String> getUserFollowersIdList(String userId){
 		
 		List<String>	followerIdList = new ArrayList<String>();
-		List<ODocument> resultList1 = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(in('UserFollowsUser')) from User where idValue='"+userId+"'"));
-		List<ODocument> resultList2 = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(out('UserFollowsUser')) from User where idValue='"+userId+"'"));
+		List<ODocument> resultList1 = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(inE('UserFollowsUser')[isAccepted=true].outV()) from User where idValue='"+userId+"'"));
+		List<ODocument> resultList2 = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(outE('UserFollowsUser')[isAccepted=true].inV()) from User where idValue='"+userId+"'"));
 		
 		for (ODocument result:resultList1) {			
 			String id = result.field("idValue");			
@@ -781,4 +782,30 @@ public class ReadService implements AbstractService{
 		return followerIdList;
 	}
 	
+	/**
+	 * Gets the friend request list.
+	 *
+	 * @param userId the user id
+	 * @return the friend request list
+	 */
+	public List<FriendRequest> getFriendRequestList(String userId){
+		
+		List<ODocument> resultList = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(inE('UserFollowsUser')[isAccepted=false].outV()) from User where idValue='"+userId+"'"));
+		List<FriendRequest>	friendRequestList = new ArrayList<FriendRequest>();
+		
+		for (ODocument result:resultList) {			
+			
+			FriendRequest friendRequest = new FriendRequest();
+			String id 			= result.field("idValue");	
+			String firstname 	= result.field("firstname");
+			String lastname		= result.field("lastname");
+			
+			friendRequest.setFirstname(firstname);
+			friendRequest.setLastname(lastname);
+			friendRequest.setUserId(id);
+			
+			friendRequestList.add(friendRequest);
+		}		
+		return friendRequestList;	
+	}
 }
