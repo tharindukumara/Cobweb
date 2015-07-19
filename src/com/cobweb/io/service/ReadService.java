@@ -614,4 +614,42 @@ public class ReadService implements AbstractService{
 		}		
 		return devicePayloadIdList;		
 	}
+	
+
+	/**
+	 * Gets the device subscriber request list.
+	 *
+	 * @param deviceId the device id
+	 * @return the device subscriber request list
+	 */
+	public List<String> getDeviceSubscriberRequestList(String deviceId){
+		
+		List<ODocument> resultList = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(inE('UserSubscribesDevice')[isAccepted=false].outV()) from Device where idValue='"+deviceId+"'"));
+		List<String>	deviceSubscriberRequestList = new ArrayList<String>();
+		
+		for (ODocument result:resultList) {			
+			String id = result.field("idValue");	
+			deviceSubscriberRequestList.add(id);
+		}		
+		return deviceSubscriberRequestList;		
+	}
+	
+	
+	/**
+	 * Gets the sensor subscriber request list.
+	 *
+	 * @param sensorId the sensor id
+	 * @return the sensor subscriber request list
+	 */
+	public List<String> getSensorSubscriberRequestList(String sensorId){
+		
+		List<ODocument> resultList = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(inE('UserSubscribesSensor')[isAccepted=false].outV()) from Sensor where idValue='"+sensorId+"'"));
+		List<String>	sensorSubscriberRequestList = new ArrayList<String>();
+		
+		for (ODocument result:resultList) {			
+			String id = result.field("idValue");			
+			sensorSubscriberRequestList.add(id);
+		}		
+		return sensorSubscriberRequestList;		
+	}
 }

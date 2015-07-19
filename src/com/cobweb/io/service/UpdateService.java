@@ -1,8 +1,6 @@
 package com.cobweb.io.service;
 
-import com.cobweb.io.meta.Device;
-import com.cobweb.io.meta.Sensor;
-import com.cobweb.io.meta.User;
+import com.orientechnologies.orient.core.sql.OCommandSQL;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -14,30 +12,26 @@ import com.cobweb.io.meta.User;
 public class UpdateService implements AbstractService{
 
 	/**
-	 * Instantiates a new update service.
+	 * Sets the user device subscription.
 	 *
-	 * @param device the device
+	 * @param userId the user id
+	 * @param deviceId the device id
+	 * @return true, if successful
 	 */
-	public UpdateService(Device device){
-		
+	public boolean setUserDeviceSubscription(String userId, String deviceId){
+		int result = graph.command(new OCommandSQL("UPDATE UserSubscribesDevice SET isAccepted=true WHERE outV().idValue = '"+userId+"' AND inV().idValue ='"+deviceId+"'")).execute();
+		return result == 1;	
 	}
 	
 	/**
-	 * Instantiates a new update service.
+	 * Sets the user sensor subscription.
 	 *
-	 * @param sensor the sensor
+	 * @param userId the user id
+	 * @param sensorId the sensor id
+	 * @return true, if successful
 	 */
-	public UpdateService(Sensor sensor){
-		
+	public boolean setUserSensorSubscription(String userId, String sensorId){
+		int result = graph.command(new OCommandSQL("UPDATE UserSubscribesSensor SET isAccepted=true WHERE outV().idValue = '"+userId+"' AND inV().idValue ='"+sensorId+"'")).execute();
+		return result == 1;	
 	}
-
-	/**
-	 * Instantiates a new update service.
-	 *
-	 * @param user the user
-	 */
-	public UpdateService(User user){
-	
-	}
-
 }

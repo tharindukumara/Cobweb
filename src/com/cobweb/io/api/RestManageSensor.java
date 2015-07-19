@@ -27,8 +27,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
 
-@Path("/device/manage")
-public class RestManageDevice {
+@Path("/sensor/manage")
+public class RestManageSensor {
 
 	/** The Constant JSON_ERROR. */
 	private static final String JSON_ERROR				= "{\"error\":\"JSON Parsing error\"}";	
@@ -39,8 +39,8 @@ public class RestManageDevice {
 	/** The Constant ERROR. */
 	private static final String ERROR					= "ERROR";
 	
-	/** The Constant UNKNOWN_DEVICE_ID. */
-	private static final String UNKNOWN_DEVICE_ID 		= "Unknown Device Id or Unauthorized Device";
+	/** The Constant UNKNOWN_SENSOR_ID. */
+	private static final String UNKNOWN_SENSOR_ID 		= "Unknown Sensor Id or Unauthorized Sensor";
 	
 	
 	/**
@@ -59,14 +59,14 @@ public class RestManageDevice {
 		String email = (String) currentUser.getPrincipal();
 		String userId = readService.getUserId(email);
 		
-		List<String> deviceIdList = readService.getDeviceIdList(userId);		
+		List<String> sensorIdList = readService.getSensorIdList(userId);		
 		Map<String,List<String>> subscriptionMap = new HashMap<String,List<String>>();
 	
-		for (String deviceId : deviceIdList) {
-			List<String> subscriptionIdList = readService.getDeviceSubscriberRequestList(deviceId);
+		for (String sensorId : sensorIdList) {
+			List<String> subscriptionIdList = readService.getSensorSubscriberRequestList(sensorId);
 			
 			if(!subscriptionIdList.isEmpty())
-				subscriptionMap.put(deviceId,subscriptionIdList);				
+				subscriptionMap.put(sensorId,subscriptionIdList);				
 		}
 		
 		try {
@@ -88,7 +88,7 @@ public class RestManageDevice {
 	public String addSubscription(InputStream jsonData) {		
 		
 		String subscriberId 	= null;
-		String deviceId	= null;
+		String sensorId	= null;
 		boolean accept	= false;		
 		
 		StringBuilder stringData = new StringBuilder();
@@ -98,7 +98,7 @@ public class RestManageDevice {
 		Subject currentUser = SecurityUtils.getSubject();
 		String email = (String) currentUser.getPrincipal();
 		String userId = readService.getUserId(email);
-		List<String> deviceIdList	= readService.getDeviceIdList(userId);
+		List<String> sensorIdList	= readService.getSensorIdList(userId);
 		
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(jsonData));
@@ -109,20 +109,20 @@ public class RestManageDevice {
 			
 			incomingData = new JSONObject(stringData.toString());
 			subscriberId = (String) incomingData.get("subscriberId");
-			deviceId 	 = (String) incomingData.get("deviceId");
+			sensorId 	 = (String) incomingData.get("sensorId");
 			accept 		 = (boolean) incomingData.get("accept");				
 			
 		} catch (Exception e) {
 			return ERROR;
 		}
 		
-		if(!deviceIdList.contains(deviceId))					
-			return UNKNOWN_DEVICE_ID;	
+		if(!sensorIdList.contains(sensorId))					
+			return UNKNOWN_SENSOR_ID;	
 		
 		
 		if(accept){
 			UpdateService updateService = new UpdateService();
-			boolean status = updateService.setUserDeviceSubscription(subscriberId, deviceId);
+			boolean status = updateService.setUserSensorSubscription(subscriberId, sensorId);
 			
 			if(status)
 				return SUCCESS;
@@ -131,7 +131,7 @@ public class RestManageDevice {
 			
 		}else{
 			DeleteService deleteService = new DeleteService();
-			boolean status = deleteService.deleteUserDeviceSubscription(subscriberId, deviceId);
+			boolean status = deleteService.deleteUserSensorSubscription(subscriberId, sensorId);
 			
 			if(status)
 				return SUCCESS;
@@ -151,7 +151,7 @@ public class RestManageDevice {
 	public String deleteSubscription(InputStream jsonData) {		
 		
 		String subscriberId = null;
-		String deviceId	= null;
+		String sensorId	= null;
 		
 		StringBuilder stringData = new StringBuilder();
 		JSONObject incomingData;
@@ -160,7 +160,7 @@ public class RestManageDevice {
 		Subject currentUser = SecurityUtils.getSubject();
 		String email = (String) currentUser.getPrincipal();
 		String userId = readService.getUserId(email);
-		List<String> deviceIdList	= readService.getDeviceIdList(userId);
+		List<String> sensorIdList	= readService.getSensorIdList(userId);
 		
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(jsonData));
@@ -171,17 +171,17 @@ public class RestManageDevice {
 			
 			incomingData = new JSONObject(stringData.toString());
 			subscriberId = (String) incomingData.get("subscriberId");
-			deviceId 	 = (String) incomingData.get("deviceId");
+			sensorId 	 = (String) incomingData.get("sensorId");
 			
 		} catch (Exception e) {
 			return ERROR;
 		}
 		
-		if(!deviceIdList.contains(deviceId))					
-			return UNKNOWN_DEVICE_ID;			
+		if(!sensorIdList.contains(sensorId))					
+			return UNKNOWN_SENSOR_ID;			
 		
 		DeleteService deleteService = new DeleteService();
-		boolean status = deleteService.deleteUserDeviceSubscription(subscriberId, deviceId);
+		boolean status = deleteService.deleteUserSensorSubscription(subscriberId, sensorId);
 		
 		if(status)
 			return SUCCESS;

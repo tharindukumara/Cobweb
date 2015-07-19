@@ -113,7 +113,9 @@ public class DemoTest implements AbstractService{
 		
 		//System.out.println(regexCheck("samsung galaxy y","^[a-zA-Z0-9 ]*{3,15}$"));
 		
-		//ReadService readService = new ReadService();
+		ReadService readService = new ReadService();
+		System.out.println(readService.getDeviceSubscriberRequestList("2d3a60b2-7a45-4d9f-a5fb-4199f31f81b2").isEmpty());
+		
 		
 		//System.out.println(readService.getSensorIds(readService.getUserId("yasith1@gmail.com")));
 		//readService.ReadUserNames();
@@ -137,9 +139,9 @@ public class DemoTest implements AbstractService{
 //			System.out.println(payload.getTimeStamp());
 //		}
 		
-		DeleteService deleteService = new DeleteService();
-		deleteService.deleteDevice("2d3a60b2-7a45-4d9f-a5fb-4199f31f81b2");
-		
+	//	DeleteService deleteService = new DeleteService();
+	//	deleteService.deleteDevice("2d3a60b2-7a45-4d9f-a5fb-4199f31f81b2");
+	//	
 	}
 	
 	
