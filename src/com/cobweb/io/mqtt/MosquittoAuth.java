@@ -19,7 +19,7 @@ public class MosquittoAuth {
 	 * @return true, if successful
 	 */
 	public boolean checkUserName(String username){
-		return readService.checkUserNameExists(username);
+		return readService.checkUserNameExistsByEmail(username);
 	}
 	
 	/**

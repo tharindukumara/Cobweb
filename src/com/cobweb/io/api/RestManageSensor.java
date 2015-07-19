@@ -27,7 +27,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
 
-@Path("/sensor/manage")
+
+/**
+ * The Class RestManageSensor.
+ * @author Yasith Lokuge
+ */
+@Path("/sensor/subscriptions/manage")
 public class RestManageSensor {
 
 	/** The Constant JSON_ERROR. */

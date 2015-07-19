@@ -27,7 +27,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
 
-@Path("/device/manage")
+
+/**
+ * The Class RestManageDevice.
+ * @author Yasith Lokuge
+ */
+@Path("/device/subscriptions/manage")
 public class RestManageDevice {
 
 	/** The Constant JSON_ERROR. */

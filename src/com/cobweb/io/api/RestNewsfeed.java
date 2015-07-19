@@ -17,6 +17,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
 
+/**
+ * The Class RestNewsfeed.
+ * @author Yasith Lokuge
+ */
 @Path("/newsfeed")
 public class RestNewsfeed {
 
@@ -24,6 +28,11 @@ public class RestNewsfeed {
 	private static final String JSON_ERROR				= "{\"error\":\"JSON Parsing error\"}";	
 	
 	
+	/**
+	 * Gets the device payload.
+	 *
+	 * @return the device payload
+	 */
 	@GET
 	@Path("/device")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -45,6 +54,11 @@ public class RestNewsfeed {
 		
 	}
 	
+	/**
+	 * Gets the sensor payload.
+	 *
+	 * @return the sensor payload
+	 */
 	@GET
 	@Path("/sensor")
 	@Produces(MediaType.APPLICATION_JSON)

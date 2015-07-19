@@ -107,11 +107,27 @@ public class ReadService implements AbstractService{
 	 * @param email the email
 	 * @return true, if successful
 	 */
-	public boolean checkUserNameExists(String email){				
+	public boolean checkUserNameExistsByEmail(String email){				
 		try {
 			ODocument result = (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select email from User where email='"+email+"'")).get(0);
 			String data = result.field("email");
 			return data.equals(email);
+		} catch (Exception e) {			
+			return false;
+		}	
+	}
+	
+	/**
+	 * Check user name exists by id.
+	 *
+	 * @param userId the user id
+	 * @return true, if successful
+	 */
+	public boolean checkUserNameExistsById(String userId){				
+		try {
+			ODocument result = (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select idValue from User where idValue='"+userId+"'")).get(0);
+			String data = result.field("idValue");
+			return data.equals(userId);
 		} catch (Exception e) {			
 			return false;
 		}	
@@ -764,5 +780,5 @@ public class ReadService implements AbstractService{
 		}			
 		return followerIdList;
 	}
-
+	
 }
