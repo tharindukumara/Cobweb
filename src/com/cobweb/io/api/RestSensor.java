@@ -158,9 +158,16 @@ public class RestSensor {
 		if(!sensorIdList.contains(sensorId))
 			return Response.status(Response.Status.UNAUTHORIZED).build();
 		
-		if(deleteService.deleteSensor(sensorId))
+		if(deleteService.deleteSensor(sensorId)){
+			List<String> payloadIdList = readService.getSensorPayloadIdListFromSensor(sensorId);
+			
+			for (String payloadId : payloadIdList) {
+				deleteService.deletePayload(payloadId);
+			}
+			
 			return Response.status(Response.Status.OK).build();
-		else
+		}else{
 			return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+		}
 	}
 }

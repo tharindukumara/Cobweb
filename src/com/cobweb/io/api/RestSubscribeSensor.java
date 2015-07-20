@@ -112,7 +112,7 @@ public class RestSubscribeSensor {
 		String userId = readService.getUserId(email);
 		
 		String ownerId = readService.getParentUserIdFromSensor(sensorId);
-		List<String> friendList = readService.getUserFollowersIdList(userId);
+		List<String> friendList = readService.getFriendsIdList(userId);
 		
 		if(!friendList.contains(ownerId))
 			return UNKNOWN_SENSOR_ID;	

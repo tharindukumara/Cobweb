@@ -157,9 +157,22 @@ public class RestDevice {
 		if(!deviceIdList.contains(deviceId))
 			return Response.status(Response.Status.UNAUTHORIZED).build();
 		
-		if(deleteService.deleteDevice(deviceId))
+		if(deleteService.deleteDevice(deviceId)){
+			
+			List<String> sensorIdList = readService.getAttachedSensorList(deviceId);
+			List<String> payloadIdList = readService.getDevicePayloadIdListFromDevice(deviceId);
+			
+			for (String payloadId : payloadIdList) {
+				deleteService.deletePayload(payloadId);
+			}
+			
+			for (String sensorId : sensorIdList) {
+				deleteService.deleteSensor(sensorId);
+			}
+			
 			return Response.status(Response.Status.OK).build();
-		else
+		}else{
 			return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+		}
 	}
 }

@@ -107,7 +107,7 @@ public class RestSubscribeDevice {
 		String userId = readService.getUserId(email);
 		
 		String ownerId = readService.getParentUserIdFromDevice(deviceId);
-		List<String> friendList = readService.getUserFollowersIdList(userId);
+		List<String> friendList = readService.getFriendsIdList(userId);
 		
 		if(!friendList.contains(ownerId))
 			return UNKNOWN_DEVICE_ID;	

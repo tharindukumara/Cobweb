@@ -55,7 +55,7 @@ public class RestDevicePayload {
 		List<String> deviceIdList 			= readService.getDeviceIdList(userId);
 		List<String> subscribedDeviceIdList = readService.getSubscribedDeviceIdList(userId);
 		
-		if(!deviceIdList.contains(deviceId) || !subscribedDeviceIdList.contains(deviceId))					
+		if(!(deviceIdList.contains(deviceId) || subscribedDeviceIdList.contains(deviceId)))					
 			return UNKNOWN_DEVICE_ID;	
 		
 		ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
@@ -116,7 +116,7 @@ public class RestDevicePayload {
 		String email = (String) currentUser.getPrincipal();
 		String userId = readService.getUserId(email);
 		
-		List<String> devicePayloadIdList = readService.getDevicePayloadIdList(userId);
+		List<String> devicePayloadIdList = readService.getDevicePayloadIdListFromUser(userId);
 		
 		if(!devicePayloadIdList.contains(payloadId))
 			return Response.status(Response.Status.UNAUTHORIZED).build();

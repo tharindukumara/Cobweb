@@ -1,0 +1,107 @@
+package com.cobweb.io.api;
+
+import java.util.List;
+
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
+
+import com.cobweb.io.meta.Payload;
+import com.cobweb.io.service.DeleteService;
+import com.cobweb.io.service.GraphFactory;
+import com.cobweb.io.service.ReadService;
+import com.cobweb.io.transformers.VertexToPayload;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.tinkerpop.blueprints.Vertex;
+
+@Path("/api/payload")
+public class RestGetPayload {
+
+	/** The Constant JSON_ERROR. */
+	private static final String JSON_ERROR				= "{\"error\":\"JSON Parsing error\"}";	
+	
+	/** The Constant UNKNOWN_DEVICE_ID. */
+	private static final String UNKNOWN_PAYLOAD_ID 		= "{\"error\":\"Unknown Payload Id or Unauthorized\"}";
+	
+	
+	/**
+	 * Gets the payload.
+	 *
+	 * @param payloadId the payload id
+	 * @return the payload
+	 */
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("{payloadId}")
+	public String getPayload(@PathParam("payloadId") String payloadId){
+		
+		
+		ReadService readService = new ReadService();
+		Subject currentUser = SecurityUtils.getSubject();
+		String email = (String) currentUser.getPrincipal();
+		String userId = readService.getUserId(email);
+		
+		List<String> userDevicePayloadIdList 	= readService.getDevicePayloadIdListFromUser(userId);
+		List<String> userSensorPayloadIdList 	= readService.getSensorPayloadIdListFromUser(userId);
+		List<String> friendDevicePayloadIdList	= readService.getSubscribedDevicePayloadIdList(userId);
+		List<String> friendSensorPayloadIdList 	= readService.getSubscribedSensorPayloadIdList(userId);
+
+		
+		if(!(userDevicePayloadIdList.contains(payloadId) || userSensorPayloadIdList.contains(payloadId) || friendDevicePayloadIdList.contains(payloadId) || friendSensorPayloadIdList.contains(payloadId)))
+			return UNKNOWN_PAYLOAD_ID;
+		
+
+		GraphFactory graphFactory = new GraphFactory();
+		VertexToPayload toPayload = new VertexToPayload();
+		Vertex payloadVertex = graphFactory.getPayloadVertex(payloadId);
+		Payload payload = toPayload.transform(payloadVertex);
+		
+		ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
+
+		try {
+			return objectWriter.writeValueAsString(payload);
+		} catch (JsonProcessingException e) {		
+			return JSON_ERROR;
+		}
+			
+	}
+	
+	
+	/**
+	 * Delete payload.
+	 *
+	 * @param payloadId the payload id
+	 * @return the response
+	 */
+	@DELETE
+	@Path("{payloadId}")
+	public Response deletePayload(@PathParam("payloadId") String payloadId){
+		
+		ReadService readService = new ReadService();
+		Subject currentUser = SecurityUtils.getSubject();
+		String email = (String) currentUser.getPrincipal();
+		String userId = readService.getUserId(email);
+		
+		List<String> userDevicePayloadIdList 	= readService.getDevicePayloadIdListFromUser(userId);
+		List<String> userSensorPayloadIdList 	= readService.getSensorPayloadIdListFromUser(userId);
+		
+		if(!(userDevicePayloadIdList.contains(payloadId) || userSensorPayloadIdList.contains(payloadId)))
+			return Response.status(Response.Status.UNAUTHORIZED).build();
+		
+		DeleteService deleteService = new DeleteService();
+		
+		if(deleteService.deletePayload(payloadId))
+			return Response.status(Response.Status.OK).build();
+		else
+			return Response.status(Response.Status.NOT_ACCEPTABLE).build();		
+	}
+}

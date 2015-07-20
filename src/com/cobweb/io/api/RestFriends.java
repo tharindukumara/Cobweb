@@ -65,7 +65,7 @@ public class RestFriends {
 		String email = (String) currentUser.getPrincipal();
 		String userId = readService.getUserId(email);
 		
-		List<String> friendIdList	= readService.getUserFollowersIdList(userId);		
+		List<String> friendIdList	= readService.getFriendsIdList(userId);		
 		List<User> friendObjList 	= new ArrayList<User>();
 		GraphFactory graphFactory 	= new GraphFactory();
 		VertexToUser vertexToUser 	= new VertexToUser();
@@ -97,7 +97,7 @@ public class RestFriends {
 		Subject currentUser = SecurityUtils.getSubject();
 		String email = (String) currentUser.getPrincipal();
 		String userId = readService.getUserId(email);
-		List<String> friendIdList = readService.getUserFollowersIdList(userId);
+		List<String> friendIdList = readService.getFriendsIdList(userId);
 		
 		if(friendIdList.contains(friendId))
 			return ALREADY_FRIEND;
@@ -125,7 +125,7 @@ public class RestFriends {
 		Subject currentUser = SecurityUtils.getSubject();
 		String email = (String) currentUser.getPrincipal();
 		String userId = readService.getUserId(email);
-		List<String> friendIdList = readService.getUserFollowersIdList(userId);
+		List<String> friendIdList = readService.getFriendsIdList(userId);
 		
 		if(!friendIdList.contains(friendId))
 			return ERROR;

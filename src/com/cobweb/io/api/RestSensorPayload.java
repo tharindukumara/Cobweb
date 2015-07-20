@@ -53,7 +53,7 @@ private static final String JSON_ERROR			= "{\"error\":\"JSON Parsing error\"}";
 		List<String> sensorIdList 			= readService.getSensorIdList(userId);
 		List<String> subscribedSensorIdList = readService.getSubscribedSensorIdList(userId);
 		
-		if(!sensorIdList.contains(sensorId) || !subscribedSensorIdList.contains(sensorId))					
+		if(!(sensorIdList.contains(sensorId) || subscribedSensorIdList.contains(sensorId)))					
 			return UNKNOWN_SENSOR_ID;	
 		
 		ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
@@ -113,7 +113,7 @@ private static final String JSON_ERROR			= "{\"error\":\"JSON Parsing error\"}";
 		String email = (String) currentUser.getPrincipal();
 		String userId = readService.getUserId(email);
 		
-		List<String> sensorPayloadIdList = readService.getSensorPayloadIdList(userId);
+		List<String> sensorPayloadIdList = readService.getSensorPayloadIdListFromUser(userId);
 		
 		if(!sensorPayloadIdList.contains(payloadId))
 			return Response.status(Response.Status.UNAUTHORIZED).build();
