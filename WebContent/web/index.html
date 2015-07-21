@@ -1,186 +1,133 @@
 <html>
 
 <head>
-<link rel="icon" href="img/favicon.png">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
-
-
-
-
-<link
-	href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"
-	rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="css\theme.css">
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.pink-indigo.min.css" />
+    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 
 <body>
-
-	<div class="section">
-		<div class="container"></div>
-	</div>
-	<div class="section">
-		<div class="background-image"
-			style="background-image: url('img/footer.png')"></div>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-3">
-					<a href="#"> <img src="img\logo.png"
-						class="center-block img-responsive" />
-					</a>
-				</div>
-				<div class="col-md-9 text-right" id="login">
-					<form class="form-inline" role="form" name="loginform" method="POST">
-						<div class="form-group">
-							<div class="col-sm-2">
-								<label for="inputEmail3" class="control-label">Email</label>
-							</div>
-							<div class="col-sm-10 text-right">
-								<input type="email" class="form-control" name="loginEmail"
-									placeholder="Email"/>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-sm-2">
-								<label for="inputPassword3" class="control-label">Password</label>
-							</div>
-							<div class="col-sm-10 text-right">
-								<input type="password" class="form-control" name="loginPassword"
-									placeholder="Password"/>
-							</div>
-						</div>
-						<div class="form-inline">
-							<div class="col-sm-offset-2 col-sm-10">
-								<div class="checkbox">
-									<label> <input type="checkbox" name="rememberMe" />
-										Remember me
-									</label>
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">
-								<button type="submit" class="btn btn-sm btn-success">Sign
-									in</button>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="section">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12"></div>
-			</div>
-		</div>
-	</div>
-	<div class="section">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6">
-					<div class="embed-responsive embed-responsive-16by9">
-						<iframe class="embed-responsive-item"
-							src="https://www.youtube.com/embed/ScLlgq94Dl8"
-							allowfullscreen=""></iframe>
-					</div>
-				</div>
-				<div class="col-md-6" id="signup">
-					<form role="form" class="text-left">
-						<div class="form-group">
-							<label class="control-label">First name</label> <input
-								class="form-control" id="registerFirstName"
-								placeholder="First Name" type="text"/>
-						</div>
-						<div class="form-group">
-							<label class="control-label">Last Name</label> <input
-								class="form-control" id="registerLastName"
-								placeholder="Last Name" type="text"/>
-						</div>
-						<div class="form-group">
-							<label class="control-label">Email address</label> <input
-								class="form-control" id="registerEmail"
-								placeholder="Enter email" type="email"/>
-						</div>
-						<div class="form-group">
-							<label class="control-label">Password</label> <input
-								class="form-control" id="registerPassword1"
-								placeholder="Password" type="password"
-								/>
-						</div>
-						<div class="form-group">
-							<label class="control-label">Re enter Password</label> <input
-								class="form-control" id="registerPassword2"
-								placeholder="Password" type="password"
-								/>
-							
-						</div>
-						<button type="submit" class="btn btn-lg btn-success">SignUp</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="section">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12"></div>
-			</div>
-		</div>
-	</div>
-	<footer class="section">
-		<div class="background-image"
-			style="background-image: url('img/footer.png')"></div>
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-6">
-					<h1>cobweb.io - social network of things</h1>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisici elit, <br />
-						sed eiusmod tempor incidunt ut labore et dolore magna aliqua. <br />
-						Ut enim ad minim veniam, quis nostrud
-					</p>
-				</div>
-				<div class="col-sm-6">
-					<p class="text-info text-right">
-						<br /> <br />
-					</p>
-					<div class="row">
-						<div class="col-md-12 hidden-lg hidden-md hidden-sm text-left">
-							<a href="#"> <i
-								class="fa fa-3x fa-fw fa-instagram text-inverse"></i>
-							</a> <a href="#"> <i
-								class="fa fa-3x fa-fw fa-twitter text-inverse"></i>
-							</a> <a href="#"> <i
-								class="fa fa-3x fa-fw fa-facebook text-inverse"></i>
-							</a> <a href="#"> <i
-								class="fa fa-3x fa-fw fa-github text-inverse"></i>
-							</a>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12 hidden-xs text-right">
-							<a href="#"> <i
-								class="fa fa-3x fa-fw text-inverse fa-google-plus"></i>
-							</a> <a href="#"> <i
-								class="fa fa-3x fa-fw fa-twitter text-inverse"></i>
-							</a> <a href="#"> <i
-								class="fa fa-3x fa-fw fa-facebook text-inverse"></i>
-							</a> <a href="#"> <i
-								class="fa fa-3x fa-fw fa-github text-inverse"></i>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header">
+            <div class="demo-grid-ruler mdl-grid"></div>
+            <div class="demo-grid-ruler mdl-grid"></div>
+            <div class="mdl-layout__header-row">
+                <!-- Title -->
+                <span class="mdl-layout-title" style="font-size:60px">cobweb.io</span>
+                <!-- Add spacer, to align navigation to the right -->
+                <div class="mdl-layout-spacer"></div>
+                <form name="loginform" method="POST">
+                    <i class="material-icons">email</i>
+                    <div class="mdl-textfield mdl-js-textfield textfield-demo">
+                        <input class="mdl-textfield__input" type="text" id="sample1" name="loginEmail"/>
+                        <label class="mdl-textfield__label" for="sample1">Email</label>
+                    </div>
+                    <i class="material-icons">lock</i>
+                    <div class="mdl-textfield mdl-js-textfield textfield-demo">
+                        <input class="mdl-textfield__input" type="password" id="sample1" name="loginPassword" />
+                        <label class="mdl-textfield__label" for="sample1">Password</label>
+                    </div>
+                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-2">
+                        <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input" name="rememberMe"/>
+                        <span class="mdl-checkbox__label">Remember Me</span>
+                    </label>
+                    <button  type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                        Login
+                    </button>
+                </form>
+            </div>
+        </header>
+        <main class="mdl-layout__content mdl-color--grey-100">
+            <div class="page-content">
+                <div class="demo-grid-10 mdl-grid">
+                    <div class="mdl-cell mdl-cell--1-col"></div>
+                    <div class="mdl-cell mdl-cell--5-col">
+                        <div class="demo-grid-ruler mdl-grid"></div>
+                        <div class="demo-grid-ruler mdl-grid"></div>
+                        <div class="demo-grid-ruler mdl-grid"></div>
+                        <iframe width="560" height="400" src="https://www.youtube.com/embed/ScLlgq94Dl8" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="mdl-cell mdl-cell--1-col"></div>
+                    <div class="mdl-cell mdl-cell--5-col">
+                        <style>
+                        .demo-card-wide.mdl-card {
+                            width: 512px;
+                        }
+                        
+                        .demo-card-wide > .mdl-card__menu {
+                            color: #fff;
+                        }
+                        
+                        .demo-card-wide > .mdl-card__title {
+                            color: #fff;
+                            height: 176px;
+                            background: url('../img/iot.jpg') center / cover;
+                        }
+                        </style>
+                        <div class="mdl-card mdl-shadow--2dp demo-card-wide">
+                            <div class="mdl-card__title">
+                                <h2 class="mdl-card__title-text"></h2>
+                            </div>
+                            <div class="mdl-card__supporting-text">
+                                <form action="#">
+                                    <i class="material-icons">account_circle</i>
+                                    <div class="mdl-textfield mdl-js-textfield textfield-demo">
+                                        <input class="mdl-textfield__input" type="text" id="sample1" />
+                                        <label class="mdl-textfield__label" for="sample1">First Name</label>
+                                    </div>
+                                    <br>
+                                    <i class="material-icons">face</i>
+                                    <div class="mdl-textfield mdl-js-textfield textfield-demo">
+                                        <input class="mdl-textfield__input" type="text" id="sample1" />
+                                        <label class="mdl-textfield__label" for="sample1">Last Name</label>
+                                    </div>
+                                    <br>
+                                    <i class="material-icons">email</i>
+                                    <div class="mdl-textfield mdl-js-textfield textfield-demo">
+                                        <input class="mdl-textfield__input" type="text" id="sample1" />
+                                        <label class="mdl-textfield__label" for="sample1">Email</label>
+                                    </div>
+                                    <br>
+                                    <i class="material-icons">lock</i>
+                                    <div class="mdl-textfield mdl-js-textfield textfield-demo">
+                                        <input class="mdl-textfield__input" type="password" id="sample1" />
+                                        <label class="mdl-textfield__label" for="sample1">Password</label>
+                                    </div>
+                                    <br>
+                                    <i class="material-icons">lock</i>
+                                    <div class="mdl-textfield mdl-js-textfield textfield-demo">
+                                        <input class="mdl-textfield__input" type="password" id="sample1" />
+                                        <label class="mdl-textfield__label" for="sample1">Confirm Password</label>
+                                    </div>
+                                    <br>
+                                </form>
+                            </div>
+                            <div class="mdl-card__actions mdl-card--border">
+                                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+      Sign Up
+    </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="mdl-mega-footer">
+                    <div class="demo-grid-1 mdl-grid">
+                        <div class="mdl-cell mdl-cell--4-col"></div>
+                        <div class="mdl-cell mdl-cell--4-col"></div>
+                        <div class="mdl-cell mdl-cell--4-col"></div>
+                    </div>
+                    <div class="mdl-mega-footer--bottom-section">
+                        <div class="mdl-logo">Title</div>
+                        <ul class="mdl-mega-footer--link-list">
+                            <li><a href="#">Help</a></li>
+                            <li><a href="#">Privacy & Terms</a></li>
+                        </ul>
+                    </div>
+                </footer>
+            </div>
+        </main>
+    </div>
 </body>
+
 </html>

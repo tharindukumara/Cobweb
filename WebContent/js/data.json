@@ -1,0 +1,65 @@
+[ {
+  "id" : "6f59e588-3f68-4c38-b426-d238652dba3a",
+  "message" : "_q222",
+  "dateTime" : 1437208628000,
+  "deviceId" : "3a0ee1b2-d826-4aed-b144-3d850a353852",
+  "sensorId" : "03817de4-0498-4af9-b378-ed039b05deef",
+  "userId" : "47a228c4-6472-49a6-96e7-4c5252bd1eea",
+  "timeStamp" : "2015-07-18 14:07:08"
+}, {
+  "id" : "d4e70102-7b55-40ab-917d-a0b158f6d0e4",
+  "message" : "23e",
+  "dateTime" : 1437208627000,
+  "deviceId" : "3206508d-35ca-4fc7-ab0b-54704b22ce9a",
+  "sensorId" : "e9200790-2ff1-4112-a955-a08c87ff485e",
+  "userId" : "ce8145ad-e3b1-4b29-8398-43735f84de6a",
+  "timeStamp" : "2015-07-18 14:07:07"
+}, {
+  "id" : "90d0b576-1b56-4718-b78e-67c308c17c3f",
+  "message" : "34m",
+  "dateTime" : 1437208627000,
+  "deviceId" : "3206508d-35ca-4fc7-ab0b-54704b22ce9a",
+  "sensorId" : "e9200790-2ff1-4112-a955-a08c87ff485e",
+  "userId" : "ce8145ad-e3b1-4b29-8398-43735f84de6a",
+  "timeStamp" : "2015-07-18 14:07:07"
+}, {
+  "id" : "a9189b2c-3d87-4c04-b558-eeb57bb02c67",
+  "message" : "45cm",
+  "dateTime" : 1437208627000,
+  "deviceId" : "3a0ee1b2-d826-4aed-b144-3d850a353852",
+  "sensorId" : "03817de4-0498-4af9-b378-ed039b05deef",
+  "userId" : "47a228c4-6472-49a6-96e7-4c5252bd1eea",
+  "timeStamp" : "2015-07-18 14:07:07"
+}, {
+  "id" : "e4450746-9344-48ef-9abb-5dc8247b4a94",
+  "message" : "222",
+  "dateTime" : 1437208627000,
+  "deviceId" : "3a0ee1b2-d826-4aed-b144-3d850a353852",
+  "sensorId" : "03817de4-0498-4af9-b378-ed039b05deef",
+  "userId" : "47a228c4-6472-49a6-96e7-4c5252bd1eea",
+  "timeStamp" : "2015-07-18 14:07:07"
+}, {
+  "id" : "ce98ebde-d765-40a6-b209-380c2baa7635",
+  "message" : "_q23e",
+  "dateTime" : 1437208627000,
+  "deviceId" : "3206508d-35ca-4fc7-ab0b-54704b22ce9a",
+  "sensorId" : "e9200790-2ff1-4112-a955-a08c87ff485e",
+  "userId" : "ce8145ad-e3b1-4b29-8398-43735f84de6a",
+  "timeStamp" : "2015-07-18 14:07:07"
+}, {
+  "id" : "af956eca-f45e-439f-b556-726efa17be8e",
+  "message" : "_q34m",
+  "dateTime" : 1437208627000,
+  "deviceId" : "3206508d-35ca-4fc7-ab0b-54704b22ce9a",
+  "sensorId" : "e9200790-2ff1-4112-a955-a08c87ff485e",
+  "userId" : "ce8145ad-e3b1-4b29-8398-43735f84de6a",
+  "timeStamp" : "2015-07-18 14:07:07"
+}, {
+  "id" : "3f4ace72-2510-4292-898c-ee4d71971d27",
+  "message" : "_q45cm",
+  "dateTime" : 1437208630000,
+  "deviceId" : "3a0ee1b2-d826-4aed-b144-3d850a353852",
+  "sensorId" : "03817de4-0498-4af9-b378-ed039b05deef",
+  "userId" : "47a228c4-6472-49a6-96e7-4c5252bd1eea",
+  "timeStamp" : "2015-07-18 14:07:10"
+} ]
