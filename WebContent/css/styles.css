@@ -1,0 +1,83 @@
+.md-toolbar-tools h1 {
+  font-size: inherit;
+  font-weight: inherit;
+  margin: inherit;
+}
+
+.top-textbox{
+	border: 0;
+	height: 30px;
+	padding: 0 10px 0 10px;
+	font-size: 18px;
+	margin: 12px 6px 12px 6px;
+	width: 200px;
+	border-radius: 2px;
+	color: #FFF;
+	background-color: rgba(255, 255, 255, 0.26);
+	background-repeat: no-repeat;
+	background-position: 10px center;
+}
+
+
+header md-toolbar {
+    box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+}
+
+footer {
+    padding: 16px;
+}
+
+md-content#main.md-blue-theme {
+    background-color: #ececec;
+}
+
+md-card {
+    background-color: #ffffff;
+}
+
+md-card md-card-content {
+ padding: 16px;
+ width: 500px;
+}
+
+.round-face {
+    border-radius: 30px;
+    border: 1px solid #ddd;
+    width: 48px;
+    height: 48px;
+    margin: 8px;
+}
+
+#main {
+    width: 100%;
+}
+
+#content {
+    min-width: 70%;
+    max-width: 680px;
+}
+
+.news-item-title{
+	margin-left: 5px;
+	margin-bottom: 0;
+
+	color: rgba(0,0,0,0.87);
+	line-height: .75em;
+	font-size: 16px;
+	font-weight: 400;
+	letter-spacing: .01em
+}
+
+.news-item-datetime {
+	margin: 2px 0 0 5px;
+	color: rgba(119, 119, 119, 0.87);
+	font-size: 13px;
+	font-weight: 400;
+	letter-spacing: .01em;
+	line-height: 24px;
+}
+
+.md-body-1.news-item-description{
+	margin-top:0px;
+	font-size: 13px;
+}
