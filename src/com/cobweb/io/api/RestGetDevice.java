@@ -23,12 +23,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.tinkerpop.blueprints.Vertex;
 
-
 /**
  * The Class RestGetDevice.
  * @author Yasith Lokuge
  */
-@Path("/api/device")
+@Path("/device")
 public class RestGetDevice {
 
 	/** The Constant JSON_ERROR. */

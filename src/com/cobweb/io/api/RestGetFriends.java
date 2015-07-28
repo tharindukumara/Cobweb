@@ -25,7 +25,7 @@ import com.tinkerpop.blueprints.Vertex;
  * The Class RestGetFriends.
  * @author Yasith Lokuge
  */
-@Path("/api/friends")
+@Path("/friends")
 public class RestGetFriends {
 
 	/** The Constant JSON_ERROR. */

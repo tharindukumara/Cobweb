@@ -27,7 +27,7 @@ import com.tinkerpop.blueprints.Vertex;
  * The Class RestGetSensor.
  * @author Yasith Lokuge
  */
-@Path("/api/sensor")
+@Path("/sensor")
 public class RestGetSensor {
 
 	/** The Constant JSON_ERROR. */

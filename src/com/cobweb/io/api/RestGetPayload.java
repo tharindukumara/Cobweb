@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.tinkerpop.blueprints.Vertex;
 
-@Path("/api/payload")
+@Path("/payload")
 public class RestGetPayload {
 
 	/** The Constant JSON_ERROR. */
