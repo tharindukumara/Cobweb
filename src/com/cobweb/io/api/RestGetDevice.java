@@ -64,6 +64,12 @@ public class RestGetDevice {
 		Vertex deviceVertex = graphFactory.getDeviceVertex(deviceId);
 		Device device = toDevice.transform(deviceVertex);
 		
+		List<String> attachedSensorList = readService.getAttachedSensorList(deviceId);
+		String ownerId = readService.getParentUserIdFromDevice(deviceId);
+		
+		device.setSensorIdList(attachedSensorList);
+		device.setParentUserId(ownerId);
+		
 		ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
 
 		try {

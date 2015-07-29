@@ -65,6 +65,27 @@ public class RestGetPayload {
 		Vertex payloadVertex = graphFactory.getPayloadVertex(payloadId);
 		Payload payload = toPayload.transform(payloadVertex);
 		
+		String sensorId;
+		String deviceId;
+
+		try {
+			sensorId = readService.getParentSensorIdFromPayload(payloadId);
+		} catch (Exception e1) {
+			sensorId = null;
+		}
+		
+		try {
+			deviceId = readService.getParentDeviceIdFromPayload(payloadId);
+		} catch (Exception e1) {
+			deviceId = null;
+		}
+		
+		String ownerId = readService.getParentUserIdFromPayload(payloadId);
+		
+		payload.setSensorId(sensorId);
+		payload.setDeviceId(deviceId);
+		payload.setUserId(ownerId);
+		
 		ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
 
 		try {

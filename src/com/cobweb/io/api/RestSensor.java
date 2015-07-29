@@ -42,6 +42,9 @@ public class RestSensor {
 	/** The Constant ERROR. */
 	private static final String ERROR					= "ERROR";
 	
+	/** The Constant INVALID_DEVICE_ID. */
+	private static final String INVALID_DEVICE_ID		= "Invalid Device Id";
+		
 	/** The Constant JSON_ERROR. */
 	private static final String JSON_ERROR				= "{\"error\":\"JSON Parsing error\"}";	
 
@@ -86,7 +89,7 @@ public class RestSensor {
 		String description	= null;
 		String type 		= null;		
 		String otherType	= null;
-		
+		String deviceId		= null;
 		
 		StringBuilder stringData = new StringBuilder();
 		JSONObject incomingData;
@@ -103,6 +106,7 @@ public class RestSensor {
 			description = (String) incomingData.get("description");
 			type 		= (String) incomingData.get("type");				
 			otherType 	= (String) incomingData.get("otherType");
+			deviceId	= (String) incomingData.get("deviceId");
 			
 		} catch (Exception e) {
 			return ERROR;
@@ -121,6 +125,11 @@ public class RestSensor {
 		String email = (String) currentUser.getPrincipal();
 		String userId = readService.getUserId(email);
 		
+		List<String> deviceIdList = readService.getDeviceIdList(userId);
+		
+		if(!deviceIdList.contains(deviceId))
+			return INVALID_DEVICE_ID;
+		
 		SensorType sensorType = SensorType.valueOf(type.toUpperCase());
 				
 		Sensor sensor = new Sensor(sensorName,description,sensorType);
@@ -130,7 +139,7 @@ public class RestSensor {
 		}
 		
 		CobwebWeaver cobwebWeaver = new CobwebWeaver();		
-		cobwebWeaver.addSensor(userId, sensor);
+		cobwebWeaver.addSensor(deviceId, sensor);
 
 		return SUCCESS;
 	}

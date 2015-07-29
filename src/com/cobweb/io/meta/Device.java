@@ -35,6 +35,8 @@ public class Device implements Item{
 	/** The image url. */
 	private URL imageUrl;
 
+	/** The parent user id */
+	private String parentUserId;
 	
 	/** The sensor id list. */
 	private List<String> sensorIdList;
@@ -247,6 +249,14 @@ public class Device implements Item{
 	 */
 	public void setSensorIdList(List<String> sensorIdList) {
 		this.sensorIdList = sensorIdList;
+	}
+
+	public String getParentUserId() {
+		return parentUserId;
+	}
+
+	public void setParentUserId(String parentUserId) {
+		this.parentUserId = parentUserId;
 	}
 
 }

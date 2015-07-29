@@ -38,6 +38,11 @@ public class Sensor implements Item{
 	/** The parent device id. */
 	private String parentDeviceId;	
 	
+	
+	/** The parent user id. */
+	private String parentUserId;	
+	
+	
 	/**
 	 * Instantiates a new sensor.
 	 *
@@ -236,6 +241,16 @@ public class Sensor implements Item{
 	 */
 	public void setParentDeviceId(String deviceId) {
 		this.parentDeviceId = deviceId;
+	}
+
+
+	public String getParentUserId() {
+		return parentUserId;
+	}
+
+
+	public void setParentUserId(String parentUserId) {
+		this.parentUserId = parentUserId;
 	}
 
 }
