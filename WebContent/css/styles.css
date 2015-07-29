@@ -1,7 +1,26 @@
+.title {
+  font-family: 'Istok Web', sans-serif!important;
+  font-size: 40px !important;
+}
+
+.signin-form {
+  padding-top: 3%;
+}
+
 .md-toolbar-tools h1 {
   font-size: inherit;
   font-weight: inherit;
   margin: inherit;
+}
+
+.form {
+  margin-top: 2%;
+}
+
+.submit-btn {
+  background-color: white!important;
+  margin-left: 20px;
+  margin-bottom: 15px;
 }
 
 .top-textbox{
@@ -13,7 +32,7 @@
 	width: 200px;
 	border-radius: 2px;
 	color: #FFF;
-	background-color: rgba(255, 255, 255, 0.26);
+	background-color: rgba(255, 255, 255, 0.89);
 	background-repeat: no-repeat;
 	background-position: 10px center;
 }
@@ -35,11 +54,6 @@ md-card {
     background-color: #ffffff;
 }
 
-md-card md-card-content {
- padding: 16px;
- width: 500px;
-}
-
 .round-face {
     border-radius: 30px;
     border: 1px solid #ddd;
@@ -52,9 +66,13 @@ md-card md-card-content {
     width: 100%;
 }
 
-#content {
+.content {
     min-width: 70%;
     max-width: 680px;
+}
+md-card.news-item{
+	margin: 8px 0 8px 8px;
+
 }
 
 .news-item-title{
