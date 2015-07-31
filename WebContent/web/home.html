@@ -37,8 +37,10 @@
           <a class="mdl-navigation__link" href="">Something else</a>
         </nav>
       </div>
-      <main class="mdl-layout__content">
+      <main class="mdl-layout__content"  ng-controller="LayoutCtrl">
         <div class="page-content">
+            <!-- MDL Spinner Component -->
+            <div class="mdl-spinner mdl-js-spinner is-active spinner" ng-hide="newsLoaded"></div>
             <div ng-view class="main-view"></div>
         </div>
       </main>
