@@ -1,59 +1,47 @@
 <!-- MAIN CONTENT -->
-<md-content id="main" layout="vertical" layout-align="center" >
+<md-content id="main" layout="vertical" layout-align="center">
 <div flex="10"></div>
-<div flex="40">
-    <md-list>
-        <div class="content">
-            <div ng-repeat="item in ::chunks" >
-                <md-card class="news-item">
-                    <div layout="column">
-                        <md-card-content>
-                            <div layout="row">
-                                <img class="round-face" src="http://placekitten.com/g/48/48"/>
-                                <div layout="column">
-                                    <h3 class="news-item-title" >ffgdfg</h3>
-                                    <h4 class="news-item-datetime">{{ item.datetime }}</h4>
-                                </div>
-                            </div>
-                            <div layout="row" layout-margin>
-                                <div flex class="md-body-1 news-item-description">
-                                    {{ item.content }}
-                                </div>
-                            </div>
-                        </md-card-content>
-                    </div>
-                </md-card>
+<div class="demo-grid-1 mdl-grid">
+  <div class="mdl-cell mdl-cell--1-col"></div>
+  <div class="mdl-cell mdl-cell--4-col">
+    <ul>
+        <li class="mdl-card mdl-shadow--2dp demo-card-wide card-list" ng-repeat="item in chunks">
+            <div layout="row" class="card">
+                <div class="dp-col">
+                    <img class="round-face" src="http://placekitten.com/g/48/48"/>
+                </div>
+                <div class="body-col">
+                    <h3 class="news-item-title name">{{ item.id }}</h3>
+                    <div class="message">{{ item.message }}</div>
+                    <h4 class="news-item-datetime time">{{ item.dateTime }}</h4>
+                </div>
             </div>
-        </div>
-    </md-list>
-</div>
-<div flex="40">
-    <md-list>
-        <div class="content">
-            <div ng-repeat="item in ::chunks" >
-                <md-card class="news-item">
-                    <div layout="column">
-                        <md-card-content>
-                            <div layout="row">
-                                <img class="round-face" src="http://placekitten.com/g/48/48"/>
-                                <div layout="column">
-                                    <h3 class="news-item-title">{{ item.id }}</h3>
-                                    <h4 class="news-item-datetime">{{ item.datetime }}</h4>
-                                </div>
+        </li>
+    </ul>
 
-                            </div>
-                            <div layout="row" layout-margin>
-                                <div flex class="md-body-1 news-item-description">
-                                    {{ item.content }}
-                                </div>
-                            </div>
-                        </md-card-content>
-                    </div>
-                </md-card>
+  </div>
+  <div class="mdl-cell mdl-cell--1-col"></div>
+  <div class="mdl-cell mdl-cell--4-col">
+    <ul>
+        <li class="mdl-card mdl-shadow--2dp demo-card-wide card-list" ng-repeat="item in chunks">
+            <div layout="row" class="card">
+                <div class="dp-col">
+                    <img class="round-face" src="http://placekitten.com/g/48/48"/>
+                </div>
+                <div class="body-col">
+                    <h3 class="news-item-title name">{{ item.id }}</h3>
+                    <div class="message">{{ item.message }}</div>
+                    <h4 class="news-item-datetime time">{{ item.dateTime }}</h4>
+                </div>
             </div>
-        </div>
-    </md-list>
+        </li>
+    </ul>
+
+  </div>
 </div>
+
+
+
 <div flex="10"></div>
 
 
