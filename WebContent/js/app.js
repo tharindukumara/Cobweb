@@ -19,7 +19,7 @@ app.config(function($routeProvider) {
 
 app.controller('CobWebAppCtrl', ['$scope', '$http', function($scope, $http) {
   console.log("ctrller fired");
-  $http.get('http://localhost:8080/cobweb/api/newsfeed/device').success(function(data) {
+  $http.get('http://localhost:8080/cobweb/api/device/newsfeed').success(function(data) {
     $scope.chunks = data;
   });
 
