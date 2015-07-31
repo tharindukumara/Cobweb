@@ -1,4 +1,4 @@
-var app = angular.module('CobWebApp', ['ngRoute']);
+var app = angular.module('CobWebApp', ['ngRoute', 'angularMoment']);
 
 app.config(function($routeProvider) {
 
