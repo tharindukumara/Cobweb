@@ -268,6 +268,7 @@ public class ReadService implements AbstractService{
 			String deviceType 	= result.field("deviceType");
 			String otherType 	= result.field("otherType");
 			String imageUrl		= result.field("imageUrl");
+			String parentUserId = getParentUserIdFromDevice(id);
 			
 			List<String> attachedSensorList = getAttachedSensorList(id);
 			
@@ -275,6 +276,8 @@ public class ReadService implements AbstractService{
 			device.setId(id);
 			device.setOtherType(otherType);
 			device.setSensorIdList(attachedSensorList);
+			device.setParentUserId(parentUserId);
+			
 			try {
 				device.setImageUrl(new URL(imageUrl));
 			} catch (MalformedURLException e) {				
@@ -519,12 +522,10 @@ public class ReadService implements AbstractService{
 			String id = result.field("idValue");
 			String message = result.field("message");
 			String dateTime = result.field("dateTime");
-			//String sensorId = getParentSensorIdFromPayload(id);
 			
 			Payload payload = new Payload(message);
 			payload.setId(id);
 			payload.setMessage(message);
-			//payload.setSensorId(sensorId);
 			
 			String deviceId = getParentDeviceIdFromPayload(id);
 			String ownerId = getParentUserIdFromDevice(deviceId);
