@@ -3,19 +3,24 @@
 
 <div flex="10"></div>
 
-<div class="demo-grid-1 mdl-grid">
+<div class="demo-grid-1 mdl-grid"  ng-show="newsLoaded">
   <div class="mdl-cell mdl-cell--1-col"></div>
   <div class="mdl-cell mdl-cell--4-col">
     <ul>
-        <li class="mdl-card mdl-shadow--2dp demo-card-wide card-list" ng-repeat="item in news">
+        <div class="device-list">
+            <li class="mdl-card mdl-shadow--2dp demo-card-wide device-list-title">
+                <span class="list-title-text">Devices</span>
+            </li>
+        </div>
+        <li class="mdl-card mdl-shadow--2dp demo-card-wide card-list" ng-repeat="item in deviceLst">
             <div layout="row" class="card">
                 <div class="dp-col">
                     <img class="round-face" src="http://placekitten.com/g/48/48"/>
                 </div>
                 <div class="body-col">
-                    <h3 class="news-item-title name">{{ item.id }}</h3>
-                    <div class="message">{{ item.message }}</div>
-                    <span class="news-item-datetime time" am-time-ago="item.dateTime"></span>
+                    <h3 class="news-item-title name">{{ item.name }}</h3>
+                    <div class="message">{{ item.msg }}</div>
+                    <span class="news-item-datetime time" am-time-ago="item.time"></span>
                 </div>
             </div>
         </li>
@@ -25,15 +30,23 @@
   <div class="mdl-cell mdl-cell--1-col"></div>
   <div class="mdl-cell mdl-cell--4-col">
     <ul>
-        <li class="mdl-card mdl-shadow--2dp demo-card-wide card-list" ng-repeat="item in news">
+        <div class="device-list" ng-show="newsLoaded">
+            <li class="mdl-card mdl-shadow--2dp demo-card-wide device-list-title">
+                <span class="list-title-text">Sensors</span>
+            </li>
+        </div>
+        <li class="mdl-card mdl-shadow--2dp demo-card-wide card-list" ng-repeat="item in sensorLst">
             <div layout="row" class="card">
                 <div class="dp-col">
                     <img class="round-face" src="http://placekitten.com/g/48/48"/>
                 </div>
                 <div class="body-col">
-                    <h3 class="news-item-title name">{{ item.id }}</h3>
-                    <div class="message">{{ item.message }}</div>
-                    <span class="news-item-datetime time" am-time-ago="item.dateTime"></span>
+                    <div class="sensor-title">
+                        <span class="news-item-title name">{{ item.name }}</span>
+                        <span class="mdl-card__subtitle-text"> {{item.deviceName}}</span>
+                    </div>
+                    <div class="message">{{ item.msg }}</div>
+                    <span class="news-item-datetime time" am-time-ago="item.time"></span>
                 </div>
             </div>
         </li>

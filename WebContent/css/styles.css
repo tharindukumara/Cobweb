@@ -36,7 +36,26 @@
 }
 
 .body-col {
+  width: 350px;
   float: left;
+}
+
+.device-list {
+  height: 50px;
+  text-align: center;
+  color: #fff;
+}
+
+.device-list-title {
+  background-color: #2ecc71!important;
+}
+
+.list-title-text {
+	margin-top: 3%;
+}
+
+.sensor-title {
+	margin-top: 20px;
 }
 
 .name {
