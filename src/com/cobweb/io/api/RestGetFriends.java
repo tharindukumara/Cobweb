@@ -52,8 +52,8 @@ public class RestGetFriends {
 		String userId = readService.getUserId(email);
 		
 		List<String> friendIdList = readService.getFriendsIdList(userId);
-		
-		if(!(friendId.equals(userId) || friendIdList.contains(userId)))
+				
+		if(!(friendId.equals(userId) || friendIdList.contains(friendId)))
 			return UNKNOWN_FRIEND_ID;
 		
 		GraphFactory graphFactory = new GraphFactory();
