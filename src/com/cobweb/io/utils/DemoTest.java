@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import com.cobweb.io.meta.Device;
 import com.cobweb.io.meta.DeviceType;
+import com.cobweb.io.meta.Email;
 import com.cobweb.io.meta.Payload;
 import com.cobweb.io.meta.Sensor;
 import com.cobweb.io.meta.SensorType;
@@ -33,11 +34,11 @@ public class DemoTest implements AbstractService{
 //		Device device1 = new Device("iphone", "iphone", DeviceType.IPHONE);
 //		Device device2 = new Device("windowsphone", "windowsphone", DeviceType.WINDOWSPHONE);
 //		Device device3 = new Device("windowsphone", "windowsphone", DeviceType.WINDOWSPHONE);
-//		
+////		
 //		Sensor sensor1 = new Sensor("humidity", "humidity sensor", SensorType.HUMIDITY);
 //		Sensor sensor2 = new Sensor("pressure", "pressure sensor", SensorType.PRESSURE);
 //		Sensor sensor3 = new Sensor("pressure", "pressure sensor", SensorType.PRESSURE);
-//		
+////		
 //		Payload payload1 = new Payload("32C");
 //		Payload payload2 = new Payload("weeC");
 //		Payload payload3 = new Payload("23e");
@@ -47,7 +48,7 @@ public class DemoTest implements AbstractService{
 //		Payload payload7 = new Payload("ffff");
 //		Payload payload8 = new Payload("ert");
 //		Payload payload9 = new Payload("def");
-//		
+////		
 //		Payload payload10 = new Payload("_q32C");
 //		Payload payload11 = new Payload("_qweeC");
 //		Payload payload12 = new Payload("_q23e");
@@ -57,28 +58,28 @@ public class DemoTest implements AbstractService{
 //		Payload payload16 = new Payload("_qffff");
 //		Payload payload17 = new Payload("_qert");
 //		Payload payload18 = new Payload("_qdef");
-//		
+////		
 //		CobwebWeaver cobwebWeaver = new CobwebWeaver();
-//		
-//		cobwebWeaver.addUser(user1);
-//		cobwebWeaver.addUser(user2);
-//		cobwebWeaver.addUser(user3);
-//
-//		cobwebWeaver.addDevice(user1.getUid(), device1);
-//		cobwebWeaver.addDevice(user2.getUid(), device2);
-//		cobwebWeaver.addDevice(user3.getUid(), device3);
-//		
+////		
+////		cobwebWeaver.addUser(user1);
+////		cobwebWeaver.addUser(user2);
+////		cobwebWeaver.addUser(user3);
+////
+//		cobwebWeaver.addDevice("c4256165-d20c-409c-8818-4832e7dfcc65", device1);
+//		cobwebWeaver.addDevice("c4256165-d20c-409c-8818-4832e7dfcc65", device2);
+//		cobwebWeaver.addDevice("c4256165-d20c-409c-8818-4832e7dfcc65", device3);
+////		
 //		cobwebWeaver.addSensor(device1.getId(), sensor1);
 //		cobwebWeaver.addSensor(device2.getId(), sensor2);
 //		cobwebWeaver.addSensor(device3.getId(), sensor3);
-//		
+////		
 //		cobwebWeaver.addSensorPayload(sensor1.getId(), payload1);
 //		cobwebWeaver.addSensorPayload(sensor1.getId(), payload2);
 //		cobwebWeaver.addSensorPayload(sensor2.getId(), payload3);
 //		cobwebWeaver.addSensorPayload(sensor2.getId(), payload4);
 //		cobwebWeaver.addSensorPayload(sensor3.getId(), payload5);
 //		cobwebWeaver.addSensorPayload(sensor3.getId(), payload6);
-//		
+////		
 //		cobwebWeaver.addDevicePayload(device1.getId(), payload7);
 //		cobwebWeaver.addDevicePayload(device2.getId(), payload8);
 //		cobwebWeaver.addDevicePayload(device3.getId(), payload9);
@@ -113,9 +114,19 @@ public class DemoTest implements AbstractService{
 		
 		//System.out.println(regexCheck("samsung galaxy y","^[a-zA-Z0-9 ]*{3,15}$"));
 		
-		ReadService readService = new ReadService();
-		System.out.println(readService.getParentDeviceIdFromPayload("63c1defa-ea79-4bef-b08a-917b87c59a99"));
+		//ReadService readService = new ReadService();
+		//System.out.println(readService.getParentDeviceIdFromPayload("63c1defa-ea79-4bef-b08a-917b87c59a99"));
 		
+//		Email email = new Email();
+//		
+//		email.setBody("Hello World");
+//		email.setFrom("info@cobweb.io");
+//		email.setSubject("Hi Test");
+//		email.setTo("yasith1@gmail.com");
+//		
+//		SendMail sendMail = new SendMail();
+//		
+//		sendMail.send(email);
 		
 		//System.out.println(readService.getSensorIds(readService.getUserId("yasith1@gmail.com")));
 		//readService.ReadUserNames();
