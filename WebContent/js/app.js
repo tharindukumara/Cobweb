@@ -36,12 +36,15 @@ app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', function($scop
         dev = {
           id: '',
           name: '',
+          userId: '',
+          username: '',
           time: '',
           dp: '',
           msg : ''
         };
 
         dev.id = device.deviceId;
+        dev.userId = device.userId;
         dev.time = device.dateTime;
         dev.msg = device.message;
         $scope.deviceLst.push(dev);
@@ -57,12 +60,15 @@ app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', function($scop
           id: '',
           deviceId: '',
           name: '',
+          userId: '',
+          username: '',
           time: '',
           dp: '',
           msg : ''
         };
 
         sen.id = sensor.sensorId;
+        sen.userId = sensor.userId;
         sen.deviceId = sensor.deviceId;
         sen.time = sensor.timeStamp;
         sen.msg = sensor.message;
@@ -84,10 +90,17 @@ app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', function($scop
     });
   }
 
+  function loadUserNameById(obj){
+    $http.get('http://localhost:8080/cobweb/api/friends/' + obj.userId).success(function(data) {
+      obj.userName = data.firstName + ' ' + data.lastName;
+    });
+  }
+
   // Ugly hack to update news. Better use promises
   $scope.$watch('deviceLst', function(newval, old){
     newval.forEach(function(obj){
       loadDataById(obj, 'device');
+      loadUserNameById(obj);
     });
     $rootScope.newsLoaded = true;
   }, true);
@@ -95,6 +108,7 @@ app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', function($scop
   $scope.$watch('sensorLst', function(newval, old){
     newval.forEach(function(obj){
       loadDataById(obj, 'sensor');
+      loadUserNameById(obj);
       loadDeviceName(obj);
     });
     console.log(newval);

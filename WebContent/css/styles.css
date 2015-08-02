@@ -1,3 +1,7 @@
+body {
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+}
+
 .title {
   font-family: 'Istok Web', sans-serif!important;
   font-size: 40px !important;
@@ -38,6 +42,7 @@
 .body-col {
   width: 350px;
   float: left;
+  position: relative;
 }
 
 .device-list {
@@ -46,8 +51,34 @@
   color: #fff;
 }
 
+.user-name {
+  position: absolute;
+  top: 10px;
+}
+
+#user-name-button {
+  color: rgb(77, 77, 77);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 32px;
+}
+
 .device-list-title {
   background-color: #2ecc71!important;
+}
+
+.device-title {
+  position: absolute;
+  top: 35px;
+}
+
+#device-name-button {
+  color: rgb(133, 133, 133);
+}
+
+.device-title-text {
+  color: rgb(123, 123, 123);
+  font-size: 16px!important;
 }
 
 .list-title-text {
@@ -55,20 +86,30 @@
 }
 
 .sensor-title {
-	margin-top: 20px;
+	position: absolute;
+  top: 35;
 }
 
-.name {
-  margin-bottom: 10px!important;
-  font-weight: bold!important;
+#sensor-name-button {
+  color: rgb(134, 134, 134);
+  font-weight: 600;
+}
+
+#sensor-device-name-button {
+  color: rgb(179, 179, 179);
+  font-size: 12;
+  font-weight: 400;
 }
 
 .message {
-  height: 125px;
+  position: absolute;
+  top: 75px;
 }
 
 .time {
-  float: right;
+  position: absolute;
+  left: 270px;
+  top: 175px;
 }
 
 .form {
@@ -127,7 +168,7 @@ md-card {
     width: 48px;
     height: 48px;
     margin: 8px;
-    margin-top: 50%
+    margin-top: 20px;
 }
 
 #main {
@@ -144,7 +185,6 @@ md-card.news-item{
 }
 
 .news-item-title{
-	margin-left: 5px;
 	margin-bottom: 0;
 
 	color: rgba(0,0,0,0.87);
