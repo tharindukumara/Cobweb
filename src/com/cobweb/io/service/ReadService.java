@@ -86,14 +86,30 @@ public class ReadService implements AbstractService{
 	}
 	
 	/**
-	 * Gets the user names list.
+	 * Gets the confirmed user names list.
 	 *
 	 * @return the list
 	 */
-	public List<String> getUserNamesList(){
+	public List<String> getConfirmedUserNamesList(){
 		
 		List<String> userNameList = new ArrayList<>();
-		List<ODocument> result =  graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select email from User"));		
+		List<ODocument> result =  graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select email from User WHERE isDeleted=false"));		
+		
+		for (ODocument oDocument : result) {
+			userNameList.add(oDocument.field("email"));
+		}		
+		return userNameList;		
+	}
+	
+	/**
+	 * Gets the Unconfirmed user names list.
+	 *
+	 * @return the deleted user names list
+	 */
+	public List<String> getUnconfirmedUserNamesList(){
+		
+		List<String> userNameList = new ArrayList<>();
+		List<ODocument> result =  graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select email from User WHERE isDeleted=true"));		
 		
 		for (ODocument oDocument : result) {
 			userNameList.add(oDocument.field("email"));
@@ -110,7 +126,7 @@ public class ReadService implements AbstractService{
 	 */
 	public boolean checkUserNameExistsByEmail(String email){				
 		try {
-			ODocument result = (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select email from User where email='"+email+"'")).get(0);
+			ODocument result = (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select email from User where email='"+email+"' AND isDeleted=false")).get(0);
 			String data = result.field("email");
 			return data.equals(email);
 		} catch (Exception e) {			
@@ -126,7 +142,7 @@ public class ReadService implements AbstractService{
 	 */
 	public boolean checkUserNameExistsById(String userId){				
 		try {
-			ODocument result = (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select idValue from User where idValue='"+userId+"'")).get(0);
+			ODocument result = (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select idValue from User where idValue='"+userId+"' AND isDeleted=false")).get(0);
 			String data = result.field("idValue");
 			return data.equals(userId);
 		} catch (Exception e) {			
@@ -142,7 +158,7 @@ public class ReadService implements AbstractService{
 	 */
 	public boolean checkPasswordExists(String password){				
 		try {
-			ODocument result = (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select password from User where password='"+password+"'")).get(0);
+			ODocument result = (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select password from User where password='"+password+"' AND isDeleted=false")).get(0);
 			String data = result.field("password");
 			return data.equals(password);
 		} catch (Exception e) {			
@@ -157,7 +173,7 @@ public class ReadService implements AbstractService{
 	 * @return the user id
 	 */
 	public String getUserId(String email){
-		ODocument result =  (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select idValue from User where email='"+email+"'")).get(0);
+		ODocument result =  (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select idValue from User where email='"+email+"' AND isDeleted=false")).get(0);
 		String idValue = result.field("idValue");		
 		return idValue;
 	}
@@ -169,7 +185,7 @@ public class ReadService implements AbstractService{
 	 * @return the salt
 	 */
 	public String getSalt(String userId){		
-		ODocument result =  (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select salt from User where idValue='"+userId+"'")).get(0);
+		ODocument result =  (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select salt from User where idValue='"+userId+"' AND isDeleted=false")).get(0);
 		String salt = result.field("salt");
 		return salt;
 	}
@@ -183,7 +199,7 @@ public class ReadService implements AbstractService{
 	 */
 	public List<String> getDeviceIdList(String userId){
 		
-		List<ODocument> resultList = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(out('UserHasDevices')[isDeleted = false]) from User where idValue='"+userId+"'"));
+		List<ODocument> resultList = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select expand(out('UserHasDevices')[isDeleted = false]) from User where idValue='"+userId+"' AND isDeleted=false"));
 		List<String>	deviceIdList = new ArrayList<String>();
 		
 		for (ODocument result:resultList) {			

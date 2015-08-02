@@ -21,13 +21,16 @@ public class DemoTest implements AbstractService{
 
 	public static void main(String args[]) throws Exception{
 		
-//		HashGenerator hashGenerator = new HashGenerator();
+		HashGenerator hashGenerator = new HashGenerator();
 //		
 //		String salt1 = hashGenerator.generateSalt();
 //		String salt2 = hashGenerator.generateSalt();
 //		String salt3 = hashGenerator.generateSalt();
 //		
-//		User user1 = new User("Yasith", "Lokuge", "yasith1@gmail.com", hashGenerator.saltHashPassword("qwerty",salt1), salt1);
+		
+		String hash = hashGenerator.generateHash("loxer");
+		System.out.println(hash);
+//		User user1 = new User("Loxer", "Logic", "loxology@gmail.com", hashGenerator.saltHashPassword(hash,salt1), salt1);
 //		User user2 = new User("Tharindu", "Kumara", "hatkumara@yahoo.com", hashGenerator.saltHashPassword("1qaz",salt2), salt2);
 //		User user3 = new User("Sandaruwan", "Gunasinghe", "sandaruwan.gunasinghe@gmail.com", hashGenerator.saltHashPassword("2wsx",salt3), salt3);
 //		
@@ -61,7 +64,7 @@ public class DemoTest implements AbstractService{
 ////		
 //		CobwebWeaver cobwebWeaver = new CobwebWeaver();
 ////		
-////		cobwebWeaver.addUser(user1);
+//		cobwebWeaver.addUser(user1);
 ////		cobwebWeaver.addUser(user2);
 ////		cobwebWeaver.addUser(user3);
 ////
