@@ -1,8 +1,5 @@
 package com.cobweb.io.transformers;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import com.cobweb.io.meta.User;
 import com.tinkerpop.blueprints.Vertex;
 
@@ -28,20 +25,13 @@ public class VertexToUser {
 		String password		= userVertex.getProperty("password");
 		String salt 		= userVertex.getProperty("salt");
 		String role			= userVertex.getProperty("role");
-		String url			= userVertex.getProperty("imageUrl");
 		
 		User user = new User(firstName, lastName, email, password, salt);
 		
 		user.setRole(role);
 		user.setUid(id);
 		user.setDeleted(false);
-		if (!url.equals("null")) {
-			try {
-				user.setImageUrl(new URL(url));
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			}
-		}
+		
 		return user;	
 	}
 

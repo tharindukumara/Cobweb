@@ -57,7 +57,7 @@ public class RestGetFriends {
 			return UNKNOWN_FRIEND_ID;
 		
 		GraphFactory graphFactory = new GraphFactory();
-		Vertex userVertex = graphFactory.getUserVertex(userId);
+		Vertex userVertex = graphFactory.getUserVertex(friendId);
 		VertexToUser toUser = new VertexToUser();
 		User user = toUser.transform(userVertex);
 		

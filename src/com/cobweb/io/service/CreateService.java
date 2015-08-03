@@ -60,8 +60,8 @@ public class CreateService implements AbstractService{
 	/** The isdeleted. */
 	private final static String ISDELETED 		= "isDeleted";	
 	
-	/** The image url. */
-	private final static String IMAGEURL 		= "imageUrl";
+	/** The Constant PRIVATEKEY. */
+	private final static String PRIVATEKEY 		= "privateKey";
 
 	/** The other type. */
 	private final static String OTHERTYPE 		= "otherType";
@@ -110,7 +110,7 @@ public class CreateService implements AbstractService{
 															+ DEVICETYPE	+","
 															+ ISDELETED		+","
 															+ OTHERTYPE		+","
-															+ IMAGEURL		+"	) values ('" 	
+															+ PRIVATEKEY		+"	) values ('" 	
 															
 															+ device.getName()			+"'"+","+"'"
 															+ device.getId()			+"'"+","+"'"
@@ -118,7 +118,7 @@ public class CreateService implements AbstractService{
 															+ device.getDeviceType()			+"'"+","+"'"
 															+ device.isDeleted()		+"'"+","+"'"
 															+ device.getOtherType()		+"'"+","+"'"
-															+ device.getImageUrl()		+"')")).execute();
+															+ device.getPrivateKey()		+"')")).execute();
 		
 		graph.commit();
 		return v;
@@ -138,7 +138,7 @@ public class CreateService implements AbstractService{
 															+ SENSORTYPE	+","
 															+ ISDELETED		+","
 															+ OTHERTYPE		+","
-															+ IMAGEURL		+"	) values ('" 	
+															+ PRIVATEKEY		+"	) values ('" 	
 															
 															+ sensor.getName()			+"'"+","+"'"
 															+ sensor.getId()			+"'"+","+"'"
@@ -146,7 +146,7 @@ public class CreateService implements AbstractService{
 															+ sensor.getSensorType()	+"'"+","+"'"
 															+ sensor.isDeleted()		+"'"+","+"'"
 															+ sensor.getOtherType()		+"'"+","+"'"
-															+ sensor.getImageUrl()		+"')")).execute();
+															+ sensor.getPrivateKey()		+"')")).execute();
 		graph.commit();
 		return v;
 	}
@@ -166,7 +166,6 @@ public class CreateService implements AbstractService{
 															+ SALT			+","
 															+ ROLE			+","
 															+ ID			+","
-															+ IMAGEURL		+","
 															+ ISDELETED		+"	) values ('" 	
 															
 															+ user.getFirstName()	+"'"+","+"'"
@@ -176,7 +175,6 @@ public class CreateService implements AbstractService{
 															+ user.getSalt()		+"'"+","+"'"
 															+ user.getRole()		+"'"+","+"'"
 															+ user.getUid()			+"'"+","+"'"
-															+ user.getImageUrl()	+"'"+","+"'"
 															+ user.isDeleted()		+"')")).execute();
 	
 		graph.commit();

@@ -1,10 +1,7 @@
 package com.cobweb.io.meta;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.UUID;
 
-import com.cobweb.io.service.AbstractService;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 // TODO: Auto-generated Javadoc
@@ -15,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 
 @JsonIgnoreProperties({"salt","deleted","password","role"})
-public class User implements AbstractService{
+public class User{
 	
 	/** The firstname. */
 	private String firstName 	= "User";
@@ -28,10 +25,7 @@ public class User implements AbstractService{
 	
 	/** The email. */
 	private String email 	= "info@cobweb.io";
-	
-	/** The image url. */
-	private URL imageUrl;	
-	
+		
 	/** The password. */
 	private String password = "admin";
 	
@@ -44,28 +38,7 @@ public class User implements AbstractService{
 	/** The role. */
 	private String role = "standard";		
 	
-	/**
-	 * Instantiates a new user.
-	 *
-	 * @param firstName the first name
-	 * @param lastName the last name
-	 * @param email the email
-	 * @param imageUrl the image url
-	 * @param password the password
-	 * @param salt the salt
-	 */
-	public User(String firstName,String lastName, String email,URL imageUrl, String password, String salt){
-		
-		this.firstName=firstName;
-		this.lastName=lastName;
-		this.email=email;
-		this.salt=salt;
-		this.password=password;
-		this.imageUrl=imageUrl;	
-		
-		UUID uuid = UUID.randomUUID();
-		uid = uuid.toString();		
-	}
+	
 	
 	/**
 	 * Instantiates a new user.
@@ -84,13 +57,7 @@ public class User implements AbstractService{
 		this.password=password;	
 		
 		UUID uuid = UUID.randomUUID();
-		uid = uuid.toString();	
-		
-		try {
-			this.imageUrl = new URL("www.cobweb.io/default/user/userdefault.jpg");
-		} catch (MalformedURLException e) {
-			this.imageUrl = null;
-		}
+		uid = uuid.toString();			
 	}
 		
 	/**
@@ -165,24 +132,7 @@ public class User implements AbstractService{
 	public void setUid(String uid) {
 		this.uid = uid;
 	}
-
-	/**
-	 * Gets the image url.
-	 *
-	 * @return the imageUrl
-	 */
-	public URL getImageUrl() {
-		return imageUrl;
-	}
-
-	/**
-	 * Sets the image url.
-	 *
-	 * @param imageUrl the imageUrl to set
-	 */
-	public void setImageUrl(URL imageUrl) {
-		this.imageUrl = imageUrl;
-	}
+	
 
 	/**
 	 * Checks if is deleted.

@@ -41,8 +41,8 @@ public class Bootstrap implements AbstractService {
 	/** The id. */
 	private final static String ID 				= "idValue";	
 	
-	/** The image url. */
-	private final static String IMAGEURL 		= "imageUrl";	
+	/** The Constant PRIVATEKEY. */
+	private final static String PRIVATEKEY 		= "privateKey";	
 	
 	/** The description. */
 	private final static String DESCRIPTION 	= "description";	
@@ -88,8 +88,7 @@ public class Bootstrap implements AbstractService {
 		user.setProperty(EMAIL, 	OType.STRING	);
 		user.setProperty(SALT, 		OType.STRING	);
 		user.setProperty(ROLE, 		OType.STRING	);
-		user.setProperty(ID, 		OType.STRING	);
-		user.setProperty(IMAGEURL, 	OType.STRING	);
+		user.setProperty(ID, 		OType.STRING	);		
 		user.setProperty(ISDELETED, OType.BOOLEAN	);
 		
 		
@@ -104,7 +103,7 @@ public class Bootstrap implements AbstractService {
 		device.setProperty(DESCRIPTION,	OType.STRING	);
 		device.setProperty(DEVICETYPE, 	OType.STRING	);
 		device.setProperty(ID, 			OType.STRING	);
-		device.setProperty(IMAGEURL, 	OType.STRING	);
+		device.setProperty(PRIVATEKEY, 	OType.STRING	);
 		device.setProperty(ISDELETED,	OType.BOOLEAN	);
 		device.setProperty(OTHERTYPE, 	OType.STRING	);
 				
@@ -119,7 +118,7 @@ public class Bootstrap implements AbstractService {
 		sensor.setProperty(ID, 			OType.STRING	);
 		sensor.setProperty(DESCRIPTION, OType.STRING	);
 		sensor.setProperty(SENSORTYPE, 	OType.STRING	);		
-		sensor.setProperty(IMAGEURL, 	OType.STRING	);
+		sensor.setProperty(PRIVATEKEY, 	OType.STRING	);
 		sensor.setProperty(ISDELETED, 	OType.BOOLEAN	);
 		sensor.setProperty(OTHERTYPE, 	OType.STRING	);
 

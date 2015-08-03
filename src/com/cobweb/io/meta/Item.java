@@ -1,7 +1,5 @@
 package com.cobweb.io.meta;
 
-import java.net.URL;
-
 // TODO: Auto-generated Javadoc
 /**
  * The Interface Item.
@@ -109,18 +107,5 @@ public interface Item {
 	 */
 	public String getOtherType();
 	
-	/**
-	 * Gets the image url.
-	 *
-	 * @return the imageUrl
-	 */
-	public URL getImageUrl();
-
-	/**
-	 * Sets the image url.
-	 *
-	 * @param imageUrl the imageUrl to set
-	 */
-	public void setImageUrl(URL imageUrl);
 	
 }

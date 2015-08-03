@@ -1,7 +1,5 @@
 package com.cobweb.io.meta;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 import java.util.UUID;
 
@@ -11,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 /**
  * The Class Device.
  */
-@JsonIgnoreProperties({"deleted","sensorType"})
+@JsonIgnoreProperties({"deleted","sensorType","privateKey"})
 public class Device implements Item{
 	
 	/** The name. */
@@ -32,14 +30,14 @@ public class Device implements Item{
 	/** The other type. */
 	private String otherType = "default";
 		
-	/** The image url. */
-	private URL imageUrl;
-
 	/** The parent user id */
 	private String parentUserId;
 	
 	/** The sensor id list. */
 	private List<String> sensorIdList;
+	
+	/** The private key. */
+	private String privateKey;
 	
 	/**
 	 * Instantiates a new device.
@@ -48,17 +46,19 @@ public class Device implements Item{
 	 * @param description the description
 	 * @param devicetype the devicetype
 	 * @param otherType the other type
-	 * @param imageUrl the image url
 	 */
-	public Device(String name, String description, DeviceType devicetype, String otherType, URL imageUrl){
+	public Device(String name, String description, DeviceType devicetype, String otherType){
 		this.name = name;
 		this.description = description;
 		this.devicetype = devicetype;
-		this.otherType = otherType;
-		this.imageUrl = imageUrl;
+		this.otherType = otherType;		
 		
 		UUID uuid = UUID.randomUUID();
 		id = uuid.toString();
+		
+		UUID pkey = UUID.randomUUID();
+		setPrivateKey(pkey.toString());
+		
 	}
 	
 	/**
@@ -76,12 +76,8 @@ public class Device implements Item{
 		UUID uuid = UUID.randomUUID();
 		id = uuid.toString();
 		
-		try {
-			this.imageUrl = new URL("www.cobweb.io/default/device/devicedefault.jpg");
-		} catch (MalformedURLException e) {
-			this.imageUrl = null;
-		}
-		
+		UUID pkey = UUID.randomUUID();
+		setPrivateKey(pkey.toString());				
 	}
 	
 	/**
@@ -97,12 +93,8 @@ public class Device implements Item{
 		UUID uuid = UUID.randomUUID();
 		id = uuid.toString();
 		
-		try {
-			this.imageUrl = new URL("www.cobweb.io/default/device/devicedefault.jpg");
-		} catch (MalformedURLException e) {
-			this.imageUrl = null;
-		}
-		
+		UUID pkey = UUID.randomUUID();
+		setPrivateKey(pkey.toString());		
 	}
 	
 	/* (non-Javadoc)
@@ -217,22 +209,6 @@ public class Device implements Item{
 		return otherType;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.cobweb.io.meta.Item#getImageUrl()
-	 */
-	@Override
-	public URL getImageUrl() {
-		return imageUrl;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.cobweb.io.meta.Item#setImageUrl(java.net.URL)
-	 */
-	@Override
-	public void setImageUrl(URL imageUrl) {
-		this.imageUrl = imageUrl;		
-	}
-
 	/**
 	 * Gets the sensor id list.
 	 *
@@ -257,6 +233,14 @@ public class Device implements Item{
 
 	public void setParentUserId(String parentUserId) {
 		this.parentUserId = parentUserId;
+	}
+
+	public String getPrivateKey() {
+		return privateKey;
+	}
+
+	public void setPrivateKey(String privateKey) {
+		this.privateKey = privateKey;
 	}
 
 }

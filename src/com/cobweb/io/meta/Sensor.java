@@ -1,7 +1,5 @@
 package com.cobweb.io.meta;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -10,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 /**
  * The Class Sensor.
  */
-@JsonIgnoreProperties({"deleted","deviceType"})
+@JsonIgnoreProperties({"deleted","deviceType","privateKey"})
 public class Sensor implements Item{
 
 	/** The name. */
@@ -31,10 +29,6 @@ public class Sensor implements Item{
 	/** The other type. */
 	private String otherType ="default";
 	
-	/** The image url. */
-	private URL imageUrl;
-	
-	
 	/** The parent device id. */
 	private String parentDeviceId;	
 	
@@ -43,6 +37,9 @@ public class Sensor implements Item{
 	private String parentUserId;	
 	
 	
+	/** The private key. */
+	private String privateKey;	
+	
 	/**
 	 * Instantiates a new sensor.
 	 *
@@ -50,18 +47,19 @@ public class Sensor implements Item{
 	 * @param description the description
 	 * @param sensortype the sensortype
 	 * @param otherType the other type
-	 * @param imageUrl the image url
 	 */
-	public Sensor(String name, String description, SensorType sensortype, String otherType, URL imageUrl){
+	public Sensor(String name, String description, SensorType sensortype, String otherType){
 		
 		this.name = name;		
 		this.description = description;
 		this.sensortype = sensortype;
 		this.otherType = otherType;
-		this.imageUrl = imageUrl;	
-		
+			
 		UUID uuid = UUID.randomUUID();
 		id = uuid.toString();
+		
+		UUID pkey = UUID.randomUUID();
+		privateKey = pkey.toString();		
 	}
 	
 	
@@ -80,11 +78,8 @@ public class Sensor implements Item{
 		UUID uuid = UUID.randomUUID();
 		id = uuid.toString();
 		
-		try {
-			this.imageUrl = new URL("www.cobweb.io/default/sensor/sensordefault.jpg");
-		} catch (MalformedURLException e) {
-			this.imageUrl = null;
-		}
+		UUID pkey = UUID.randomUUID();
+		privateKey = pkey.toString();		
 		
 	}
 	
@@ -188,23 +183,6 @@ public class Sensor implements Item{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.cobweb.io.core.Item#getImageUrl()
-	 */
-	@Override
-	public URL getImageUrl() {
-		return imageUrl;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.cobweb.io.core.Item#setImageUrl(java.net.URL)
-	 */
-	@Override
-	public void setImageUrl(URL imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
-
-	/* (non-Javadoc)
 	 * @see com.cobweb.io.meta.Item#setType(com.cobweb.io.meta.DeviceType)
 	 */
 	@Override
@@ -251,6 +229,16 @@ public class Sensor implements Item{
 
 	public void setParentUserId(String parentUserId) {
 		this.parentUserId = parentUserId;
+	}
+
+
+	public String getPrivateKey() {
+		return privateKey;
+	}
+
+
+	public void setPrivateKey(String privateKey) {
+		this.privateKey = privateKey;
 	}
 
 }

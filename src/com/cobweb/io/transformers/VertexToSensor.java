@@ -1,8 +1,5 @@
 package com.cobweb.io.transformers;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import com.cobweb.io.meta.Sensor;
 import com.cobweb.io.meta.SensorType;
 import com.tinkerpop.blueprints.Vertex;
@@ -29,19 +26,11 @@ public class VertexToSensor {
 		String sensorType	= sensorVertex.getProperty("sensorType");
 		String description	= sensorVertex.getProperty("description");
 		String otherType	= sensorVertex.getProperty("otherType");
-		String url			= sensorVertex.getProperty("imageUrl");
 		
 		Sensor sensor = new Sensor(name, description, SensorType.valueOf(sensorType));
 		sensor.setId(id);
-		sensor.setOtherType(otherType);
+		sensor.setOtherType(otherType);	
 		
-		if (!url.equals("null")) {
-			try {
-				sensor.setImageUrl(new URL(url));
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			}
-		}
 		
 		return sensor;		
 	}

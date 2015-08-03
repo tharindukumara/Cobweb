@@ -1,7 +1,5 @@
 package com.cobweb.io.service;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -246,19 +244,14 @@ public class ReadService implements AbstractService{
 			String description 	= result.field("description");
 			String sensorType 	= result.field("sensorType");
 			String otherType 	= result.field("otherType");
-			String imageUrl		= result.field("imageUrl");
+			
 			String parentDevice = getParentDeviceIdFromSensor(id);
 			
 			Sensor sensor = new Sensor(name, description, SensorType.valueOf(sensorType));
 			sensor.setId(id);
 			sensor.setOtherType(otherType);
-			sensor.setParentDeviceId(parentDevice);
-			
-			try {
-				sensor.setImageUrl(new URL(imageUrl));
-			} catch (MalformedURLException e) {				
-				e.printStackTrace();
-			}						
+			sensor.setParentDeviceId(parentDevice);			
+									
 			sensorList.add(sensor);
 		}		
 		return sensorList;				
@@ -283,7 +276,7 @@ public class ReadService implements AbstractService{
 			String description 	= result.field("description");
 			String deviceType 	= result.field("deviceType");
 			String otherType 	= result.field("otherType");
-			String imageUrl		= result.field("imageUrl");
+			
 			String parentUserId = getParentUserIdFromDevice(id);
 			
 			List<String> attachedSensorList = getAttachedSensorList(id);
@@ -294,11 +287,7 @@ public class ReadService implements AbstractService{
 			device.setSensorIdList(attachedSensorList);
 			device.setParentUserId(parentUserId);
 			
-			try {
-				device.setImageUrl(new URL(imageUrl));
-			} catch (MalformedURLException e) {				
-				e.printStackTrace();
-			}						
+								
 			deviceList.add(device);
 		}		
 		return deviceList;				
