@@ -43,7 +43,7 @@ public class RestDevice {
 	private static final String ERROR					= "ERROR";
 	
 	/** The Constant JSON_ERROR. */
-	private static final String JSON_ERROR				= "{\"error\":\"JSON Parsing error\"}";	
+	private static final String JSON_ERROR				= "{\"status\":\"JSON Parsing error\"}";	
 	
 	/**
 	 * Gets the device.

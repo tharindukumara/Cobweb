@@ -29,10 +29,10 @@ import com.tinkerpop.blueprints.Vertex;
 public class RestGetFriends {
 
 	/** The Constant JSON_ERROR. */
-	private static final String JSON_ERROR				= "{\"error\":\"JSON Parsing error\"}";	
+	private static final String JSON_ERROR				= "{\"status\":\"JSON Parsing error\"}";	
 	
 	/** The Constant UNKNOWN_SENSOR_ID. */
-	private static final String UNKNOWN_FRIEND_ID 		= "{\"error\":\"Unknown Friend Id or Unauthorized \"}";
+	private static final String UNKNOWN_FRIEND_ID 		= "{\"status\":\"Unknown Friend Id or Unauthorized \"}";
 	
 	
 	/**

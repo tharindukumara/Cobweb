@@ -23,13 +23,13 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 public class RestFriendItems {
 
 	/** The Constant UNKNOWN_SENSOR_ID. */
-	private static final String UNKNOWN_FRIEND_ID 	= "{\"error\":\"Unknown User Id\"}";
+	private static final String UNKNOWN_FRIEND_ID 	= "{\"status\":\"Unknown User Id\"}";
 
 	/** The Constant UNKNOWN_SENSOR_ID. */
-	private static final String NOT_FRIEND 			= "{\"error\":\"User is not your friend\"}";
+	private static final String NOT_FRIEND 			= "{\"status\":\"User is not your friend\"}";
 
 	/** The Constant JSON_ERROR. */
-	private static final String JSON_ERROR			= "{\"error\":\"JSON Parsing error\"}";	
+	private static final String JSON_ERROR			= "{\"status\":\"JSON Parsing error\"}";	
 
 	
 	@GET

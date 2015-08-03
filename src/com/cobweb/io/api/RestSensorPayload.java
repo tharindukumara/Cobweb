@@ -29,10 +29,10 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 public class RestSensorPayload {
 
 /** The Constant UNKNOWN_SENSOR_ID. */
-private static final String UNKNOWN_SENSOR_ID 	= "{\"error\":\"Unknown Sensor Id or Unauthorized Sensor\"}";
+private static final String UNKNOWN_SENSOR_ID 	= "{\"status\":\"Unknown Sensor Id or Unauthorized Sensor\"}";
 
 /** The Constant JSON_ERROR. */
-private static final String JSON_ERROR			= "{\"error\":\"JSON Parsing error\"}";	
+private static final String JSON_ERROR			= "{\"status\":\"JSON Parsing error\"}";	
 
 	/**
 	 * Gets the sensor payload.

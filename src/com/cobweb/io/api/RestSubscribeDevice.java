@@ -24,7 +24,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 public class RestSubscribeDevice {
 	
 	/** The Constant JSON_ERROR. */
-	private static final String JSON_ERROR				= "{\"error\":\"JSON Parsing error\"}";	
+	private static final String JSON_ERROR				= "{\"status\":\"JSON Parsing error\"}";	
 	
 	/** The Constant SUCCESS. */
 	private static final String SUCCESS					= "SUCCESS";

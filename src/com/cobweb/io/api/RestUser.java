@@ -25,7 +25,7 @@ import com.tinkerpop.blueprints.Vertex;
 public class RestUser {
 	
 	/** The Constant JSON_ERROR. */
-	private static final String JSON_ERROR				= "{\"error\":\"JSON Parsing error\"}";	
+	private static final String JSON_ERROR				= "{\"status\":\"JSON Parsing error\"}";	
 	
 	
 	/**
