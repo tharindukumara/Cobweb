@@ -207,3 +207,17 @@ md-card.news-item{
 	margin-top:0px;
 	font-size: 13px;
 }
+
+/*Login styles*/
+.error-email {
+  float: right;
+  margin-top: 4%;
+}
+
+.email-block, .pswd-block, .pswd-cnfm-block {
+  float: left;
+}
+
+.error-pswd {
+  margin-top: 100px;
+}
