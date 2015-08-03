@@ -32,33 +32,6 @@ public class ReadService implements AbstractService{
 	private final String INVALID = "Invalid user name or password"; 
 	
 	/**
-	 * Instantiates a new read service.
-	 *
-	 * @param device the device
-	 */
-	public ReadService(Device device){
-		
-	}
-	
-	/**
-	 * Instantiates a new read service.
-	 *
-	 * @param sensor the sensor
-	 */
-	public ReadService(Sensor sensor){
-		
-	}
-	
-	/**
-	 * Instantiates a new read service.
-	 */
-	public ReadService(){
-		
-	}
-
-
-	
-	/**
 	 * Read.
 	 *
 	 * @param loggedUser the logged user
@@ -913,5 +886,67 @@ public class ReadService implements AbstractService{
 			friendRequestList.add(friendRequest);
 		}		
 		return friendRequestList;	
+	}
+	
+	
+	/**
+	 * Gets the sensor key list.
+	 *
+	 * @return the sensor key list
+	 */
+	public List<String> getSensorKeyList(){
+		
+		List<ODocument> resultList = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select privateKey from Sensor where isDeleted=false"));
+		List<String>	sensorKeyList = new ArrayList<String>();
+		
+		for (ODocument result:resultList) {			
+			sensorKeyList.add(result.field("privateKey"));			
+		}		
+		return sensorKeyList;		
+	}
+	
+	
+	/**
+	 * Gets the device key list.
+	 *
+	 * @return the device key list
+	 */
+	public List<String> getDeviceKeyList(){
+		
+		List<ODocument> resultList = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select privateKey from Device where isDeleted=false"));
+		List<String>	deviceKeyList = new ArrayList<String>();
+		
+		for (ODocument result:resultList) {			
+			deviceKeyList.add(result.field("privateKey"));			
+		}		
+		return deviceKeyList;		
+	}
+	
+	/**
+	 * Gets the device id from key.
+	 *
+	 * @param key the key
+	 * @return the device id from key
+	 */
+	public String getDeviceIdFromKey(String key){
+		
+		ODocument result =  (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select idValue from Device where privateKey='"+key+"' AND isDeleted=false")).get(0);
+		String idValue = result.field("idValue");		
+		
+		return idValue;			
+	}
+	
+	/**
+	 * Gets the sensor id from key.
+	 *
+	 * @param key the key
+	 * @return the sensor id from key
+	 */
+	public String getSensorIdFromKey(String key){
+		
+		ODocument result =  (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select idValue from Sensor where privateKey='"+key+"' AND isDeleted=false")).get(0);
+		String idValue = result.field("idValue");		
+		
+		return idValue;			
 	}
 }
