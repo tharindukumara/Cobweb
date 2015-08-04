@@ -218,6 +218,18 @@ md-card.news-item{
   float: left;
 }
 
+.pswd-block {
+  position: relative;
+}
+
 .error-pswd {
-  margin-top: 100px;
+  position: absolute;
+  left: 400px;
+  top: 475px;
+}
+
+.error-pswd-length {
+  position: absolute;
+  left: 400px;
+  top: 400px;
 }
