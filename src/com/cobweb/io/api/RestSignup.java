@@ -15,8 +15,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
 import org.apache.shiro.SecurityUtils;
@@ -42,7 +40,26 @@ public class RestSignup {
 	
 	/** The Constant idMap. */
 	private static final Map<String, String> idMap = new HashMap<String, String>();
-		
+	
+	/** The Constant AUTHENTICATION_ERROR. */
+	private static final String AUTHENTICATION_ERROR 	= "{\"status\":\"logout to create new account\"}";	
+	
+	/** The Constant JSON_ERROR. */
+	private static final String JSON_ERROR				= "{\"status\":\"JSON Parsing error\"}";	
+
+	/** The Constant CONFIRMED_EMAIL. */
+	private static final String CONFIRMED_EMAIL			= "{\"status\":\"Given email has an account already\"}";	
+	
+	/** The Constant UNCONFIRMED_EMAIL. */
+	private static final String UNCONFIRMED_EMAIL		= "{\"status\":\"Check your email and confirm\"}";	
+	
+	/** The Constant INTERNAL_ERROR. */
+	private static final String INTERNAL_ERROR			= "{\"status\":\"Internal Error\"}";	
+	
+	/** The Constant SUCCESS. */
+	private static final String SUCCESS					= "{\"status\":\"Success\"}";	
+	
+	
 	/**
 	 * Signup.
 	 *
@@ -51,12 +68,13 @@ public class RestSignup {
 	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response signup(InputStream jsonData, @Context UriInfo ui) {
+	@Produces(MediaType.APPLICATION_JSON)
+	public String signup(InputStream jsonData, @Context UriInfo ui) {
 
 		Subject currentUser = SecurityUtils.getSubject();
 		
 		if(currentUser.isAuthenticated())
-			return Response.status(Status.NOT_ACCEPTABLE).build();
+			return AUTHENTICATION_ERROR;
 		
 		
 		String firstName 	= null;
@@ -73,7 +91,7 @@ public class RestSignup {
 				stringData.append(line);
 			}
 		} catch (Exception e) {
-			return Response.status(Status.NOT_ACCEPTABLE).build();
+			return JSON_ERROR;
 		}		
 		
 		JSONObject incomingData;
@@ -87,7 +105,7 @@ public class RestSignup {
 			password 		= (String) incomingData.get("password");
 			
 		} catch (JSONException e) {			
-			return Response.status(Status.NOT_ACCEPTABLE).build();				
+			return JSON_ERROR;				
 		}
 		
 		ReadService readService = new ReadService();
@@ -97,13 +115,13 @@ public class RestSignup {
 		String sessionId = (String) currentUser.getSession().getId();
 		
 		if(confirmedEmailList.contains(email))
-			return Response.status(Status.NOT_ACCEPTABLE).build();
+			return CONFIRMED_EMAIL;
 		
 		if(unconfirmedEmailList.contains(email))
-			return Response.status(Status.NOT_ACCEPTABLE).build();
+			return UNCONFIRMED_EMAIL;
 		
 		if(idMap.values().contains(sessionId))
-			return Response.status(Status.NOT_ACCEPTABLE).build();
+			return UNCONFIRMED_EMAIL;
 		
 		HashGenerator hashGenerator = new HashGenerator();
 		String salt = hashGenerator.generateSalt();		
@@ -130,10 +148,10 @@ public class RestSignup {
 		try {
 			sendMail.send(emailObj);
 		} catch (Exception e) {			
-			return Response.status(Status.NOT_ACCEPTABLE).build();
+			return INTERNAL_ERROR;
 		}
 		
-		return Response.status(Status.ACCEPTED).build();	
+		return SUCCESS;	
 		
 	}
 	

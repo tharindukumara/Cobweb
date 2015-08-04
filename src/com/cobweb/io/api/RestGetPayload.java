@@ -27,10 +27,10 @@ import com.tinkerpop.blueprints.Vertex;
 public class RestGetPayload {
 
 	/** The Constant JSON_ERROR. */
-	private static final String JSON_ERROR				= "{\"error\":\"JSON Parsing error\"}";	
+	private static final String JSON_ERROR				= "{\"status\":\"JSON Parsing error\"}";	
 	
 	/** The Constant UNKNOWN_DEVICE_ID. */
-	private static final String UNKNOWN_PAYLOAD_ID 		= "{\"error\":\"Unknown Payload Id or Unauthorized\"}";
+	private static final String UNKNOWN_PAYLOAD_ID 		= "{\"status\":\"Unknown Payload Id or Unauthorized\"}";
 	
 	
 	/**

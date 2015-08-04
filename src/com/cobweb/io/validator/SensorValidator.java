@@ -64,14 +64,12 @@ public class SensorValidator {
 		String description	= null;
 		String type 		= null;		
 		String otherType	= null;			
-		String deviceId		= null;
 		
 		try {
 			sensorName 	= (String) incomingData.get("name");
 			description = (String) incomingData.get("description");
 			type 		= (String) incomingData.get("type");			
 			otherType 	= (String) incomingData.get("otherType");	
-			deviceId	= (String) incomingData.get("deviceId");
 			
 		} catch (JSONException e) {
 			return e.toString();
