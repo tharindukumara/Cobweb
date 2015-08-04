@@ -82,13 +82,13 @@
                                     <i class="material-icons">account_circle</i>
                                     <div class="mdl-textfield mdl-js-textfield textfield-demo">
                                         <input class="mdl-textfield__input" name="firstname" type="text" ng-model="user.firstname" required>
-                                        <label class="mdl-textfield__label" for="sample1">First Name</label>
+                                        <label class="mdl-textfield__label" for="sample1" pattern="[a-zA-Z0-9\s]+" >First Name</label>
                                     </div>
                                     <br>
                                     <i class="material-icons">face</i>
                                     <div class="mdl-textfield mdl-js-textfield textfield-demo">
                                         <input class="mdl-textfield__input" type="text" ng-model="user.lastname" required/>
-                                        <label class="mdl-textfield__label" for="sample1">Last Name</label>
+                                        <label class="mdl-textfield__label" for="sample1" pattern="[a-zA-Z0-9\s]+">Last Name</label>
                                     </div>
                                     <br>
                                     <div class="email-block">
@@ -107,7 +107,7 @@
                                         <i class="material-icons">lock</i>
                                         <div class="mdl-textfield mdl-js-textfield textfield-demo">
                                             <input name="password" id="password" class="mdl-textfield__input" type="password" ng-model="user.password" required/>
-                                            <label class="mdl-textfield__label" for="sample1">Password</label>
+                                            <label class="mdl-textfield__label" for="sample1" pattern="[a-zA-Z0-9\s]+">Password</label>
                                         </div>
                                     </div>
                                     <br>
@@ -115,7 +115,7 @@
                                         <i class="material-icons">lock</i>
                                         <div class="mdl-textfield mdl-js-textfield textfield-demo" >
                                             <input name="confirm_password" class="mdl-textfield__input" type="password" ng-model="user.cnfrmpassword" compare-to="user.password"  required/>
-                                            <label class="mdl-textfield__label" for="sample1">Confirm Password</label>
+                                            <label class="mdl-textfield__label" for="sample1" pattern="[a-zA-Z0-9\s]+">Confirm Password</label>
                                         </div>
                                     </div>
                                     <div class="error-pswd">
