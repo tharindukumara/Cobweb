@@ -118,8 +118,12 @@ app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', function($scop
   loadNews();
 }]);
 
-app.controller('LayoutCtrl', ['$rootScope', function($rootScope) {
+app.controller('LayoutCtrl', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http) {
   console.log("layout ctrller fired");
+  $scope.logout = function(){
+    console.log("logging out");
+    $http.get('http://localhost:8080/cobweb/api/logout');
+  }
 
 }]);
 
