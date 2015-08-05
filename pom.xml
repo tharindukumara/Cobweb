@@ -135,6 +135,15 @@
 			<version>18.0</version>
 		</dependency>
 
+		<!-- Tomcat -->
+
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>6.0.44</version>
+		</dependency>
+
+
 	</dependencies>
 	<repositories>
 		<repository>
