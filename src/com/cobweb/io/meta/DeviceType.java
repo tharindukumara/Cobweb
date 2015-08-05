@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.cobweb.io.meta;
 
 // TODO: Auto-generated Javadoc

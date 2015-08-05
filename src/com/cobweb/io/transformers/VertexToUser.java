@@ -31,6 +31,7 @@ public class VertexToUser {
 		user.setRole(role);
 		user.setUid(id);
 		user.setDeleted(false);
+		user.setEmailHash();
 		
 		return user;	
 	}

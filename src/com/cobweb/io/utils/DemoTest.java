@@ -1,8 +1,13 @@
 package com.cobweb.io.utils;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
 import com.cobweb.io.meta.Device;
 import com.cobweb.io.meta.DeviceType;
@@ -11,6 +16,7 @@ import com.cobweb.io.meta.Payload;
 import com.cobweb.io.meta.Sensor;
 import com.cobweb.io.meta.SensorType;
 import com.cobweb.io.meta.User;
+import com.cobweb.io.mqtt.MosquittoAuth;
 import com.cobweb.io.service.AbstractService;
 import com.cobweb.io.service.DeleteService;
 import com.cobweb.io.service.ReadService;
@@ -31,7 +37,7 @@ public class DemoTest implements AbstractService{
 	//	String hash = hashGenerator.generateHash("loxer");
 	//	System.out.println(hash);
 		
-//		User user1 = new User("Yasith", "Lokuge", "yasith1@gmail.com", hashGenerator.saltHashPassword("qwerty",salt1), salt1);
+//		User user1 = new User("Super", "User", "superuser", hashGenerator.saltHashPassword("C0bw3b105up3ru53r",salt1), salt1);
 //		User user2 = new User("Tharindu", "Kumara", "hatkumara@yahoo.com", hashGenerator.saltHashPassword("1qaz",salt2), salt2);
 //		User user3 = new User("Sandaruwan", "Gunasinghe", "sandaruwan.gunasinghe@gmail.com", hashGenerator.saltHashPassword("2wsx",salt3), salt3);
 		
@@ -118,10 +124,10 @@ public class DemoTest implements AbstractService{
 		
 		//System.out.println(regexCheck("samsung galaxy y","^[a-zA-Z0-9 ]*{3,15}$"));
 		
-		ReadService readService = new ReadService();
+//		ReadService readService = new ReadService();
 		//System.out.println(readService.getParentDeviceIdFromPayload("63c1defa-ea79-4bef-b08a-917b87c59a99"));
 		
-		System.out.println(readService.getSensorKeyList());
+//		System.out.println(readService.getSensorKeyList());
 //		Email email = new Email();
 //		
 //		email.setBody("Hello World");
@@ -159,7 +165,23 @@ public class DemoTest implements AbstractService{
 	//	deleteService.deleteDevice("2d3a60b2-7a45-4d9f-a5fb-4199f31f81b2");
 	//	
 		
+//		MosquittoAuth mosquittoAuth = new MosquittoAuth();
+//		System.out.println(mosquittoAuth.authCheck("superuser", "C0bw3b105up3ru53r"));
+//		
 		
+		String email = "yasith1@gmail.com";
+		MessageDigest md5 = MessageDigest.getInstance("MD5");
+		String hex = (new HexBinaryAdapter()).marshal(md5.digest(email.getBytes()));
+			
+		System.out.println(hex.toLowerCase());
+//		try {
+//			byte[] bytesOfEmail = email.getBytes("UTF-8");
+//			byte[] thedigest = md.digest(bytesOfEmail);	
+//			String hash = new String(thedigest,"UTF-8");			
+//			System.out.println(hash);
+//		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 	

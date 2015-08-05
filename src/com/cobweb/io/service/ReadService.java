@@ -144,8 +144,14 @@ public class ReadService implements AbstractService{
 	 * @return the user id
 	 */
 	public String getUserId(String email){
-		ODocument result =  (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select idValue from User where email='"+email+"' AND isDeleted=false")).get(0);
-		String idValue = result.field("idValue");		
+		ODocument result;
+		String idValue = null;
+		try {
+			result = (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select idValue from User where email='"+email+"' AND isDeleted=false")).get(0);
+			idValue = result.field("idValue");		
+		} catch (Exception e) {
+			idValue = null;
+		}
 		return idValue;
 	}
 
@@ -155,9 +161,15 @@ public class ReadService implements AbstractService{
 	 * @param userId the user id
 	 * @return the salt
 	 */
-	public String getSalt(String userId){		
-		ODocument result =  (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select salt from User where idValue='"+userId+"' AND isDeleted=false")).get(0);
-		String salt = result.field("salt");
+	public String getSalt(String userId){
+		
+		String salt = null;
+		try {
+			ODocument result =  (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select salt from User where idValue='"+userId+"' AND isDeleted=false")).get(0);
+			salt = result.field("salt");
+		} catch (Exception e) {
+			salt = null;
+		}
 		return salt;
 	}
 	

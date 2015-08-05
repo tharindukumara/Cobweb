@@ -24,7 +24,7 @@ public class PayloadPublisher {
 	 * @param value the value
 	 * @return the string
 	 */
-	public String publish(String key, String value) {
+	public String publishCoap(String key, String value) {
 		
 		ReadService readService = new ReadService();
 		CobwebWeaver cobwebWeaver = new CobwebWeaver();

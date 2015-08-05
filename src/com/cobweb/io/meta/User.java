@@ -1,17 +1,21 @@
 package com.cobweb.io.meta;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
+
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class User.
  *
  * @author Yasith Lokuge
  */
 
-@JsonIgnoreProperties({"salt","deleted","password","role"})
+@JsonIgnoreProperties({"salt","deleted","password","role","email"})
 public class User{
 	
 	/** The firstname. */
@@ -25,6 +29,9 @@ public class User{
 	
 	/** The email. */
 	private String email 	= "info@cobweb.io";
+		
+	/** The email hash. */
+	private String emailHash = "info@cobweb.io";
 		
 	/** The password. */
 	private String password = "admin";
@@ -204,6 +211,31 @@ public class User{
 	 */
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	/**
+	 * Gets the email hash.
+	 *
+	 * @return the email hash
+	 */
+	public String getEmailHash() {			
+		return emailHash;
+	}
+
+	/**
+	 * Sets the email hash.
+	 *
+	 * @param emailHash the new email hash
+	 */
+	public void setEmailHash() {
+		 
+		try {
+			MessageDigest md5 = MessageDigest.getInstance("MD5");
+			String hashedEmail = (new HexBinaryAdapter()).marshal(md5.digest(getEmail().getBytes()));			
+			this.emailHash=hashedEmail.toLowerCase();
+		} catch (NoSuchAlgorithmException e) {			
+			e.printStackTrace();
+		}
 	}
 
 	
