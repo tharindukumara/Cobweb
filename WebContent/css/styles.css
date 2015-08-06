@@ -249,10 +249,10 @@ md-card.news-item{
 }
 
 .signup-card {
-  height: 90%!important;
+  height: 600px!important;
 }
 
 .signup-card-btn {
   position: absolute;
-  bottom: 9%;
+  bottom: 50px;
 }
