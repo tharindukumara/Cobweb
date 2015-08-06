@@ -247,3 +247,12 @@ md-card.news-item{
   background-color: white;
   border: none!important;
 }
+
+.signup-card {
+  height: 90%!important;
+}
+
+.signup-card-btn {
+  position: absolute;
+  bottom: 9%;
+}
