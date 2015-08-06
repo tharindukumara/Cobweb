@@ -80,7 +80,6 @@ app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', function($scop
   function loadDataById(obj, type){
     $http.get('http://localhost:8080/cobweb/api/' + type +'/' + obj.id).success(function(data) {
       obj.name = data.name;
-      obj.dp = data.imageUrl;
     });
   }
 
@@ -90,9 +89,10 @@ app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', function($scop
     });
   }
 
-  function loadUserNameById(obj){
+  function loadUserData(obj){
     $http.get('http://localhost:8080/cobweb/api/friends/' + obj.userId).success(function(data) {
       obj.userName = data.firstName + ' ' + data.lastName;
+      obj.emailHash = data.emailHash;
     });
   }
 
@@ -100,7 +100,7 @@ app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', function($scop
   $scope.$watch('deviceLst', function(newval, old){
     newval.forEach(function(obj){
       loadDataById(obj, 'device');
-      loadUserNameById(obj);
+      loadUserData(obj);
     });
     $rootScope.newsLoaded = true;
   }, true);
@@ -108,7 +108,7 @@ app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', function($scop
   $scope.$watch('sensorLst', function(newval, old){
     newval.forEach(function(obj){
       loadDataById(obj, 'sensor');
-      loadUserNameById(obj);
+      loadUserData(obj);
       loadDeviceName(obj);
     });
     console.log(newval);
