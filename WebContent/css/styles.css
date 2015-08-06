@@ -242,3 +242,8 @@ md-card.news-item{
   color: rgb(255, 255, 255)!important;
   left: 25;
 }
+
+.mdl-checkbox__box-outline {
+  background-color: white;
+  border: none!important;
+}
