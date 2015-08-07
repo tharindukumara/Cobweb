@@ -1,4 +1,4 @@
-var app = angular.module('CobWebApp', ['ngRoute', 'angularMoment']);
+var app = angular.module('CobWebApp', ['ngRoute', 'angularMoment', 'ngDialog']);
 
 app.config(function($routeProvider) {
 
@@ -17,7 +17,7 @@ app.config(function($routeProvider) {
   });
 });
 
-app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', function($scope, $http, $rootScope, ngDialog) {
   console.log("cobwerbapp ctrller fired");
 
   $scope.deviceLst = [];
@@ -80,6 +80,7 @@ app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', function($scop
   function loadDataById(obj, type){
     $http.get('http://localhost:8080/cobweb/api/' + type +'/' + obj.id).success(function(data) {
       obj.name = data.name;
+      obj.type = data[type+'Type'];
     });
   }
 
@@ -95,6 +96,11 @@ app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', function($scop
       obj.emailHash = data.emailHash;
     });
   }
+
+  $scope.popup = function (obj) {
+    console.log(obj);
+    ngDialog.open({ template: '<h2>'+obj.userName+'</h2><p>Name: '+ obj.name+'</p>' +'<p>Id: '+ obj.id+'</p>'+'<p>Type: '+ obj.type+'</p>', className: 'ngdialog-theme-default', plain: true});
+  };
 
   // Ugly hack to update news. Better use promises
   $scope.$watch('deviceLst', function(newval, old){
