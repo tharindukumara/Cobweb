@@ -37,9 +37,7 @@ app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', fu
           id: '',
           name: '',
           userId: '',
-          username: '',
           time: '',
-          dp: '',
           msg : ''
         };
 
@@ -61,9 +59,7 @@ app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', fu
           deviceId: '',
           name: '',
           userId: '',
-          username: '',
           time: '',
-          dp: '',
           msg : ''
         };
 
@@ -84,9 +80,10 @@ app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', fu
     });
   }
 
-  function loadDeviceName(obj){
+  function loadDeviceData(obj){
     $http.get('http://localhost:8080/cobweb/api/device/' + obj.deviceId).success(function(data) {
       obj.deviceName = data.name;
+      obj.deviceType = data.deviceType;
     });
   }
 
@@ -98,8 +95,11 @@ app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', fu
   }
 
   $scope.popup = function (obj) {
-    console.log(obj);
     ngDialog.open({ template: '<h2>'+obj.userName+'</h2><p>Name: '+ obj.name+'</p>' +'<p>Id: '+ obj.id+'</p>'+'<p>Type: '+ obj.type+'</p>', className: 'ngdialog-theme-default', plain: true});
+  };
+
+  $scope.popupSensorParentDevice = function (obj) {
+    ngDialog.open({ template: '<h2>'+obj.userName+'</h2><p>Name: '+ obj.deviceName+'</p>' +'<p>Id: '+ obj.deviceId+'</p>'+'<p>Type: '+ obj.deviceType+'</p>', className: 'ngdialog-theme-default', plain: true});
   };
 
   // Ugly hack to update news. Better use promises
@@ -115,7 +115,7 @@ app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', fu
     newval.forEach(function(obj){
       loadDataById(obj, 'sensor');
       loadUserData(obj);
-      loadDeviceName(obj);
+      loadDeviceData(obj);
     });
     console.log(newval);
     $rootScope.newsLoaded = true;

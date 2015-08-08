@@ -49,7 +49,7 @@
                         <a class="mdl-button mdl-js-button mdl-js-ripple-effect" id="user-name-button"> {{ item.userName }} </a>
                     </div>
                     <div class="sensor-title">
-                        <a class="mdl-button mdl-js-button mdl-js-ripple-effect" id="sensor-device-name-button">{{ item.deviceName }}</a>
+                        <a class="mdl-button mdl-js-button mdl-js-ripple-effect" id="sensor-device-name-button" ng-click="popupSensorParentDevice(item)">{{ item.deviceName }}</a>
                         <a class="mdl-button mdl-js-button mdl-js-ripple-effect" id="sensor-name-button" ng-click="popup(item)"> {{item.name}}</a>
                     </div>
                     <div class="message">{{ item.msg }}</div>
