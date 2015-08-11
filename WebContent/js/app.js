@@ -1,15 +1,16 @@
 var app = angular.module('CobWebApp', ['ngRoute', 'angularMoment', 'ngDialog']);
 
-app.config(function($routeProvider) {
+app.config(function($routeProvider, $locationProvider) {
+  // $locationProvider.html5Mode(true);
 
   $routeProvider
   .when('/news', {
     templateUrl: 'newsfeed.html',
     controller: 'CobWebAppCtrl'
   })
-  .when('/about', {
-    templateUrl: 'views/about',
-    controller: 'MetaCtrl'
+  .when('/user/:id', {
+    templateUrl: 'user.html',
+    controller: 'UserCtrl'
   })
   .otherwise({
     templateUrl: 'views/404',
@@ -29,7 +30,7 @@ app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', fu
   }
 
   function loadDevices(){
-    $rootScope.newsLoaded = false;
+    $rootScope.dataLoaded = false;
     $http.get('http://localhost:8080/cobweb/api/device/newsfeed').success(function(data) {
       data.forEach(function(device){
 
@@ -108,7 +109,7 @@ app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', fu
       loadDataById(obj, 'device');
       loadUserData(obj);
     });
-    $rootScope.newsLoaded = true;
+    $rootScope.dataLoaded = true;
   }, true);
 
   $scope.$watch('sensorLst', function(newval, old){
@@ -118,7 +119,7 @@ app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', fu
       loadDeviceData(obj);
     });
     console.log(newval);
-    $rootScope.newsLoaded = true;
+    $rootScope.dataLoaded = true;
   }, true);
 
   loadNews();
@@ -129,6 +130,41 @@ app.controller('LayoutCtrl', ['$rootScope', '$scope', '$http', function($rootSco
   $scope.logout = function(){
     console.log("logging out");
     $http.get('http://localhost:8080/cobweb/api/logout');
+  }
+
+}]);
+
+app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', function($scope, $http, $routeParams, $rootScope) {
+
+  var userId = $routeParams.id;
+
+  $scope.user = {
+    userId: userId,
+    userName: '',
+    emailHash: ''
+  };
+
+
+  function loadUserData(obj){
+    $http.get('http://localhost:8080/cobweb/api/friends/' + obj.userId).success(function(data) {
+      obj.userName = data.firstName + ' ' + data.lastName;
+      obj.emailHash = data.emailHash;
+      $rootScope.dataLoaded = true;
+    });
+  }
+
+  function loadMyData(obj){
+    $http.get('http://localhost:8080/cobweb/api/user').success(function(data) {
+      obj.userName = data.firstName + ' ' + data.lastName;
+      obj.emailHash = data.emailHash;
+      $rootScope.dataLoaded = true;
+    });
+  }
+
+  if (userId === "0") {
+    loadMyData($scope.user);
+  } else {
+    loadUserData($scope.user);
   }
 
 }]);

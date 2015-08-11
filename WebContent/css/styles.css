@@ -256,3 +256,29 @@ md-card.news-item{
   position: absolute;
   bottom: 50px;
 }
+
+/*Profile*/
+
+.profile-card {
+  width: 100%!important;
+}
+
+.profile-grid {
+  height: 88%;
+}
+
+.user-data-grid {
+  width: 100%;
+  position: relative;
+}
+
+.profile-info {
+  border-left: 1px solid rgba(0,0,0,.1);
+}
+
+.profile-user-name {
+  font-size: 28px;
+  position: absolute;
+  top: 50;
+  left: 300;
+}

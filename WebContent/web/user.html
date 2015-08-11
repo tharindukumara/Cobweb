@@ -1,0 +1,21 @@
+<md-content id="main" layout="vertical" layout-align="center">
+
+<div class="demo-grid-1 mdl-grid profile-grid"  ng-show="dataLoaded">
+  <div class="mdl-cell mdl-cell--3-col"></div>
+  <div class="mdl-cell mdl-cell--6-col">
+    <div class="mdl-card mdl-shadow--2dp profile-card">
+
+      <div class="mdl-grid user-data-grid">
+          <div class="mdl-cell mdl-cell--4-col">
+              <img src="http://www.gravatar.com/avatar/{{user.emailHash}}?s=200"/>
+          </div>
+          <div class="mdl-cell mdl-cell--8-col profile-info">
+              <span class="profile-user-name"> {{ user.userName }} </span>
+          </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="mdl-cell mdl-cell--3-col"></div>
+
+</md-content>
