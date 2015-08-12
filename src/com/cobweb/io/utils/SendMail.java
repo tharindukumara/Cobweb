@@ -17,18 +17,34 @@ import javax.servlet.http.HttpServlet;
 
 import com.cobweb.io.meta.Email;
 
+
+/**
+ * The Class SendMail.
+ * @author Yasith Lokuge
+ */
 public class SendMail extends HttpServlet {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 4012826357716915515L;
 	
+	/** The Constant SMTP_HOST_NAME. */
 	private static final String SMTP_HOST_NAME = "smtp.sendgrid.net";
+	
+	/** The Constant SMTP_AUTH_USER. */
 	private static final String SMTP_AUTH_USER = "YasithLokuge";
+	
+	/** The Constant SMTP_AUTH_PWD. */
 	private static final String SMTP_AUTH_PWD = "Y@51th19910507";
+	
+	/** The Constant SMTP_PORT. */
 	private static final int SMTP_PORT = 2525;
 
+	/**
+	 * Send.
+	 *
+	 * @param email the email
+	 * @throws Exception the exception
+	 */
 	public void send(Email email) throws Exception {
 		
 		Properties props = new Properties();
@@ -60,8 +76,15 @@ public class SendMail extends HttpServlet {
 		transport.close();
 	}
 
+	/**
+	 * The Class SMTPAuthenticator.
+	 */
 	// Authenticates to SendGrid
 	private class SMTPAuthenticator extends javax.mail.Authenticator {
+		
+		/* (non-Javadoc)
+		 * @see javax.mail.Authenticator#getPasswordAuthentication()
+		 */
 		@Override
 		public PasswordAuthentication getPasswordAuthentication() {
 			String username = SMTP_AUTH_USER;

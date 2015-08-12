@@ -4,8 +4,10 @@ import java.net.URI;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
+import javax.ws.rs.core.UriInfo;
 
 import org.apache.shiro.SecurityUtils;
 
@@ -13,9 +15,10 @@ import org.apache.shiro.SecurityUtils;
 public class RestLogout {
 		
 	@GET	
-	public Response logout() {
-		SecurityUtils.getSubject().logout();
-		URI targetURIForRedirection = UriBuilder.fromUri("http://www.cobweb.io").build();	
+	public Response logout(@Context UriInfo ui) {
+		String baseUrl = ui.getBaseUri().toString().replace("api/", "");
+		SecurityUtils.getSubject().logout();				
+		URI targetURIForRedirection = UriBuilder.fromUri(baseUrl).build();			
 		return Response.seeOther(targetURIForRedirection).build();
 	}	
 }
