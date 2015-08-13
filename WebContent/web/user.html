@@ -1,8 +1,8 @@
 <md-content id="main" layout="vertical" layout-align="center">
 
 <div class="demo-grid-1 mdl-grid profile-grid"  ng-show="dataLoaded">
-  <div class="mdl-cell mdl-cell--3-col"></div>
-  <div class="mdl-cell mdl-cell--6-col">
+  <div class="mdl-cell mdl-cell--2-col"></div>
+  <div class="mdl-cell mdl-cell--8-col">
     <div class="mdl-card mdl-shadow--2dp profile-card">
 
       <div class="mdl-grid user-data-grid">
@@ -15,7 +15,43 @@
       </div>
     </div>
 
+    <div class="mdl-cell mdl-cell--6-col item-table-container">
+      <table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp device-table">
+        <thead>
+          <tr>
+            <th class="mdl-data-table__cell--non-numeric">Items</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat-start="item in items" ng-init="showSensors=false">
+            <td class="mdl-data-table__cell--non-numeric" href="" ng-click="showSensors=!showSensors; loadDeviceList(item.device.name)">{{item.device.name}}</td>
+          </tr>
+          <tr ng-repeat-end ng-show="showSensors" ng-repeat="sensor in item.sensors">
+            <td class="mdl-data-table__cell--non-numeric" ng-click="loadSensorList(sensor.name)">{{sensor.name}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mdl-cell mdl-cell--6-col card-list-container">
+      <ul class="card-table">
+        <li class="mdl-shadow--2dp device-card-list" ng-repeat="item in selectedItem">
+          <div layout="row" class="item-card">
+            <div ng-show="deviceVisible">
+              <div class="mdl-typography--title mdl-typography--title-color-contrast item-text"> Name: {{ item.device.name }} </div>
+              <div class="mdl-typography--title mdl-typography--title-color-contrast item-text"> Id: {{ item.device.id }}</div>
+              <div class="mdl-typography--title mdl-typography--title-color-contrast item-text">Type: {{ item.device.type }}</div>
+            </div>
+            <div ng-show="sensorVisible">
+              <div class="mdl-typography--title mdl-typography--title-color-contrast item-text"> Name: {{ item.name }} </div>
+              <div class="mdl-typography--title mdl-typography--title-color-contrast item-text"> Id: {{ item.id }}</div>
+              <div class="mdl-typography--title mdl-typography--title-color-contrast item-text">Type: {{ item.sensorType }}</div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
-  <div class="mdl-cell mdl-cell--3-col"></div>
+  <div class="mdl-cell mdl-cell--2-col"></div>
 
 </md-content>

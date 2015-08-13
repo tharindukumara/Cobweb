@@ -283,3 +283,40 @@ md-card.news-item{
   top: 50px;
   left: 300px;
 }
+
+.item-table-container {
+  margin: 0!important;
+  float: left;
+  width: 49.95%!important;
+}
+
+.device-table {
+  width: 100%;
+}
+
+.card-list-container {
+  margin: 0!important;
+  float: right;
+  width: 49.95%!important;
+}
+
+.card-table {
+  margin: 0;
+  padding: 0;
+}
+
+.device-card-list {
+  width: 100%!important;
+}
+
+.item-card {
+  padding-top: 10px;
+  padding-left: 20px;
+  height: 100px;
+  background-color: white;
+}
+
+.item-text {
+  font-size: 18px!important;
+  padding-bottom: 5px;
+}

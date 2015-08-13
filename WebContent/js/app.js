@@ -144,6 +144,7 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', fun
     emailHash: ''
   };
 
+  $scope.items = [];
 
   function loadUserData(obj){
     $http.get('http://localhost:8080/cobweb/api/friends/' + obj.userId).success(function(data) {
@@ -161,10 +162,84 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', fun
     });
   }
 
+  function loadMyDevices(cb){
+    $http.get('http://localhost:8080/cobweb/api/device').success(function(devlst) {
+      var deviceLst = [];
+      devlst.forEach(function(device){
+        var obj = {
+          device: {name: device.name,
+            id: device.id,
+            type: device.deviceType
+          },
+          sensorIdList: device.sensorIdList,
+          sensors: []
+        };
+
+        deviceLst.push(obj)
+      });
+      cb(deviceLst);
+    });
+  }
+
+  function loadUserDevices(id, cb){
+    $http.get('http://localhost:8080/cobweb/api/friends/device/' + id).success(function(devlst) {
+      var deviceLst = [];
+      devlst.forEach(function(device){
+        var obj = {
+          device: {name: device.name,
+            id: device.id,
+            type: device.deviceType
+          },
+          sensorIdList: device.sensorIdList,
+          sensors: []
+        };
+
+        deviceLst.push(obj)
+      });
+      cb(deviceLst);
+    });
+  }
+
+  function loadUserSensors(lst){
+    lst.forEach(function(device){
+      device.sensorIdList.forEach(function(sensorId){
+        $http.get('http://localhost:8080/cobweb/api/sensor/' + sensorId).success(function(sensorData) {
+          device.sensors.push(sensorData);
+        });
+        $scope.items.push(device);
+      });
+    });
+    $scope.loadDeviceList(lst[0].device.name); //Show the details of first device. Find a better way.
+  }
+
+  $scope.loadDeviceList = function(deviceName){
+    $scope.deviceVisible = true;
+    $scope.sensorVisible = false;
+    $scope.selectedItem = _.filter($scope.items, {device: {name: deviceName}});
+  }
+
+  $scope.loadSensorList = function(sensorName) {
+    var sensorList = [];
+    $scope.sensorVisible = true;
+    $scope.deviceVisible = false;
+    $scope.selectedItem.forEach(function(device){
+      device.sensors.forEach(function(sensor){
+        sensorList.push(sensor);
+      });
+    });
+    $scope.selectedItem = _.filter(sensorList, {name:sensorName});
+  }
+
   if (userId === "0") {
     loadMyData($scope.user);
+    loadMyDevices(function(deviceLst){
+      loadUserSensors(deviceLst)
+    });
   } else {
     loadUserData($scope.user);
+    loadUserDevices($scope.user.userId, function(deviceLst){
+      loadUserSensors(deviceLst)
+    });
   }
 
 }]);
