@@ -171,7 +171,8 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', fun
         var obj = {
           device: {name: device.name,
             id: device.id,
-            type: device.deviceType
+            type: device.deviceType,
+            description: device.description
           },
           sensorIdList: device.sensorIdList,
           sensors: []
@@ -190,7 +191,8 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', fun
         var obj = {
           device: {name: device.name,
             id: device.id,
-            type: device.deviceType
+            type: device.deviceType,
+            description: device.description
           },
           sensorIdList: device.sensorIdList,
           sensors: []
