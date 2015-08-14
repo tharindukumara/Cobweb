@@ -13,7 +13,7 @@ app.controller('LoginCtrl', ['$scope', '$http', function($scope, $http) {
     };
 
     if ($scope.signupForm.$valid) {
-      $http.post('http://localhost:8080/cobweb/anon/signup', userData).
+      $http.post('/anon/signup', userData).
       then(function(response) {
         console.log(response);
       });

@@ -31,7 +31,7 @@ app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', fu
 
   function loadDevices(){
     $rootScope.dataLoaded = false;
-    $http.get('http://localhost:8080/cobweb/api/device/newsfeed').success(function(data) {
+    $http.get('/api/device/newsfeed').success(function(data) {
       data.forEach(function(device){
 
         dev = {
@@ -52,7 +52,7 @@ app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', fu
   }
 
   function loadSensors(){
-    $http.get('http://localhost:8080/cobweb/api/sensor/newsfeed').success(function(data) {
+    $http.get('/api/sensor/newsfeed').success(function(data) {
       data.forEach(function(sensor){
 
         sen = {
@@ -75,21 +75,21 @@ app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', fu
   }
 
   function loadDataById(obj, type){
-    $http.get('http://localhost:8080/cobweb/api/' + type +'/' + obj.id).success(function(data) {
+    $http.get('/api/' + type +'/' + obj.id).success(function(data) {
       obj.name = data.name;
       obj.type = data[type+'Type'];
     });
   }
 
   function loadDeviceData(obj){
-    $http.get('http://localhost:8080/cobweb/api/device/' + obj.deviceId).success(function(data) {
+    $http.get('/api/device/' + obj.deviceId).success(function(data) {
       obj.deviceName = data.name;
       obj.deviceType = data.deviceType;
     });
   }
 
   function loadUserData(obj){
-    $http.get('http://localhost:8080/cobweb/api/friends/' + obj.userId).success(function(data) {
+    $http.get('/api/friends/' + obj.userId).success(function(data) {
       obj.userName = data.firstName + ' ' + data.lastName;
       obj.emailHash = data.emailHash;
     });
@@ -129,7 +129,7 @@ app.controller('LayoutCtrl', ['$rootScope', '$scope', '$http', '$location', func
   console.log("layout ctrller fired");
   $scope.logout = function(){
     console.log("logging out");
-    $http.get('http://localhost:8080/cobweb/api/logout').then(function(){
+    $http.get('/api/logout').then(function(){
       $location.url('/');
     });
   }
@@ -149,7 +149,7 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', fun
   $scope.items = [];
 
   function loadUserData(obj){
-    $http.get('http://localhost:8080/cobweb/api/friends/' + obj.userId).success(function(data) {
+    $http.get('/api/friends/' + obj.userId).success(function(data) {
       obj.userName = data.firstName + ' ' + data.lastName;
       obj.emailHash = data.emailHash;
       $rootScope.dataLoaded = true;
@@ -157,7 +157,7 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', fun
   }
 
   function loadMyData(obj){
-    $http.get('http://localhost:8080/cobweb/api/user').success(function(data) {
+    $http.get('/api/user').success(function(data) {
       obj.userName = data.firstName + ' ' + data.lastName;
       obj.emailHash = data.emailHash;
       $rootScope.dataLoaded = true;
@@ -165,7 +165,7 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', fun
   }
 
   function loadMyDevices(cb){
-    $http.get('http://localhost:8080/cobweb/api/device').success(function(devlst) {
+    $http.get('/api/device').success(function(devlst) {
       var deviceLst = [];
       devlst.forEach(function(device){
         var obj = {
@@ -185,7 +185,7 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', fun
   }
 
   function loadUserDevices(id, cb){
-    $http.get('http://localhost:8080/cobweb/api/friends/device/' + id).success(function(devlst) {
+    $http.get('/api/friends/device/' + id).success(function(devlst) {
       var deviceLst = [];
       devlst.forEach(function(device){
         var obj = {
@@ -207,7 +207,7 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', fun
   function loadUserSensors(lst){
     lst.forEach(function(device){
       device.sensorIdList.forEach(function(sensorId){
-        $http.get('http://localhost:8080/cobweb/api/sensor/' + sensorId).success(function(sensorData) {
+        $http.get('/api/sensor/' + sensorId).success(function(sensorData) {
           device.sensors.push(sensorData);
         });
         $scope.items.push(device);
