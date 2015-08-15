@@ -205,6 +205,22 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', fun
     });
   }
 
+  function loadMySensors(lst){
+    $http.get('/api/sensor').success(function(sensors) {
+      var parentDevice;
+      lst.forEach(function(item){
+        sensors.forEach(function(sensor){
+          if (item.device.id == sensor.parentDeviceId){
+            item.sensors.push(sensor);  //O(D*S) :(
+          }
+        });
+      $scope.items.push(item);
+      });
+      console.log(lst);
+      $scope.loadDeviceList(lst[0].device.name);
+    });
+  }
+
   function loadUserSensors(lst){
     lst.forEach(function(device){
       device.sensorIdList.forEach(function(sensorId){
@@ -218,27 +234,36 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', fun
     setSubscribedStatus(lst);
   }
 
-  function setSubscribedStatus(lst){
+  function deviceSubscribeStatus(lst, cb) {
     $http.get('/api/device/subscriptions').success(function(subscriptions) {
       lst.forEach(function(item){
         if (subscriptions.indexOf(item.device.id) > -1){
           item.device.subscribed = true;
+        } else {
+          item.device.subscribed = false;
         }
       });
-      console.log(lst);
+      cb(lst);
     });
+  }
 
-    $http.get('/api/device/subscriptions').success(function(subscriptions) {
+  function sensorSubscribedStatus(lst){
+    $http.get('/api/sensor/subscriptions').success(function(subscriptions) {
       lst.forEach(function(item){
         item.sensors.forEach(function(sensor){
           if (subscriptions.indexOf(sensor.id) > -1) {
             sensor.subscribed = true;
           } else {
-        	sensor.subscribed = false;
+            sensor.subscribed = false;
           }
+          console.log(sensor);
         });
       });
     });
+  }
+
+  function setSubscribedStatus(lst){
+    deviceSubscribeStatus(lst, sensorSubscribedStatus);
   }
 
   $scope.subscribe = function(device, type){
@@ -277,7 +302,7 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', fun
   if (userId === "0") {
     loadMyData($scope.user);
     loadMyDevices(function(deviceLst){
-      loadUserSensors(deviceLst)
+      loadMySensors(deviceLst)
     });
   } else {
     loadUserData($scope.user);
