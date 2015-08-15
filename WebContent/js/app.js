@@ -192,7 +192,8 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', fun
           device: {name: device.name,
             id: device.id,
             type: device.deviceType,
-            description: device.description
+            description: device.description,
+            subscribed: false
           },
           sensorIdList: device.sensorIdList,
           sensors: []
@@ -214,6 +215,45 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', fun
       });
     });
     $scope.loadDeviceList(lst[0].device.name); //Show the details of first device. Find a better way.
+    setSubscribedStatus(lst);
+  }
+
+  function setSubscribedStatus(lst){
+    $http.get('/api/device/subscriptions').success(function(subscriptions) {
+      lst.forEach(function(item){
+        if (subscriptions.indexOf(item.device.id) > -1){
+          item.device.subscribed = true;
+        }
+      });
+      console.log(lst);
+    });
+
+    $http.get('/api/device/subscriptions').success(function(subscriptions) {
+      lst.forEach(function(item){
+        item.sensors.forEach(function(sensor){
+          if (subscriptions.indexOf(sensor.id) > -1) {
+            sensor.subscribed = true;
+          } else {
+        	sensor.subscribed = false;
+          }
+        });
+      });
+    });
+  }
+
+  $scope.subscribe = function(device, type){
+    console.log("subscribing", device.id, type);
+    $http.post('/api/' + type +'/subscriptions', {data: device.id}).success(function(res){
+      console.log(res);
+    });
+    device.subscribed = true;
+  };
+
+  $scope.unsubscribe = function(device, type){
+    $http.delete('/api/' + type +'/subscriptions', {data: device.id}).success(function(res){
+      console.log(res);
+    });
+    device.subscribed = false;
   }
 
   $scope.loadDeviceList = function(deviceName){

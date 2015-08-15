@@ -38,16 +38,24 @@
         <li class="mdl-shadow--2dp device-card-list" ng-repeat="item in selectedItem">
           <div layout="row" class="item-card">
             <div ng-show="deviceVisible">
-              <div class="mdl-typography--title mdl-typography--title-color-contrast item-text"> Name: {{ item.device.name }} </div>
-              <div class="mdl-typography--title mdl-typography--title-color-contrast item-text"> Id: {{ item.device.id }}</div>
-              <div class="mdl-typography--title mdl-typography--title-color-contrast item-text">Type: {{ item.device.type }}</div>
-              <div class="mdl-typography--title mdl-typography--title-color-contrast item-text">Description: {{ item.device.description }}</div>
+              <div class="mdl-typography--title mdl-typography--title-color-contrast item-name"> {{ item.device.name }} </div>
+              <div>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent follow-btn" ng-show="item.device.subscribed" ng-click="unsubscribe(item.device, 'device')">Unfollow</button>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent follow-btn" ng-click="subscribe(item.device, 'device')" ng-hide="item.device.subscribed">Follow</button>
+              </div>
+              <div class="mdl-typography--title mdl-typography--title-color-contrast item-id"> Id: {{ item.device.id }}</div>
+              <div class="mdl-typography--title mdl-typography--title-color-contrast item-type">Type: {{ item.device.type }}</div>
+              <div class="mdl-typography--title mdl-typography--title-color-contrast item-description">Description: {{ item.device.description }}</div>
             </div>
             <div ng-show="sensorVisible">
-              <div class="mdl-typography--title mdl-typography--title-color-contrast item-text"> Name: {{ item.name }} </div>
-              <div class="mdl-typography--title mdl-typography--title-color-contrast item-text"> Id: {{ item.id }}</div>
-              <div class="mdl-typography--title mdl-typography--title-color-contrast item-text">Type: {{ item.sensorType }}</div>
-              <div class="mdl-typography--title mdl-typography--title-color-contrast item-text">Description: {{ item.device.description }}</div>
+              <div class="mdl-typography--title mdl-typography--title-color-contrast item-name"> {{ item.name }} </div>
+              <div>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent follow-btn" ng-show="item.subscribed" ng-click="unsubscribe(item, 'sensor')">Unfollow</button>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent follow-btn" ng-click="subscribe(item, 'sensor')" ng-hide="item.subscribed">Follow</button>
+              </div>
+              <div class="mdl-typography--title mdl-typography--title-color-contrast item-id"> Id: {{ item.id }}</div>
+              <div class="mdl-typography--title mdl-typography--title-color-contrast item-type">Type: {{ item.sensorType }}</div>
+              <div class="mdl-typography--title mdl-typography--title-color-contrast item-description">Description: {{ item.device.description }}</div>
             </div>
           </div>
         </li>

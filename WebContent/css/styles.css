@@ -310,13 +310,32 @@ md-card.news-item{
 }
 
 .item-card {
+  position: relative;
   padding-top: 10px;
   padding-left: 20px;
   height: 100px;
   background-color: white;
 }
 
-.item-text {
+.item-name {
+  font-size: 24px!important;
+}
+
+.item-id {
+  color: rgb(98, 98, 98);
+  font-size: 12px!important;
+}
+
+.item-type {
   font-size: 18px!important;
-  padding-bottom: 5px;
+}
+
+.item-description {
+  font-size: 18px!important;
+}
+
+.follow-btn {
+  position: absolute!important;
+  right: 10px;
+  top: 5px;
 }
