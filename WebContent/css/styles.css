@@ -339,3 +339,12 @@ md-card.news-item{
   right: 10px;
   top: 5px;
 }
+
+.profile-card-list {
+  padding: 0;
+}
+
+.profile-payload-card{
+  margin-bottom: 5px;
+  width: 100%!important;
+}

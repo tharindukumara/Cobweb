@@ -136,7 +136,7 @@ app.controller('LayoutCtrl', ['$rootScope', '$scope', '$http', '$location', func
 
 }]);
 
-app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', function($scope, $http, $routeParams, $rootScope) {
+app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ngDialog', function($scope, $http, $routeParams, $rootScope, ngDialog) {
 
   var userId = $routeParams.id;
 
@@ -266,6 +266,31 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', fun
     deviceSubscribeStatus(lst, sensorSubscribedStatus);
   }
 
+  function loadDataById(obj, type){
+    $http.get('/api/' + type +'/' + obj.id).success(function(data) {
+      obj.name = data.name;
+      obj.type = data[type+'Type'];
+    });
+  }
+
+  function loadDeviceData(obj){
+    $http.get('/api/device/' + obj.deviceId).success(function(data) {
+      obj.deviceName = data.name;
+      obj.deviceType = data.deviceType;
+    });
+  }
+
+  function loadUserData(obj){
+    $http.get('/api/friends/' + obj.userId).success(function(data) {
+      obj.userName = data.firstName + ' ' + data.lastName;
+      obj.emailHash = data.emailHash;
+    });
+  }
+
+  $scope.popup = function (obj) {
+    ngDialog.open({ template: '<h2>'+obj.userName+'</h2><p>Name: '+ obj.name+'</p>' +'<p>Id: '+ obj.id+'</p>'+'<p>Type: '+ obj.type+'</p>', className: 'ngdialog-theme-default', plain: true});
+  };
+
   $scope.subscribe = function(device, type){
     $http({
       method: 'POST',
@@ -305,15 +330,95 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', fun
     $scope.selectedItem = _.filter(sensorList, {name:sensorName});
   }
 
+  function loadDeviceCards(id) {
+    $scope.cardLst = [];
+
+    $http.get('/api/device/message/' + id).success(function(data) {
+      data.forEach(function(device){
+
+        dev = {
+          id: '',
+          name: '',
+          userId: '',
+          time: '',
+          msg: '',
+          item: 'device'
+        };
+
+        dev.id = device.deviceId;
+        dev.userId = device.userId;
+        dev.time = device.dateTime;
+        dev.msg = device.message;
+        $scope.cardLst.push(dev);
+      });
+      console.log($scope.cardLst);
+    });
+  }
+
+  function loadSensorCards(id){
+    $scope.cardLst = [];
+
+    $http.get('/api/sensor/message/' + id).success(function(data) {
+      data.forEach(function(sensor){
+
+        sen = {
+          id: '',
+          deviceId: '',
+          name: '',
+          userId: '',
+          time: '',
+          msg: '',
+          item: 'sensor'
+        };
+
+        sen.id = sensor.sensorId;
+        sen.userId = sensor.userId;
+        sen.deviceId = sensor.deviceId;
+        sen.time = sensor.timeStamp;
+        sen.msg = sensor.message;
+        $scope.cardLst.push(sen);
+      });
+      console.log($scope.cardLst);
+    });
+  }
+
+  $scope.loadCards = function(id, type){
+    if (id){
+      if (type == 'device') {
+        loadDeviceCards(id);
+      } else if (type == 'sensor') {
+        loadSensorCards(id);
+      }
+    }
+  }
+
+  $scope.$watch('cardLst', function(newval, old){
+    console.log(newval);
+    if (newval !== undefined && newval.length !== 0){
+      if (newval[0].item == 'device'){
+        newval.forEach(function(obj){
+          loadDataById(obj, 'device');
+          loadUserData(obj);
+        });
+      } else if (newval[0].item == 'sensor'){
+        newval.forEach(function(obj){
+          loadDataById(obj, 'sensor');
+          loadUserData(obj);
+          loadDeviceData(obj);
+        });
+      }
+    }
+  }, true);
+
   if (userId === "0") {
     loadMyData($scope.user);
     loadMyDevices(function(deviceLst){
-      loadMySensors(deviceLst)
+      loadMySensors(deviceLst);
     });
   } else {
     loadUserData($scope.user);
     loadUserDevices($scope.user.userId, function(deviceLst){
-      loadUserSensors(deviceLst)
+      loadUserSensors(deviceLst);
     });
   }
 

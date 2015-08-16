@@ -1,8 +1,8 @@
 <md-content id="main" layout="vertical" layout-align="center">
 
 <div class="demo-grid-1 mdl-grid profile-grid"  ng-show="dataLoaded">
-  <div class="mdl-cell mdl-cell--2-col"></div>
-  <div class="mdl-cell mdl-cell--8-col">
+  <div class="mdl-cell mdl-cell--1-col"></div>
+  <div class="mdl-cell mdl-cell--10-col">
     <div class="mdl-card mdl-shadow--2dp profile-card">
 
       <div class="mdl-grid user-data-grid">
@@ -37,7 +37,7 @@
       <ul class="card-table">
         <li class="mdl-shadow--2dp device-card-list" ng-repeat="item in selectedItem">
           <div layout="row" class="item-card">
-            <div ng-show="deviceVisible">
+            <div ng-show="deviceVisible" ng-init="loadCards(item.device.id, 'device')">
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-name"> {{ item.device.name }} </div>
               <div>
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent follow-btn" ng-show="item.device.subscribed == true" ng-click="unsubscribe(item.device, 'device')">Unfollow</button>
@@ -47,7 +47,7 @@
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-type">Type: {{ item.device.type }}</div>
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-description">Description: {{ item.device.description }}</div>
             </div>
-            <div ng-show="sensorVisible">
+            <div ng-show="sensorVisible" ng-init="loadCards(item.id, 'sensor')">
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-name"> {{ item.name }} </div>
               <div>
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent follow-btn" ng-show="item.subscribed == true" ng-click="unsubscribe(item, 'sensor')">Unfollow</button>
@@ -58,10 +58,31 @@
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-description">Description: {{ item.device.description }}</div>
             </div>
           </div>
+          <div>
+            <ul class="profile-card-list">
+              <li class="mdl-card mdl-shadow--2dp profile-payload-card" ng-repeat="item in cardLst">
+                <div layout="row" class="card">
+                  <div class="dp-col">
+                    <img class="round-face" src="http://www.gravatar.com/avatar/{{item.emailHash}}"/>
+                  </div>
+                  <div class="body-col">
+                    <div class="mdl-typography--headline mdl-typography--headline-color-contrast user-name">
+                      <a class="mdl-button mdl-js-button mdl-js-ripple-effect" id="user-name-button" href=""> {{ item.userName }} </a>
+                    </div>
+                    <div class="device-title"  ng-click="popup(item)">
+                      <a class="mdl-button mdl-js-button mdl-js-ripple-effect" id="device-name-button">{{ item.name }}</a>
+                    </div>
+                    <div class="message">{{ item.msg }}</div>
+                    <span class="news-item-datetime time" am-time-ago="item.time"></span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
         </li>
       </ul>
     </div>
   </div>
-  <div class="mdl-cell mdl-cell--2-col"></div>
+  <div class="mdl-cell mdl-cell--1-col"></div>
 
 </md-content>
