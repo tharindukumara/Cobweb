@@ -267,10 +267,16 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', fun
   }
 
   $scope.subscribe = function(device, type){
-    console.log("subscribing", device.id, type);
-    $http.post('/api/' + type +'/subscriptions', {data: device.id}).success(function(res){
-      console.log(res);
-    });
+    $http({
+      method: 'POST',
+      url: '/api/' + type +'/subscriptions',
+      data: device.id,
+      headers: {
+        'Content-Type': 'text/plain'
+      }})
+      .success(function(result) {
+        console.log(result);
+      });
     device.subscribed = true;
   };
 
