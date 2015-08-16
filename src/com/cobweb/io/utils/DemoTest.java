@@ -20,6 +20,7 @@ import com.cobweb.io.mqtt.MosquittoAuth;
 import com.cobweb.io.service.AbstractService;
 import com.cobweb.io.service.DeleteService;
 import com.cobweb.io.service.ReadService;
+import com.cobweb.io.service.UpdateService;
 
 public class DemoTest implements AbstractService{
 
@@ -169,11 +170,11 @@ public class DemoTest implements AbstractService{
 //		System.out.println(mosquittoAuth.authCheck("superuser", "C0bw3b105up3ru53r"));
 //		
 		
-		String email = "yasith1@gmail.com";
-		MessageDigest md5 = MessageDigest.getInstance("MD5");
-		String hex = (new HexBinaryAdapter()).marshal(md5.digest(email.getBytes()));
-			
-		System.out.println(hex.toLowerCase());
+//		String email = "yasith1@gmail.com";
+//		MessageDigest md5 = MessageDigest.getInstance("MD5");
+//		String hex = (new HexBinaryAdapter()).marshal(md5.digest(email.getBytes()));
+//			
+//		System.out.println(hex.toLowerCase());
 //		try {
 //			byte[] bytesOfEmail = email.getBytes("UTF-8");
 //			byte[] thedigest = md.digest(bytesOfEmail);	
@@ -182,6 +183,9 @@ public class DemoTest implements AbstractService{
 //		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
 //			e.printStackTrace();
 //		}
+		
+		UpdateService updateService = new UpdateService();
+		System.out.println(updateService.activateUser("c4256165-d20c-409c-8818-4832e7dfcc65"));
 	}
 	
 	

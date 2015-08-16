@@ -53,7 +53,7 @@ public class RestSubscribeDevice {
 		String userId = readService.getUserId(email);
 				
 		List<String> subscriptionIdList = readService.getUserSubscribedDeviceList(userId);
-				
+		
 		try {
 			return objectWriter.writeValueAsString(subscriptionIdList);
 		} catch (JsonProcessingException e) {
@@ -78,7 +78,7 @@ public class RestSubscribeDevice {
 		Subject currentUser = SecurityUtils.getSubject();
 		String email = (String) currentUser.getPrincipal();
 		String userId = readService.getUserId(email);
-		List<String> deviceIdList	= readService.getDeviceIdList(userId);
+		List<String> deviceIdList	= readService.getSubscribedDeviceIdList(userId);
 
 		if(!deviceIdList.contains(deviceId))					
 			return UNKNOWN_DEVICE_ID;			

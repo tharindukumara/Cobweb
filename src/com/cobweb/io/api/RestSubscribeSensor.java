@@ -83,7 +83,7 @@ public class RestSubscribeSensor {
 		Subject currentUser = SecurityUtils.getSubject();
 		String email = (String) currentUser.getPrincipal();
 		String userId = readService.getUserId(email);
-		List<String> sensorIdList	= readService.getSensorIdList(userId);
+		List<String> sensorIdList	= readService.getSubscribedSensorIdList(userId);
 
 		if(!sensorIdList.contains(sensorId))					
 			return UNKNOWN_SENSOR_ID;			
