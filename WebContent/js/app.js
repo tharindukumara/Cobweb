@@ -287,49 +287,6 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
     });
   }
 
-  $scope.popup = function (obj) {
-    ngDialog.open({ template: '<h2>'+obj.userName+'</h2><p>Name: '+ obj.name+'</p>' +'<p>Id: '+ obj.id+'</p>'+'<p>Type: '+ obj.type+'</p>', className: 'ngdialog-theme-default', plain: true});
-  };
-
-  $scope.subscribe = function(device, type){
-    $http({
-      method: 'POST',
-      url: '/api/' + type +'/subscriptions',
-      data: device.id,
-      headers: {
-        'Content-Type': 'text/plain'
-      }})
-      .success(function(result) {
-        console.log(result);
-      });
-    device.subscribed = true;
-  };
-
-  $scope.unsubscribe = function(device, type){
-    $http.delete('/api/' + type +'/subscriptions', {data: device.id}).success(function(res){
-      console.log(res);
-    });
-    device.subscribed = false;
-  }
-
-  $scope.loadDeviceList = function(deviceName){
-    $scope.deviceVisible = true;
-    $scope.sensorVisible = false;
-    $scope.selectedItem = _.filter($scope.items, {device: {name: deviceName}});
-  }
-
-  $scope.loadSensorList = function(sensorName) {
-    var sensorList = [];
-    $scope.sensorVisible = true;
-    $scope.deviceVisible = false;
-    $scope.selectedItem.forEach(function(device){
-      device.sensors.forEach(function(sensor){
-        sensorList.push(sensor);
-      });
-    });
-    $scope.selectedItem = _.filter(sensorList, {name:sensorName});
-  }
-
   function loadDeviceCards(id) {
     $scope.cardLst = [];
 
@@ -380,6 +337,49 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
       });
       console.log($scope.cardLst);
     });
+  }
+
+  $scope.popup = function (obj) {
+    ngDialog.open({ template: '<h2>'+obj.userName+'</h2><p>Name: '+ obj.name+'</p>' +'<p>Id: '+ obj.id+'</p>'+'<p>Type: '+ obj.type+'</p>', className: 'ngdialog-theme-default', plain: true});
+  };
+
+  $scope.subscribe = function(device, type){
+    $http({
+      method: 'POST',
+      url: '/api/' + type +'/subscriptions',
+      data: device.id,
+      headers: {
+        'Content-Type': 'text/plain'
+      }})
+      .success(function(result) {
+        console.log(result);
+      });
+    device.subscribed = true;
+  };
+
+  $scope.unsubscribe = function(device, type){
+    $http.delete('/api/' + type +'/subscriptions', {data: device.id}).success(function(res){
+      console.log(res);
+    });
+    device.subscribed = false;
+  }
+
+  $scope.loadDeviceList = function(deviceName){
+    $scope.deviceVisible = true;
+    $scope.sensorVisible = false;
+    $scope.selectedItem = _.filter($scope.items, {device: {name: deviceName}});
+  }
+
+  $scope.loadSensorList = function(sensorName) {
+    var sensorList = [];
+    $scope.sensorVisible = true;
+    $scope.deviceVisible = false;
+    $scope.selectedItem.forEach(function(device){
+      device.sensors.forEach(function(sensor){
+        sensorList.push(sensor);
+      });
+    });
+    $scope.selectedItem = _.filter(sensorList, {name:sensorName});
   }
 
   $scope.loadCards = function(id, type){
