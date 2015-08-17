@@ -147,6 +147,7 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
   };
 
   $scope.items = [];
+  $scope.friendRequests = [];
 
   function loadUserData(obj){
     $http.get('/api/friends/' + obj.userId).success(function(data) {
@@ -339,6 +340,36 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
     });
   }
 
+  function loadFriendRequests(){
+    $http.get('/api/friends/manage/').success(function(data) {
+      $scope.friendRequests = data;
+    });
+  }
+
+  $scope.acceptFriendRequest = function(id){
+    $http({
+      method: 'POST',
+      url: '/api/friends/manage',
+      data: id,
+      headers: {
+        'Content-Type': 'text/plain'
+      }})
+      .success(function(result) {
+        _.remove($scope.friendRequests, function(request){
+          return request.userId == id;
+        });
+        console.log($scope.friendRequests);
+      });
+  }
+
+  $scope.deleteFriendRequest = function(id){
+    $http.delete('/api/friends/manage', {data: id}).success(function(res){
+      _.remove($scope.friendRequests, function(request){
+        return request.userId == id;
+      });
+    });
+  }
+
   $scope.popup = function (obj) {
     ngDialog.open({ template: '<h2>'+obj.userName+'</h2><p>Name: '+ obj.name+'</p>' +'<p>Id: '+ obj.id+'</p>'+'<p>Type: '+ obj.type+'</p>', className: 'ngdialog-theme-default', plain: true});
   };
@@ -414,6 +445,7 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
     loadMyData($scope.user);
     loadMyDevices(function(deviceLst){
       loadMySensors(deviceLst);
+      loadFriendRequests();
     });
   } else {
     loadUserData($scope.user);
