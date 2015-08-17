@@ -125,12 +125,14 @@ app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', fu
   loadNews();
 }]);
 
-app.controller('LayoutCtrl', ['$rootScope', '$scope', '$http', '$location', function($rootScope, $scope, $http, $location) {
+app.controller('LayoutCtrl', ['$rootScope', '$scope', '$http', '$location', '$window', function($rootScope, $scope, $http, $location, $window) {
   console.log("layout ctrller fired");
+  var baseLen = $location.absUrl().length - $location.url().length - 'web/home.html#'.length;
+  var rediretUrl = $location.absUrl().slice(0, baseLen);
   $scope.logout = function(){
-    console.log("logging out");
+    console.log("logging out", rediretUrl);
     $http.get('/api/logout').then(function(){
-      $location.url('/');
+      $window.location.href=rediretUrl;
     });
   }
 
