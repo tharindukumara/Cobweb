@@ -16,9 +16,16 @@ public class RestLogout {
 		
 	@GET	
 	public Response logout(@Context UriInfo ui) {
-		String baseUrl = ui.getBaseUri().toString().replace("api/", "");
+		String baseUrl = ui.getBaseUri().toString();
 		SecurityUtils.getSubject().logout();				
-		URI targetURIForRedirection = UriBuilder.fromUri(baseUrl).build();			
+		URI targetURIForRedirection;
+		
+		if(baseUrl.contains("localhost"))
+			targetURIForRedirection = UriBuilder.fromUri("http://localhost:8080/").build();
+		else
+			targetURIForRedirection = UriBuilder.fromUri("http://www.cobweb.io/").build();
+		
+		
 		return Response.seeOther(targetURIForRedirection).build();
 	}	
 }
