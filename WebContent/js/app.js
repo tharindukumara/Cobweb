@@ -12,6 +12,10 @@ app.config(function($routeProvider, $locationProvider) {
     templateUrl: 'user.html',
     controller: 'UserCtrl'
   })
+  .when('/items', {
+    templateUrl: 'items.html',
+    controller: 'ItemsCtrl'
+  })
   .otherwise({
     templateUrl: 'views/404',
     controller: 'MetaCtrl'
@@ -458,3 +462,7 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
 
 }]);
 
+app.controller('ItemsCtrl', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http) {
+  console.log("Items ctrller fired");
+
+}]);
