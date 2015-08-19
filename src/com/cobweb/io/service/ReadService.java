@@ -154,6 +154,25 @@ public class ReadService implements AbstractService{
 		}
 		return idValue;
 	}
+	
+	
+	/**
+	 * Gets the email.
+	 *
+	 * @param userId the user id
+	 * @return the email
+	 */
+	public String getEmail(String userId){
+		ODocument result;
+		String email = null;
+		try {
+			result = (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select email from User where idValue='"+userId+"'")).get(0);
+			email = result.field("email");		
+		} catch (Exception e) {
+			email = null;
+		}
+		return email;
+	}
 
 	/**
 	 * Gets the salt.
