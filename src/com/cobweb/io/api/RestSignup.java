@@ -199,21 +199,21 @@ public class RestSignup {
 				try {
 					sendMail.send(emailObj);
 				} catch (Exception e) {		
-					targetURIForRedirection = UriBuilder.fromUri(baseUrl.replace("anon/", "web-anon/internalerror.html")).build();
+					targetURIForRedirection = UriBuilder.fromUri(baseUrl.replace("anon/", "web-anon/error.html?error=0x04")).build();
 					return Response.seeOther(targetURIForRedirection).build();
 				}				
-				targetURIForRedirection = UriBuilder.fromUri(baseUrl.replace("anon/", "web-anon/reconfirm.html")).build();				
+				targetURIForRedirection = UriBuilder.fromUri(baseUrl.replace("anon/", "web-anon/error.html?error=0x02")).build();				
 			}else{
-				targetURIForRedirection = UriBuilder.fromUri(baseUrl.replace("anon/", "web-anon/error.html")).build();
+				targetURIForRedirection = UriBuilder.fromUri(baseUrl.replace("anon/", "web-anon/error.html?error=0x03")).build();
 			}
 			
 		}else{			
 			UpdateService updateService = new UpdateService();			
 			if(!updateService.activateUser(userId)){				
-				targetURIForRedirection = UriBuilder.fromUri(baseUrl.replace("anon/", "web-anon/internalerror.html")).build();
+				targetURIForRedirection = UriBuilder.fromUri(baseUrl.replace("anon/", "web-anon/error.html?error=0x04")).build();
 			}else{	
 				idMap.remove(userId);	
-				targetURIForRedirection = UriBuilder.fromUri(baseUrl.replace("anon/", "web-anon/success.html")).build();			
+				targetURIForRedirection = UriBuilder.fromUri(baseUrl.replace("anon/", "web-anon/error.html?error=0x01")).build();			
 			}
 		}	 		
 		return Response.seeOther(targetURIForRedirection).build();
