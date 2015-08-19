@@ -361,3 +361,8 @@ md-card.news-item{
   right: 100px;
   top: 5px;
 }
+
+.subscription-request {
+  width: 60%;
+  text-align: left;
+}

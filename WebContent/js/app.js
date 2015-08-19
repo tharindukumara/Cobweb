@@ -465,4 +465,119 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
 app.controller('ItemsCtrl', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http) {
   console.log("Items ctrller fired");
 
+  $scope.devices = [];
+  $scope.sensors = [];
+
+  function loadDeviceSubscriberName(lst) {
+    console.log(lst);
+    lst.forEach(function(device){
+      device.subscriberIds.forEach(function(id){
+        $http.get('/api/friends/' +id).success(function(data) {
+          device.subscriber.push({name: data.firstName + ' ' + data.lastName, subscriberId: id});
+        });
+      });
+    });
+    lst.forEach(function(device){
+      $http.get('/api/device/' +device.id).success(function(data) {
+        device.name = data.name;
+      });
+    });
+    $scope.devices = lst;
+  }
+
+  function loadDeviceNotifications(cb){
+    var deviceLst = [];
+    var devIdLst = [];
+
+    $http.get('/api/device/subscriptions/manage').success(function(data) {
+      devIdLst = _.keys(data);
+
+      var dev = {
+        id: '',
+        name: '',
+        subscriberIds: [],
+        subscriber: []
+      };
+
+      devIdLst.forEach(function(id){
+        dev.id = id;
+        dev.subscriberIds = data[id];
+        deviceLst.push(dev);
+        console.log(data[id], data, id);
+      });
+      cb(deviceLst);
+    });
+  }
+
+  function loadSensorSubscriberName(lst) {
+    console.log(lst);
+    lst.forEach(function(sensor){
+      sensor.subscriberIds.forEach(function(id){
+        $http.get('/api/friends/' +id).success(function(data) {
+          sensor.subscriber.push({name: data.firstName + ' ' + data.lastName, subscriberId: id});
+        });
+      });
+    });
+    lst.forEach(function(sensor){
+      $http.get('/api/sensor/' +sensor.id).success(function(data) {
+        sensor.name = data.name;
+      });
+    });
+    $scope.sensors = lst;
+    $rootScope.dataLoaded = true;
+  }
+
+  function loadSensorNotifications(cb){
+    var sensorLst = [];
+    var senIdLst = [];
+
+    $http.get('/api/sensor/subscriptions/manage').success(function(data) {
+      senIdLst = _.keys(data);
+
+      var sen = {
+        id: '',
+        name: '',
+        subscriberIds: [],
+        subscriber: []
+      };
+
+      senIdLst.forEach(function(id){
+        sen.id = id;
+        sen.subscriberIds = data[id];
+        sensorLst.push(sen);
+        console.log(data[id], data, id);
+      });
+      cb(sensorLst);
+    });
+  }
+
+  $scope.acceptSubscription = function(subscriberId, sensorId, sub) {
+    var postData = {
+      "subscriberId": subscriberId,
+      "sensorId": sensorId,
+      "accept": true
+    };
+
+    $http.post('/api/sensor/subscriptions/manage', postData).success(function(data) {
+      console.log(data, sub);
+      sub.requestSent = true;
+    });
+  }
+
+  $scope.rejectSubscription = function(subscriberId, sensorId, sub) {
+    var postData = {
+      "subscriberId": subscriberId,
+      "sensorId": sensorId,
+      "accept": false
+    };
+
+    $http.post('/api/sensor/subscriptions/manage', postData).success(function(data) {
+      console.log(data);
+      sub.requestSent = true;
+    });
+  }
+
+  loadSensorNotifications(loadSensorSubscriberName)
+  loadDeviceNotifications(loadDeviceSubscriberName);
+
 }]);
