@@ -577,6 +577,56 @@ app.controller('ItemsCtrl', ['$rootScope', '$scope', '$http', function($rootScop
     });
   }
 
+  /*
+  Device/Sensor table
+  */
+
+  $scope.deviceIdlst = [];
+  $scope.items = [];
+
+  function loadDeviceList(cb){
+    $http.get('/api/device/subscriptions').success(function(data) {
+      $scope.deviceIdlst = data;
+      cb(data);
+    });
+  }
+
+  function loadDeviceData(lst){
+    lst.forEach(function(id){
+      $http.get('/api/device/' + id).success(function(device) {
+        var obj = {
+          device: {name: device.name,
+            id: device.id,
+            type: device.deviceType,
+            description: device.description
+          },
+          sensorIdList: device.sensorIdList,
+          sensors: []
+        };
+
+        $scope.items.push(obj);
+      });
+    });
+  }
+
+  function loadSensorData(lst){
+    lst.forEach(function(device){
+      device.sensorIdList.forEach(function(sensorId){
+        $http.get('/api/sensor/' + sensorId).success(function(sensorData) {
+          device.sensors.push(sensorData);
+        });
+      });
+    });
+    console.log(lst);
+  }
+
+  $scope.$watch('items.length', function(newval, old){
+    if (newval == $scope.deviceIdlst.length){
+      loadSensorData($scope.items);
+    }
+  }, true);
+
+  loadDeviceList(loadDeviceData);
   loadSensorNotifications(loadSensorSubscriberName)
   loadDeviceNotifications(loadDeviceSubscriberName);
 

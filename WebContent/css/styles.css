@@ -366,3 +366,8 @@ md-card.news-item{
   width: 60%;
   text-align: left;
 }
+
+.items-container {
+  position: relative;
+  top: 135px;
+}

@@ -2,9 +2,9 @@
 
 <div class="demo-grid-1 mdl-grid profile-grid" >
   <div class="mdl-cell mdl-cell--1-col"></div>
-  <div class="mdl-cell mdl-cell--10-col" ng-show="dataLoaded">
+  <div class="mdl-cell mdl-cell--10-col" >
 
-    <div class="mdl-cell mdl-cell--6-col item-table-container device-list">
+    <div class="mdl-cell mdl-cell--6-col item-table-container device-list" ng-show="dataLoaded">
       <li class="mdl-card mdl-shadow--2dp notification-list-title">
           <span class="list-title-text">Device Subscription requests</span>
       </li>
@@ -59,6 +59,37 @@
           </div>
         </li>
       </ul>
+    </div>
+
+    <div class="items-container">
+      <div class="mdl-cell mdl-cell--12-col">
+        <table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp device-table">
+          <thead>
+            <tr>
+              <th class="mdl-data-table__cell--non-numeric">Items</th>
+            </tr>
+          </thead>
+          <tbody>
+        </table>
+      </div>
+      <div class="mdl-cell mdl-cell--6-col">
+        <table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp device-table">
+          <thead>
+            <tr>
+              <th class="mdl-data-table__cell--non-numeric">Items</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat-start="item in items" ng-init="showSensors=false">
+              <td class="mdl-data-table__cell--non-numeric" href="" ng-click="showSensors=!showSensors; loadDeviceList(item.device.name)">{{item.device.name}}</td>
+            </tr>
+            <tr ng-repeat-end ng-show="showSensors" ng-repeat="sensor in item.sensors">
+              <td class="mdl-data-table__cell--non-numeric" ng-click="loadSensorList(sensor.name)">{{sensor.name}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mdl-cell mdl-cell--6-col"></div>
     </div>
 
   </div>
