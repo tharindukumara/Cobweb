@@ -372,10 +372,10 @@ md-card.news-item{
   top: 135px;
 }
 
-.left-container {
+.left {
   float: left;
 }
 
-.right-container {
+.right {
   float: right;
 }

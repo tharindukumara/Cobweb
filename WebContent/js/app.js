@@ -722,9 +722,34 @@ app.controller('ItemsCtrl', ['$rootScope', '$scope', '$http', 'ngDialog', functi
     });
   }
 
+  $scope.deleteItem = function(){
+    console.log("delete item", $scope.deleteId, $scope.deleteType);
+    if ($scope.deleteType == 'device'){
+      $http.delete('/api/device/' + $scope.deleteId).success(function(res){
+        _.remove($scope.items, function(item){
+          return item.device.id == $scope.deleteId;
+        });
+      });
+    } else if ($scope.deleteType == 'sensor'){
+      $http.delete('/api/sensor/' + $scope.deleteId).success(function(res){
+        $scope.items.forEach(function(item){
+          _.remove(item.sensors, function(sensor){
+            return sensor.id == $scope.deleteId;
+          });
+        });
+      });
+    }
+  }
+
   $scope.popup = function (obj) {
     ngDialog.open({ template: '<h2>'+obj.userName+'</h2><p>Name: '+ obj.name+'</p>' +'<p>Id: '+ obj.id+'</p>'+'<p>Type: '+ obj.type+'</p>', className: 'ngdialog-theme-default', plain: true});
   };
+
+  $scope.confirm = function(name, id, type){;
+    $scope.deleteId = id;
+    $scope.deleteType = type;
+    ngDialog.open({ template: '<p> You sure you want to delete '+ name +'?</p> <button ng-click="deleteItem()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete</button>', className: 'ngdialog-theme-default', scope: $scope, plain: true});
+  }
 
   $scope.$watch('items.length', function(newval, old){
     if (newval == $scope.deviceIdlst.length){

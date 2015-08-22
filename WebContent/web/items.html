@@ -72,7 +72,7 @@
           <tbody>
         </table>
       </div>
-      <div class="mdl-cell mdl-cell--6-col left-container">
+      <div class="mdl-cell mdl-cell--6-col left">
         <table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp device-table">
           <thead>
             <tr>
@@ -81,15 +81,15 @@
           </thead>
           <tbody>
             <tr ng-repeat-start="item in items" ng-init="showSensors=false">
-              <td class="mdl-data-table__cell--non-numeric" href="" ng-click="showSensors=!showSensors; loadDeviceList(item.device.name)">{{item.device.name}}</td>
+              <td class="mdl-data-table__cell--non-numeric" href="" ng-click="showSensors=!showSensors; loadDeviceList(item.device.name)">{{item.device.name}} <i class="material-icons right" ng-click="confirm(item.device.name, item.device.id, 'device')">delete</i></td>
             </tr>
             <tr ng-repeat-end ng-show="showSensors" ng-repeat="sensor in item.sensors">
-              <td class="mdl-data-table__cell--non-numeric" ng-click="loadSensorList(sensor.name)">{{sensor.name}}</td>
+              <td class="mdl-data-table__cell--non-numeric" ng-click="loadSensorList(sensor.name)">{{sensor.name}}<i class="material-icons right" ng-click="confirm(sensor.name, sensor.id, 'sensor')">delete</i></td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div class="mdl-cell mdl-cell--6-col right-container">
+      <div class="mdl-cell mdl-cell--6-col right">
         <ul class="card-table">
           <li class="mdl-shadow--2dp device-card-list" ng-repeat="item in selectedItem">
             <div layout="row" class="item-card">
