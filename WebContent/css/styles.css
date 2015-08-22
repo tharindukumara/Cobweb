@@ -379,3 +379,13 @@ md-card.news-item{
 .right {
   float: right;
 }
+
+.create-item-form {
+  margin-left: 25px;
+  margin-top: 15px;
+}
+
+.create-button {
+  position: relative;
+  top: 10px;
+}

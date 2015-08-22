@@ -773,7 +773,43 @@ app.controller('ItemsCtrl', ['$rootScope', '$scope', '$http', 'ngDialog', functi
   }, true);
 
   loadDevices(loadDeviceInfo);
-  loadSensorNotifications(loadSensorSubscriberName)
+  loadSensorNotifications(loadSensorSubscriberName);
   loadDeviceNotifications(loadDeviceSubscriberName);
+
+  /*
+  Create New Item
+  */
+
+  $scope.createItemType = 'device';
+  $scope.deviceTypes = ['IPHONE','ANDROIDPHONE','WINDOWSPHONE','BLACKBERRYPHONE','ARDUINO','RASPBERRYPI','BEAGLEBONE','BEAGLEBOARD','INTELEDISON','INTELGALILEO','PC','GADGETEER','OTHER'];
+  $scope.sensorTypes = ['GPS','TEMPERATURE','PRESSURE','HUMIDITY','GAS','ACCELEROMETER','GYRO','COMPASS','PROXIMITY','LUMINOSITY','POTENTIOMETER','PUSHBUTTON','TOUCH','OTHER'];
+
+  $scope.createDevice = function(device){
+
+    if (device.type != 'OTHER'){
+      device.other = null;
+    }
+    var dev = {
+      name: device.name,
+      description: device.description,
+      type: device.type,
+      otherType: device.other
+    };
+    console.log(dev);
+  };
+
+  $scope.createSensor = function(sensor){
+    if (sensor.type != 'OTHER'){
+      sensor.other = null;
+    }
+    var sen = {
+      name: sensor.name,
+      description: sensor.description,
+      type: sensor.type,
+      otherType: sensor.other,
+      deviceId: sensor.id
+    };
+    console.log(sen);
+  };
 
 }]);
