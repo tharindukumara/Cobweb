@@ -797,7 +797,7 @@ app.controller('ItemsCtrl', ['$rootScope', '$scope', '$http', 'ngDialog', functi
       otherType: device.other
     };
 
-    $http.post('/api/device', JSON.stringify(dev)).success(function(data) {
+    $http.post('/api/device', dev).success(function(data) {
       console.log(data);
     });
   };
