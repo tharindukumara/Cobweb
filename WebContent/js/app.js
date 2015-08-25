@@ -473,6 +473,15 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
     }
   }, true);
 
+  // set friend request notification badge
+
+  $scope.$watch('friendRequests', function(newval, old){
+    $rootScope.friendRequestCount = newval.length;
+    console.log("Friend request", newval);
+  }, true);
+
+  console.log("friend requests", $scope.friendRequests);
+
   if (userId === "0") {
     loadMyData($scope.user);
     loadMyDevices(function(deviceLst){
@@ -602,6 +611,16 @@ app.controller('ItemsCtrl', ['$rootScope', '$scope', '$http', 'ngDialog', functi
       sub.requestSent = true;
     });
   }
+
+  // Set notifications
+  $scope.$watch('sensors', function(newval, old){
+    $rootScope.notificationCount = newval.length;
+  }, true);
+
+  $scope.$watch('devices', function(newval, old){
+    $rootScope.notificationCount += newval.length;
+  }, true);
+
 
   /*
   Device/Sensor table
