@@ -66,6 +66,20 @@ public class User{
 		UUID uuid = UUID.randomUUID();
 		uid = uuid.toString();			
 	}
+	
+	
+	/**
+	 * Instantiates a new user.
+	 *
+	 * @param firstName the first name
+	 * @param lastName the last name
+	 * @param email the email
+	 */
+	public User(String firstName,String lastName, String email){
+		this.firstName=firstName;
+		this.lastName=lastName;	
+		this.email = email;
+	}
 		
 	/**
 	 * Gets the fisrtName.

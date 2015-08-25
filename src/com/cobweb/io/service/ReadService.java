@@ -15,6 +15,7 @@ import com.cobweb.io.meta.LoggedUser;
 import com.cobweb.io.meta.Payload;
 import com.cobweb.io.meta.Sensor;
 import com.cobweb.io.meta.SensorType;
+import com.cobweb.io.meta.User;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
 import com.tinkerpop.blueprints.Vertex;
@@ -979,5 +980,33 @@ public class ReadService implements AbstractService{
 		String idValue = result.field("idValue");		
 		
 		return idValue;			
+	}
+	
+	/**
+	 * Gets the user search list.
+	 *
+	 * @return the user search list
+	 */
+	public List<User> getUserSearchList(){
+		
+		List<ODocument> resultList = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select from User where isDeleted = false"));
+		List<User>	userList = new ArrayList<User>();
+		
+		
+		for (ODocument result:resultList) {			
+			
+			String id 			= result.field("idValue");
+			String email		= result.field("email");
+			String firstname 	= result.field("firstname");
+			String lastname		= result.field("lastname");
+			
+			User user = new User(firstname,lastname, email);
+			user.setUid(id);
+			user.setEmailHash();
+			
+			userList.add(user);			
+		}	
+		
+		return userList;		
 	}
 }

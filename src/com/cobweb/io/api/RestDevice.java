@@ -132,7 +132,7 @@ public class RestDevice {
 		CobwebWeaver cobwebWeaver = new CobwebWeaver();		
 		cobwebWeaver.addDevice(userId, device);
 
-		return SUCCESS;
+		return device.getId();
 	}
 	
 	/**

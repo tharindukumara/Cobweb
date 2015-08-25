@@ -1,5 +1,7 @@
 package com.cobweb.io.api;
 
+import java.util.List;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -55,4 +57,27 @@ public class RestUser {
 			return JSON_ERROR;
 		}		
 	}	
+	
+	
+	/**
+	 * Gets the search.
+	 *
+	 * @return the search
+	 */
+	@GET
+	@Path("/search")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getSearch(){
+		
+		ReadService readService = new ReadService();
+		List<User> userList = readService.getUserSearchList();
+		
+		ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();		
+		
+		try {
+			return objectWriter.writeValueAsString(userList);
+		} catch (JsonProcessingException e) {		
+			return JSON_ERROR;
+		}			
+	}
 }
