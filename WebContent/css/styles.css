@@ -391,7 +391,5 @@ md-card.news-item{
 }
 
 .notification-badge {
-  position: relative;
-  bottom: 25px;
-  right: 25px;
+  margin-left: 100%;
 }

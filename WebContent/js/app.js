@@ -791,6 +791,14 @@ app.controller('ItemsCtrl', ['$rootScope', '$scope', '$http', 'ngDialog', functi
     }
   }, true);
 
+    // check new notifications every 5 seconds
+
+  setInterval(function(){
+    loadSensorNotifications(loadSensorSubscriberName);
+    loadDeviceNotifications(loadDeviceSubscriberName);
+  }, 5000);
+
+
   loadDevices(loadDeviceInfo);
   loadSensorNotifications(loadSensorSubscriberName);
   loadDeviceNotifications(loadDeviceSubscriberName);
