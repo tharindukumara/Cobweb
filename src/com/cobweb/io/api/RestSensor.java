@@ -141,7 +141,7 @@ public class RestSensor {
 		CobwebWeaver cobwebWeaver = new CobwebWeaver();		
 		cobwebWeaver.addSensor(deviceId, sensor);
 
-		return SUCCESS;
+		return sensor.getId();
 	}
 	
 	/**

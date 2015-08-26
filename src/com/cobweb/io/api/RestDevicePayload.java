@@ -35,6 +35,9 @@ public class RestDevicePayload {
 	
 	/** The Constant JSON_ERROR. */
 	private static final String JSON_ERROR			= "{\"status\":\"JSON Parsing error\"}";	
+		
+	/** The Constant ERROR. */
+	private static final String ERROR				= "ERROR";
 	
 	/**
 	 * Gets the device payload.
@@ -80,7 +83,7 @@ public class RestDevicePayload {
 	@POST	
 	@Path("{deviceId}")
 	@Consumes(MediaType.TEXT_PLAIN)	
-	public Response createDevicePayload(@PathParam("deviceId") String deviceId, String message) {
+	public String createDevicePayload(@PathParam("deviceId") String deviceId, String message) {
 		
 		Payload payload 			= new Payload(message);
 		CobwebWeaver cobwebWeaver 	= new CobwebWeaver();
@@ -92,11 +95,11 @@ public class RestDevicePayload {
 		List<String> deviceIdList = readService.getDeviceIdList(userId);
 		
 		if(!deviceIdList.contains(deviceId))					
-			return Response.status(Response.Status.UNAUTHORIZED).build();
+			return ERROR;
 		
 		cobwebWeaver.addSensorPayload(deviceId, payload);
 		
-		return Response.status(Response.Status.OK).build();
+		return payload.getId();
 	}
 	
 	/**

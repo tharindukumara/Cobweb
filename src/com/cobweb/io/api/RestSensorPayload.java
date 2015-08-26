@@ -34,6 +34,10 @@ private static final String UNKNOWN_SENSOR_ID 	= "{\"status\":\"Unknown Sensor I
 /** The Constant JSON_ERROR. */
 private static final String JSON_ERROR			= "{\"status\":\"JSON Parsing error\"}";	
 
+/** The Constant ERROR. */
+private static final String ERROR				= "ERROR";
+
+
 	/**
 	 * Gets the sensor payload.
 	 *
@@ -77,7 +81,7 @@ private static final String JSON_ERROR			= "{\"status\":\"JSON Parsing error\"}"
 	@POST	
 	@Path("{sensorId}")	
 	@Consumes(MediaType.TEXT_PLAIN)	
-	public Response createSensorPayload(@PathParam("sensorId") String sensorId, String message) {
+	public String createSensorPayload(@PathParam("sensorId") String sensorId, String message) {
 		
 		Payload payload 			= new Payload(message);
 		CobwebWeaver cobwebWeaver 	= new CobwebWeaver();
@@ -90,10 +94,10 @@ private static final String JSON_ERROR			= "{\"status\":\"JSON Parsing error\"}"
 		List<String> sensorIdList 			= readService.getSensorIdList(userId);
 		
 		if(!sensorIdList.contains(sensorId))					
-			return Response.status(Response.Status.UNAUTHORIZED).build();
+			return ERROR;
 		
 		cobwebWeaver.addSensorPayload(sensorId, payload);		
-		return Response.status(Response.Status.OK).build();
+		return payload.getId();
 	}
 	
 	/**
