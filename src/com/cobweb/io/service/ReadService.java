@@ -982,6 +982,37 @@ public class ReadService implements AbstractService{
 		return idValue;			
 	}
 	
+	
+	/**
+	 * Gets the key from sensor id.
+	 *
+	 * @param sensorId the sensor id
+	 * @return the key from sensor id
+	 */
+	public String getKeyFromSensorId(String sensorId){
+		
+		ODocument result =  (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select privateKey from Sensor where idValue='"+sensorId+"' AND isDeleted=false")).get(0);
+		String key = result.field("privateKey");		
+		
+		return key;			
+	}
+	
+	
+	/**
+	 * Gets the key from device id.
+	 *
+	 * @param deviceId the device id
+	 * @return the key from device id
+	 */
+	public String getKeyFromDeviceId(String deviceId){
+		
+		ODocument result =  (ODocument) graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select privateKey from Device where idValue='"+deviceId+"' AND isDeleted=false")).get(0);
+		String key = result.field("privateKey");		
+		
+		return key;			
+	}
+
+	
 	/**
 	 * Gets the user search list.
 	 *
