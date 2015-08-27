@@ -456,6 +456,10 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
     }
   }
 
+  $scope.createItemPopup = function(){
+    ngDialog.open({ template: 'createItemTemplate.html', className: 'ngdialog-theme-default'});
+  }
+
   $scope.$watch('cardLst', function(newval, old){
     console.log(newval);
     if (newval !== undefined && newval.length !== 0){

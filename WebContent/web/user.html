@@ -19,15 +19,20 @@
       <table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp device-table">
         <thead>
           <tr>
-            <th class="mdl-data-table__cell--non-numeric">Items</th>
+            <th class="mdl-data-table__cell--non-numeric drop-down-heading">
+              <span class="drop-down-header-text">ITEMS</span>
+              <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored add-device-button" ng-click="createItemPopup()">
+                <i class="material-icons">add</i>
+              </button>
+            </th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat-start="item in items" ng-init="showSensors=false">
-            <td class="mdl-data-table__cell--non-numeric" href="" ng-click="showSensors=!showSensors; loadDeviceList(item.device.name)">{{item.device.name}}<i class="material-icons right" ng-click="confirm(item.device.name, item.device.id, 'device')">delete</i></td>
+            <td class="mdl-data-table__cell--non-numeric drop-down-table" href="" ng-click="showSensors=!showSensors; loadDeviceList(item.device.name)">{{item.device.name}}<i class="material-icons right" ng-click="confirm(item.device.name, item.device.id, 'device')">delete</i></td>
           </tr>
           <tr ng-repeat-end ng-show="showSensors" ng-repeat="sensor in item.sensors">
-            <td class="mdl-data-table__cell--non-numeric" ng-click="loadSensorList(sensor.name)">{{sensor.name}}<i class="material-icons right" ng-click="confirm(sensor.name, sensor.id, 'sensor')">delete</i></td>
+            <td class="mdl-data-table__cell--non-numeric drop-down-item drop-down-table" ng-click="loadSensorList(sensor.name)">{{sensor.name}}<i class="material-icons right" ng-click="confirm(sensor.name, sensor.id, 'sensor')">delete</i></td>
           </tr>
         </tbody>
       </table>

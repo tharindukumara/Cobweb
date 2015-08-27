@@ -261,6 +261,32 @@ md-card.news-item{
 
 .profile-card {
   width: 100%!important;
+  margin-bottom: 15px;
+}
+
+.drop-down-item {
+  background-color: rgb(221, 220, 220);
+}
+
+.drop-down-heading {
+  background-color: #2ecc71;
+  color: white !important;
+  height: 65px !important;
+}
+
+.drop-down-header-text {
+  position: relative;
+  font-size: large;
+}
+
+.add-device-button {
+  background-color: #E91E5A!important;
+  left: 406px;
+  bottom: 4px;
+}
+
+.drop-down-table {
+  text-transform: uppercase;
 }
 
 .profile-grid {
