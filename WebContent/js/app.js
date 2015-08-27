@@ -239,6 +239,7 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
     });
     $scope.loadDeviceList(lst[0].device.name); //Show the details of first device. Find a better way.
     setSubscribedStatus(lst);
+    $rootScope.dataLoaded = true;
   }
 
   function deviceSubscribeStatus(lst, cb) {
