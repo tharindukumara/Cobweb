@@ -23,23 +23,26 @@
         <!-- Top row, always visible -->
         <div class="mdl-layout__header-row">
           <!-- Title -->
-            <span class="mdl-layout-title title">Cobweb.io</span>
+            <img class="logo" type="image/png" src="../img/cobweblogo.png" height="80" width="80">
+            <span class="mdl-layout-title title">obweb.IO</span>
             <div class="mdl-layout-spacer"></div>
             <form name="loginform" method="POST" class="form" action="#">
-                <i class="material-icons">email</i>
-                <div class="mdl-textfield mdl-js-textfield textfield-demo">
-                    <input class="mdl-textfield__input" type="text" id="sample1" name="loginEmail"/>
-                    <label class="mdl-textfield__label login-label" for="sample1">Email</label>
+                <div class="login-fields">
+                    <i class="material-icons">email</i>
+                    <div class="mdl-textfield mdl-js-textfield textfield-demo">
+                        <input class="mdl-textfield__input" type="text" id="sample1" name="loginEmail"/>
+                        <label class="mdl-textfield__label login-label" for="sample1">Email</label>
+                    </div>
+                    <i class="material-icons">lock</i>
+                    <div class="mdl-textfield mdl-js-textfield textfield-demo">
+                            <input class="mdl-textfield__input" type="password" id="sample1" name="loginPassword"/>
+                        <label class="mdl-textfield__label" for="sample1">Password</label>
+                    </div>
+                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect remember-me" for="checkbox-2">
+                        <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input" name="rememberMe"/>
+                        <span class="mdl-checkbox__label">Remember Me</span>
+                    </label>
                 </div>
-                <i class="material-icons">lock</i>
-                <div class="mdl-textfield mdl-js-textfield textfield-demo">
-                        <input class="mdl-textfield__input" type="password" id="sample1" name="loginPassword"/>
-                    <label class="mdl-textfield__label" for="sample1">Password</label>
-                </div>
-                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-2">
-                    <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input remember-me" name="rememberMe"/>
-                    <span class="mdl-checkbox__label">Remember Me</span>
-                </label>
                 <button  type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent submit-btn">
                     Login
                 </button>

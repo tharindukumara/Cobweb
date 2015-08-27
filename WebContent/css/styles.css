@@ -1,10 +1,6 @@
-body {
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
-}
-
 .title {
   font-size: 50px !important;
-  margin-bottom: 5%;
+  margin-bottom: 40px;
 }
 
 .signin-form {
@@ -206,9 +202,24 @@ md-card.news-item{
 
 /*Login styles*/
 
+.remember-me {
+  position: relative;
+  bottom: 10px;
+}
+
+.logo {
+  margin-bottom: 40px;
+}
+
 .submit-btn {
-  float: right;
-  bottom: 80;
+  position: relative;
+  right: 100px;
+}
+
+.login-fields {
+  float: left;
+  position: relative;
+  bottom: 13px;
 }
 
 .error-email {
