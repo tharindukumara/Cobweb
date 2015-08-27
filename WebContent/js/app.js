@@ -488,12 +488,14 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
   console.log("friend requests", $scope.friendRequests);
 
   if (userId === "0") {
+    $scope.loggedUserAccount = true;
     loadMyData($scope.user);
     loadMyDevices(function(deviceLst){
       loadMySensors(deviceLst);
       loadFriendRequests();
     });
   } else {
+    $scope.loggedUserAccount = false;
     loadUserData($scope.user);
     loadUserDevices($scope.user.userId, function(deviceLst){
       loadUserSensors(deviceLst);
