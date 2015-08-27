@@ -73,7 +73,8 @@
                       <a class="mdl-button mdl-js-button mdl-js-ripple-effect" id="device-name-button">{{ item.name }}</a>
                     </div>
                     <div class="message">{{ item.msg }}</div>
-                    <span class="news-item-datetime time" am-time-ago="item.time"></span>
+                    <span class="news-item-footer time" am-time-ago="item.time"></span>
+                    <span class="news-item-footer payload-id"> {{item.id}} </span>
                   </div>
                 </div>
               </li>
