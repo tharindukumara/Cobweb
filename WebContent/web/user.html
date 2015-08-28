@@ -29,10 +29,10 @@
         </thead>
         <tbody>
           <tr ng-repeat-start="item in items" ng-init="showSensors=false">
-            <td class="mdl-data-table__cell--non-numeric drop-down-table" href="" ng-click="showSensors=!showSensors; loadDeviceList(item.device.name)">{{item.device.name}}<i class="material-icons right" ng-click="confirm(item.device.name, item.device.id, 'device')">delete</i></td>
+            <td class="mdl-data-table__cell--non-numeric drop-down-table" href="" ng-click="showSensors=!showSensors; loadDeviceList(item.device.name)">{{item.device.name}}<i class="material-icons right" ng-click="confirm(item.device.name, item.device.id, 'device')" ng-show="loggedUserAccount">delete</i></td>
           </tr>
           <tr ng-repeat-end ng-show="showSensors" ng-repeat="sensor in item.sensors">
-            <td class="mdl-data-table__cell--non-numeric drop-down-item drop-down-table" ng-click="loadSensorList(sensor.name)">{{sensor.name}}<i class="material-icons right" ng-click="confirm(sensor.name, sensor.id, 'sensor')">delete</i></td>
+            <td class="mdl-data-table__cell--non-numeric drop-down-item drop-down-table" ng-click="loadSensorList(sensor.name)">{{sensor.name}}<i class="material-icons right" ng-click="confirm(sensor.name, sensor.id, 'sensor')" ng-show="loggedUserAccount">delete</i></td>
           </tr>
         </tbody>
       </table>
