@@ -460,6 +460,66 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
     ngDialog.open({ template: 'createItemTemplate.html', className: 'ngdialog-theme-default'});
   }
 
+  /*
+  Create New Item
+  */
+
+  $scope.createItemType = 'device';
+  $scope.deviceTypes = ['IPHONE','ANDROIDPHONE','WINDOWSPHONE','BLACKBERRYPHONE','ARDUINO','RASPBERRYPI','BEAGLEBONE','BEAGLEBOARD','INTELEDISON','INTELGALILEO','PC','GADGETEER','OTHER'];
+  $scope.sensorTypes = ['GPS','TEMPERATURE','PRESSURE','HUMIDITY','GAS','ACCELEROMETER','GYRO','COMPASS','PROXIMITY','LUMINOSITY','POTENTIOMETER','PUSHBUTTON','TOUCH','OTHER'];
+  $scope.parentDeviceLst = [];
+
+  $scope.createDevice = function(device){
+
+    if (device.type != 'OTHER'){
+      device.other = "null";
+    }
+    var dev = {
+      name: device.name,
+      description: device.description,
+      type: device.type,
+      otherType: device.other
+    };
+
+    $http.post('/api/device', dev).success(function(data) {
+      console.log(data);
+    });
+  };
+
+  $scope.createSensor = function(sensor){
+    if (sensor.type != 'OTHER'){
+      sensor.other = "null";
+    }
+    var sen = {
+      name: sensor.name,
+      description: sensor.description,
+      type: sensor.type,
+      otherType: sensor.other,
+      deviceId: sensor.parentDeviceId
+    };
+    $http.post('/api/sensor', sen).success(function(data) {
+      console.log(data);
+    });
+  };
+
+  function loadMydevice(){
+    $http.get('/api/device').success(function(data) {
+      data.forEach(function(device){
+        var parentDevice = {
+          name: device.name,
+          id: device.id
+        };
+
+        $scope.parentDeviceLst.push(parentDevice);
+      });
+    });
+  }
+  loadMydevice();
+
+  /*
+  Create New Item
+  */
+
   $scope.$watch('cardLst', function(newval, old){
     console.log(newval);
     if (newval !== undefined && newval.length !== 0){
@@ -809,61 +869,5 @@ app.controller('ItemsCtrl', ['$rootScope', '$scope', '$http', 'ngDialog', functi
   loadDevices(loadDeviceInfo);
   loadSensorNotifications(loadSensorSubscriberName);
   loadDeviceNotifications(loadDeviceSubscriberName);
-
-  /*
-  Create New Item
-  */
-
-  $scope.createItemType = 'device';
-  $scope.deviceTypes = ['IPHONE','ANDROIDPHONE','WINDOWSPHONE','BLACKBERRYPHONE','ARDUINO','RASPBERRYPI','BEAGLEBONE','BEAGLEBOARD','INTELEDISON','INTELGALILEO','PC','GADGETEER','OTHER'];
-  $scope.sensorTypes = ['GPS','TEMPERATURE','PRESSURE','HUMIDITY','GAS','ACCELEROMETER','GYRO','COMPASS','PROXIMITY','LUMINOSITY','POTENTIOMETER','PUSHBUTTON','TOUCH','OTHER'];
-  $scope.parentDeviceLst = [];
-
-  $scope.createDevice = function(device){
-
-    if (device.type != 'OTHER'){
-      device.other = "null";
-    }
-    var dev = {
-      name: device.name,
-      description: device.description,
-      type: device.type,
-      otherType: device.other
-    };
-
-    $http.post('/api/device', dev).success(function(data) {
-      console.log(data);
-    });
-  };
-
-  $scope.createSensor = function(sensor){
-    if (sensor.type != 'OTHER'){
-      sensor.other = "null";
-    }
-    var sen = {
-      name: sensor.name,
-      description: sensor.description,
-      type: sensor.type,
-      otherType: sensor.other,
-      deviceId: sensor.parentDeviceId
-    };
-    $http.post('/api/sensor', sen).success(function(data) {
-      console.log(data);
-    });
-  };
-
-  function loadMydevice(){
-    $http.get('/api/device').success(function(data) {
-      data.forEach(function(device){
-        var parentDevice = {
-          name: device.name,
-          id: device.id
-        };
-
-        $scope.parentDeviceLst.push(parentDevice);
-      });
-    });
-  }
-  loadMydevice();
 
 }]);
