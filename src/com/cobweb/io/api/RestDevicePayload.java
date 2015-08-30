@@ -97,13 +97,13 @@ public class RestDevicePayload {
 		if(!deviceIdList.contains(deviceId))					
 			return ERROR;
 		
-		cobwebWeaver.addSensorPayload(deviceId, payload);
+		cobwebWeaver.addDevicePayload(deviceId, payload);
 		
 		return payload.getId();
 	}
 	
 	/**
-	 * Delete sensor payload.
+	 * Delete Device payload.
 	 *
 	 * @param payloadId the payload id
 	 * @return the response
