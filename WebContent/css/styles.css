@@ -42,7 +42,6 @@
 }
 
 .device-list {
-  height: 50px;
   text-align: center;
   color: #fff;
 }
@@ -317,12 +316,6 @@ md-card.news-item{
   position: absolute;
   top: 50px;
   left: 300px;
-}
-
-.item-table-container {
-  margin: 0!important;
-  float: left;
-  width: 49.95%!important;
 }
 
 .device-table {

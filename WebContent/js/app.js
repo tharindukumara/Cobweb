@@ -12,9 +12,9 @@ app.config(function($routeProvider, $locationProvider) {
     templateUrl: 'user.html',
     controller: 'UserCtrl'
   })
-  .when('/items', {
-    templateUrl: 'items.html',
-    controller: 'ItemsCtrl'
+  .when('/notifications', {
+    templateUrl: 'notifications.html',
+    controller: 'NotificationCtrl'
   })
   .otherwise({
     templateUrl: 'views/404',
@@ -347,36 +347,6 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
     });
   }
 
-  function loadFriendRequests(){
-    $http.get('/api/friends/manage/').success(function(data) {
-      $scope.friendRequests = data;
-    });
-  }
-
-  $scope.acceptFriendRequest = function(id){
-    $http({
-      method: 'POST',
-      url: '/api/friends/manage',
-      data: id,
-      headers: {
-        'Content-Type': 'text/plain'
-      }})
-      .success(function(result) {
-        _.remove($scope.friendRequests, function(request){
-          return request.userId == id;
-        });
-        console.log($scope.friendRequests);
-      });
-  }
-
-  $scope.deleteFriendRequest = function(id){
-    $http.delete('/api/friends/manage', {data: id}).success(function(res){
-      _.remove($scope.friendRequests, function(request){
-        return request.userId == id;
-      });
-    });
-  }
-
   $scope.popup = function (obj) {
     ngDialog.open({ template: '<h2>'+obj.userName+'</h2><p>Name: '+ obj.name+'</p>' +'<p>Id: '+ obj.id+'</p>'+'<p>Type: '+ obj.type+'</p>', className: 'ngdialog-theme-default', plain: true});
   };
@@ -564,11 +534,42 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
 
 }]);
 
-app.controller('ItemsCtrl', ['$rootScope', '$scope', '$http', 'ngDialog', function($rootScope, $scope, $http, ngDialog) {
-  console.log("Items ctrller fired");
+app.controller('NotificationCtrl', ['$rootScope', '$scope', '$http', 'ngDialog', function($rootScope, $scope, $http, ngDialog) {
+  console.log("Notifications ctrller fired");
 
   $scope.devices = [];
   $scope.sensors = [];
+  $scope.friendRequests = [];
+
+  function loadFriendRequests(){
+    $http.get('/api/friends/manage/').success(function(data) {
+      $scope.friendRequests = data;
+    });
+  }
+
+  $scope.acceptFriendRequest = function(id){
+    $http({
+      method: 'POST',
+      url: '/api/friends/manage',
+      data: id,
+      headers: {
+        'Content-Type': 'text/plain'
+      }})
+      .success(function(result) {
+        _.remove($scope.friendRequests, function(request){
+          return request.userId == id;
+        });
+        console.log($scope.friendRequests);
+      });
+  }
+
+  $scope.deleteFriendRequest = function(id){
+    $http.delete('/api/friends/manage', {data: id}).success(function(res){
+      _.remove($scope.friendRequests, function(request){
+        return request.userId == id;
+      });
+    });
+  }
 
   function loadDeviceSubscriberName(lst) {
     console.log(lst);
@@ -679,7 +680,7 @@ app.controller('ItemsCtrl', ['$rootScope', '$scope', '$http', 'ngDialog', functi
     });
   }
 
-  // Set notifications
+  // Update notifications badge
   $scope.$watch('sensors', function(newval, old){
     $rootScope.notificationCount = newval.length;
   }, true);
@@ -687,187 +688,23 @@ app.controller('ItemsCtrl', ['$rootScope', '$scope', '$http', 'ngDialog', functi
   $scope.$watch('devices', function(newval, old){
     $rootScope.notificationCount += newval.length;
   }, true);
-
-
-  /*
-  Device/Sensor table
-  */
-
-  $scope.deviceIdlst = [];
-  $scope.items = [];
-
-  function loadDevices(cb){
-    $http.get('/api/device/subscriptions').success(function(data) {
-      $scope.deviceIdlst = data;
-      cb(data);
-    });
-  }
-
-  function loadDeviceInfo(lst){
-    lst.forEach(function(id){
-      $http.get('/api/device/' + id).success(function(device) {
-        var obj = {
-          device: {name: device.name,
-            id: device.id,
-            type: device.deviceType,
-            description: device.description
-          },
-          sensorIdList: device.sensorIdList,
-          sensors: []
-        };
-
-        $scope.items.push(obj);
-      });
-    });
-  }
-
-  function loadSensorData(lst){
-    lst.forEach(function(device){
-      device.sensorIdList.forEach(function(sensorId){
-        $http.get('/api/sensor/' + sensorId).success(function(sensorData) {
-          device.sensors.push(sensorData);
-        });
-      });
-    });
-    $scope.loadDeviceList(lst[0].device.name); //Show the details of first device. Find a better way.
-    console.log(lst);
-  }
-
-  $scope.loadDeviceList = function(deviceName){
-    $scope.deviceVisible = true;
-    $scope.sensorVisible = false;
-    $scope.selectedItem = _.filter($scope.items, {device: {name: deviceName}});
-  }
-
-  $scope.loadSensorList = function(sensorName) {
-    var sensorList = [];
-    $scope.sensorVisible = true;
-    $scope.deviceVisible = false;
-    $scope.selectedItem.forEach(function(device){
-      device.sensors.forEach(function(sensor){
-        sensorList.push(sensor);
-      });
-    });
-    $scope.selectedItem = _.filter(sensorList, {name:sensorName});
-  }
-
-  $scope.loadCards = function(id, type){
-    if (id){
-      if (type == 'device') {
-        loadDeviceCards(id);
-      } else if (type == 'sensor') {
-        loadSensorCards(id);
-      }
-    }
-  }
-
-  function loadDeviceCards(id) {
-    $scope.cardLst = [];
-
-    $http.get('/api/device/message/' + id).success(function(data) {
-      data.forEach(function(device){
-
-        dev = {
-          id: '',
-          name: '',
-          userId: '',
-          time: '',
-          msg: '',
-          item: 'device'
-        };
-
-        dev.id = device.deviceId;
-        dev.userId = device.userId;
-        dev.time = device.dateTime;
-        dev.msg = device.message;
-        $scope.cardLst.push(dev);
-      });
-      console.log($scope.cardLst);
-    });
-  }
-
-  function loadSensorCards(id){
-    $scope.cardLst = [];
-
-    $http.get('/api/sensor/message/' + id).success(function(data) {
-      data.forEach(function(sensor){
-
-        sen = {
-          id: '',
-          deviceId: '',
-          name: '',
-          userId: '',
-          time: '',
-          msg: '',
-          item: 'sensor'
-        };
-
-        sen.id = sensor.sensorId;
-        sen.userId = sensor.userId;
-        sen.deviceId = sensor.deviceId;
-        sen.time = sensor.timeStamp;
-        sen.msg = sensor.message;
-        $scope.cardLst.push(sen);
-      });
-      console.log($scope.cardLst);
-    });
-  }
-
-  function loadDataById(obj, type){
-    $http.get('/api/' + type +'/' + obj.id).success(function(data) {
-      obj.name = data.name;
-      obj.type = data[type+'Type'];
-    });
-  }
-
-  function loadDeviceData(obj){
-    $http.get('/api/device/' + obj.deviceId).success(function(data) {
-      obj.deviceName = data.name;
-      obj.deviceType = data.deviceType;
-    });
-  }
-
-  function loadUserData(obj){
-    $http.get('/api/friends/' + obj.userId).success(function(data) {
-      obj.userName = data.firstName + ' ' + data.lastName;
-      obj.emailHash = data.emailHash;
-    });
-  }
-
-  $scope.$watch('items.length', function(newval, old){
-    if (newval == $scope.deviceIdlst.length){
-      loadSensorData($scope.items);
-    }
+  $scope.$watch('friendRequests', function(newval, old){
+    $rootScope.notificationCount += newval.length;
   }, true);
 
-  $scope.$watch('cardLst', function(newval, old){
-    console.log(newval);
-    if (newval !== undefined && newval.length !== 0){
-      if (newval[0].item == 'device'){
-        newval.forEach(function(obj){
-          loadDataById(obj, 'device');
-          loadUserData(obj);
-        });
-      } else if (newval[0].item == 'sensor'){
-        newval.forEach(function(obj){
-          loadDataById(obj, 'sensor');
-          loadUserData(obj);
-          loadDeviceData(obj);
-        });
-      }
-    }
-  }, true);
-
-    // check new notifications every 5 seconds
+  // check new notifications every 5 seconds
 
   setInterval(function(){
+    loadFriendRequests()
     loadSensorNotifications(loadSensorSubscriberName);
     loadDeviceNotifications(loadDeviceSubscriberName);
   }, 5000);
 
 
-  loadDevices(loadDeviceInfo);
+  // loadDevices(loadDeviceInfo);
+  loadFriendRequests()
   loadSensorNotifications(loadSensorSubscriberName);
   loadDeviceNotifications(loadDeviceSubscriberName);
+  $rootScope.dataLoaded = true;
 
 }]);
