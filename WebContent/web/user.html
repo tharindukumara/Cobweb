@@ -88,23 +88,6 @@
         </li>
       </ul>
     </div>
-    <div class="device-list" ng-show="friendRequests.length">
-        <li class="mdl-card mdl-shadow--2dp notification-list-title">
-            <span class="list-title-text">Friend requests</span>
-        </li>
-        <ul class="profile-card-list">
-          <li class="mdl-shadow--2dp device-card-list" ng-repeat="request in friendRequests">
-            <div layout="row" class="item-card">
-              <div class="mdl-typography--headline mdl-typography--headline-color-contrast user-name">
-                <a class="mdl-button mdl-js-button mdl-js-ripple-effect" id="user-name-button" href=""> {{ request.firstname + ' ' + request.lastname}}</a>
-              </div>
-              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent accept-btn" ng-click="acceptFriendRequest(request.userId)">Accept</button>
-              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent follow-btn" ng-click="deleteFriendRequest(request.userId)">Delete</button>
-            </div>
-          </li>
-        </ul>
-    </div>
-  </div>
   <div class="mdl-cell mdl-cell--1-col"></div>
 
 </md-content>

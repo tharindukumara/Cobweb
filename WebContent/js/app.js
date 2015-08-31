@@ -487,7 +487,7 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
   loadMydevice();
 
   /*
-  Create New Item
+  /Create New Item
   */
 
   $scope.$watch('cardLst', function(newval, old){
