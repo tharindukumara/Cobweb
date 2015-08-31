@@ -337,6 +337,11 @@ md-card.news-item{
   width: 100%!important;
 }
 
+.item-table-container {
+  float: left;
+  margin: 0!important;
+}
+
 .item-card {
   position: relative;
   padding-top: 10px;
