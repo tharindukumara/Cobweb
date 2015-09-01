@@ -1,4 +1,4 @@
-<form name="createItemForm" ng-controller="UserCtrl" class="create-item-form" novalidate>
+<form name="createItemForm" class="create-item-form" novalidate>
   <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
     <input type="radio" id="option-1" class="mdl-radio__button" name="options" ng-model="createItemType" value="device" checked />
     <span class="mdl-radio__label">Create Device</span>
@@ -45,11 +45,11 @@
       <label class="mdl-textfield__label">Other type </label>
     </div>
     <div>
-      <select ng-model="sensor.parentDeviceId" ng-options="device.id as device.name for device in parentDeviceLst" required>
+      <select ng-model="sensor.parentDeviceId" ng-options="item.device.id as item.device.name for item in items" required>
         <option value="" disabled>Select parent device</option>
       </select>
     </div>
   </div>
-  <button ng-show="createItemType == 'device'" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent create-button" ng-click="createDevice(device)">Create</button>
-  <button ng-show="createItemType == 'sensor'" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent create-button" ng-click="createSensor(sensor)">Create</button>
+  <button ng-show="createItemType == 'device'" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent create-button" ng-click="createDevice(device); closeThisDialog()">Create</button>
+  <button ng-show="createItemType == 'sensor'" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent create-button" ng-click="createSensor(sensor); closeThisDialog()">Create</button>
 </form>

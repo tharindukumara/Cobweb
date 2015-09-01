@@ -152,7 +152,6 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
     emailHash: ''
   };
 
-  $scope.items = [];
   $scope.friendRequests = [];
 
   function loadUserData(obj){
@@ -213,6 +212,7 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
   }
 
   function loadMySensors(lst){
+    $scope.items = [];
     $http.get('/api/sensor').success(function(sensors) {
       var parentDevice;
       lst.forEach(function(item){
@@ -223,7 +223,7 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
         });
       $scope.items.push(item);
       });
-      console.log(lst);
+      console.log('scope items', $scope.items);
       $scope.loadDeviceList(lst[0].device.name);
     });
   }
@@ -412,7 +412,7 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
   $scope.confirm = function(name, id, type){;
     $scope.deleteId = id;
     $scope.deleteType = type;
-    ngDialog.open({ template: '<p> You sure you want to delete '+ name +'?</p> <button ng-click="deleteItem() && closeThisDialog()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete</button>', className: 'ngdialog-theme-default', scope: $scope, plain: true});
+    ngDialog.open({ template: '<p> You sure you want to delete '+ name +'?</p> <button ng-click="deleteItem(); closeThisDialog()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete</button>', className: 'ngdialog-theme-default', scope: $scope, plain: true});
   }
 
 
@@ -426,18 +426,17 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
     }
   }
 
-  $scope.createItemPopup = function(){
-    ngDialog.open({ template: 'createItemTemplate.html', className: 'ngdialog-theme-default'});
-  }
-
   /*
   Create New Item
   */
 
+  $scope.createItemPopup = function(){
+    ngDialog.open({ template: 'createItemTemplate.html', className: 'ngdialog-theme-default', scope: $scope});
+  }
+
   $scope.createItemType = 'device';
   $scope.deviceTypes = ['IPHONE','ANDROIDPHONE','WINDOWSPHONE','BLACKBERRYPHONE','ARDUINO','RASPBERRYPI','BEAGLEBONE','BEAGLEBOARD','INTELEDISON','INTELGALILEO','PC','GADGETEER','OTHER'];
   $scope.sensorTypes = ['GPS','TEMPERATURE','PRESSURE','HUMIDITY','GAS','ACCELEROMETER','GYRO','COMPASS','PROXIMITY','LUMINOSITY','POTENTIOMETER','PUSHBUTTON','TOUCH','OTHER'];
-  $scope.parentDeviceLst = [];
 
   $scope.createDevice = function(device){
 
@@ -451,8 +450,10 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
       otherType: device.other
     };
 
-    $http.post('/api/device', dev).success(function(data) {
-      console.log(data);
+    $http.post('/api/device', dev).success(function(id) {
+      loadMyDevices(function(deviceLst){
+        loadMySensors(deviceLst);
+      });
     });
   };
 
@@ -467,24 +468,12 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
       otherType: sensor.other,
       deviceId: sensor.parentDeviceId
     };
-    $http.post('/api/sensor', sen).success(function(data) {
-      console.log(data);
-    });
-  };
-
-  function loadMydevice(){
-    $http.get('/api/device').success(function(data) {
-      data.forEach(function(device){
-        var parentDevice = {
-          name: device.name,
-          id: device.id
-        };
-
-        $scope.parentDeviceLst.push(parentDevice);
+    $http.post('/api/sensor', sen).success(function(id) {
+      loadMyDevices(function(deviceLst){
+        loadMySensors(deviceLst);
       });
     });
-  }
-  loadMydevice();
+  };
 
   /*
   /Create New Item
@@ -510,19 +499,15 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
 
   // set friend request notification badge
 
-  $scope.$watch('friendRequests', function(newval, old){
-    $rootScope.friendRequestCount = newval.length;
-    console.log("Friend request", newval);
+  $scope.$watch('items', function(newval, old){
+    console.log("items changed", newval);
   }, true);
-
-  console.log("friend requests", $scope.friendRequests);
 
   if (userId === "0") {
     $scope.loggedUserAccount = true;
     loadMyData($scope.user);
     loadMyDevices(function(deviceLst){
       loadMySensors(deviceLst);
-      loadFriendRequests();
     });
   } else {
     $scope.loggedUserAccount = false;
