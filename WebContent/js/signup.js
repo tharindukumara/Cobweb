@@ -1,6 +1,6 @@
-var app = angular.module('CobWebApp', []);
+var app = angular.module('CobWebApp', ['ngDialog']);
 
-app.controller('LoginCtrl', ['$scope', '$http', function($scope, $http) {
+app.controller('LoginCtrl', ['$scope', '$http', 'ngDialog', function($scope, $http, ngDialog) {
   console.log("login ctrl fired");
 
   $scope.signup = function(user) {
@@ -16,6 +16,7 @@ app.controller('LoginCtrl', ['$scope', '$http', function($scope, $http) {
       $http.post('/anon/signup', userData).
       then(function(response) {
         console.log(response);
+        ngDialog.open({ template: '<p> An activation link has been sent. Please check your email and verify in order to activate. </p> <button ng-click="closeThisDialog()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Ok</button>', className: 'ngdialog-theme-default', scope: $scope, plain: true});
       });
     }
   }
