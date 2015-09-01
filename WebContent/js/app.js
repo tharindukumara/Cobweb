@@ -229,6 +229,7 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
   }
 
   function loadUserSensors(lst){
+    $scope.items = [];
     lst.forEach(function(device){
       device.sensorIdList.forEach(function(sensorId){
         $http.get('/api/sensor/' + sensorId).success(function(sensorData) {
