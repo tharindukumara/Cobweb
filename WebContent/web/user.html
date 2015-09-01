@@ -49,6 +49,7 @@
               <div>
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent follow-btn" ng-show="item.device.subscribed == true" ng-click="unsubscribe(item.device, 'device')">Unfollow</button>
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent follow-btn" ng-click="subscribe(item.device, 'device')" ng-show="item.device.subscribed == false">Follow</button>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent follow-btn" ng-click="subscriberPopup(item.device.id, 'device')" ng-show="loggedUserAccount">Followers</button>
               </div>
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-id"> Id: {{ item.device.id }}</div>
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-type">Type: {{ item.device.type }}</div>
@@ -59,6 +60,7 @@
               <div>
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent follow-btn" ng-show="item.subscribed == true" ng-click="unsubscribe(item, 'sensor')">Unfollow</button>
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent follow-btn" ng-click="subscribe(item, 'sensor')" ng-show="item.subscribed == false">Follow</button>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent follow-btn" ng-click="subscriberPopup(item.id, 'sensor')" ng-show="loggedUserAccount">Followers</button>
               </div>
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-id"> Id: {{ item.id }}</div>
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-type">Type: {{ item.sensorType }}</div>

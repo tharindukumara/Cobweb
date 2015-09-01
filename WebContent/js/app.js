@@ -491,6 +491,38 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
   /Create New Item
   */
 
+  /*
+  Followers popup
+  */
+
+  function loadFollowerName(id, cb){
+    $http.get('/api/friends/' + id).success(function(data) {
+      user = {
+        name: data.firstName + ' ' + data.lastName,
+        id: id
+      };
+      cb(user);
+    });
+  }
+
+  $scope.subscriberPopup = function(id, type){
+    $scope.followers = [];
+    $http.get('/api/'+ type +'/subscribers/' + id).success(function(ids) {
+      console.log(ids);
+      ids.forEach(function(id){
+        loadFollowerName(id, function(data){
+          console.log(data);
+          $scope.followers.push(data);
+        });
+      });
+      ngDialog.open({ template: 'followers.html', className: 'ngdialog-theme-default', scope: $scope});
+    });
+  }
+
+  /*
+  /Followers popup
+  */
+
   $scope.$watch('cardLst', function(newval, old){
     console.log(newval);
     if (newval !== undefined && newval.length !== 0){
@@ -507,12 +539,6 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
         });
       }
     }
-  }, true);
-
-  // set friend request notification badge
-
-  $scope.$watch('items', function(newval, old){
-    console.log("items changed", newval);
   }, true);
 
   if (userId === "0") {
