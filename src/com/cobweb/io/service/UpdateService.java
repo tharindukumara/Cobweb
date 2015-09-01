@@ -54,7 +54,7 @@ public class UpdateService implements AbstractService{
 	 * @return true, if successful
 	 */
 	public boolean activateUser(String userId){		
-		int result = graph.command(new OCommandSQL("UPDATE User SET isDeleted=false WHERE idValue = '"+userId+"'")).execute();
-		return result == 1;
+		graph.command(new OCommandSQL("UPDATE User SET isDeleted=false WHERE idValue = '"+userId+"'")).execute();
+		return true;
 	}
 }
