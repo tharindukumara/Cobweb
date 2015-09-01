@@ -275,6 +275,12 @@ md-card.news-item{
 
 /*Profile*/
 
+.unfriend-button {
+  left: 59px;
+  top: 83px;
+  background-color: rgb(233, 30, 99)!important;
+}
+
 .profile-card {
   width: 100%!important;
   margin-bottom: 15px;

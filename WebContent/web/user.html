@@ -8,6 +8,8 @@
       <div class="mdl-grid user-data-grid">
           <div class="mdl-cell mdl-cell--4-col">
               <img class="image-border" src="http://www.gravatar.com/avatar/{{user.emailHash}}?s=200"/>
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent unfriend-button" ng-hide="loggedUserAccount" ng-click="confirmUnfriend()">Unfriend
+              </button>
           </div>
           <div class="mdl-cell mdl-cell--8-col">
               <span class="profile-user-name"> {{ user.userName }} </span>

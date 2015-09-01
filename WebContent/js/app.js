@@ -348,6 +348,17 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
     });
   }
 
+  $scope.unfriend = function(){
+    console.log("Unfriend", $scope.user.userId);
+    $http.delete('/api/friends', {data: $scope.user.userId}).success(function(res){
+      console.log(res);
+    });
+  }
+
+  $scope.confirmUnfriend = function(){
+    ngDialog.open({ template: '<p>Are you sure you want to unfriend ' + $scope.user.userName + '?</p> <button ng-click="unfriend(); closeThisDialog()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Yes</button>', className: 'ngdialog-theme-default', scope: $scope, plain: true});
+  }
+
   $scope.popup = function (obj) {
     ngDialog.open({ template: '<h2>'+obj.userName+'</h2><p>Name: '+ obj.name+'</p>' +'<p>Id: '+ obj.id+'</p>'+'<p>Type: '+ obj.type+'</p>', className: 'ngdialog-theme-default', plain: true});
   };
