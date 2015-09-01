@@ -8,11 +8,11 @@
   <div class="mdl-cell mdl-cell--5-col">
     <ul>
         <div class="device-list">
-            <li class="mdl-card mdl-shadow--2dp demo-card-wide device-list-title">
+            <li class="mdl-shadow--2dp device-list-title">
                 <span class="list-title-text">Devices</span>
             </li>
         </div>
-        <li class="mdl-card mdl-shadow--2dp demo-card-wide card-list" ng-repeat="item in deviceLst">
+        <li class="mdl-shadow--2dp card-list" ng-repeat="item in deviceLst">
             <div layout="row" class="card">
                 <div class="dp-col">
                     <img class="profile-pic" src="http://www.gravatar.com/avatar/{{item.emailHash}}"/>
@@ -36,11 +36,11 @@
   <div class="mdl-cell mdl-cell--5-col">
     <ul>
         <div class="device-list" ng-show="dataLoaded">
-            <li class="mdl-card mdl-shadow--2dp demo-card-wide device-list-title">
+            <li class="mdl-shadow--2dp device-list-title">
                 <span class="list-title-text">Sensors</span>
             </li>
         </div>
-        <li class="mdl-card mdl-shadow--2dp demo-card-wide card-list" ng-repeat="item in sensorLst">
+        <li class="mdl-shadow--2dp card-list" ng-repeat="item in sensorLst">
             <div layout="row" class="card">
                 <div class="dp-col">
                     <img class="profile-pic" src="http://www.gravatar.com/avatar/{{item.emailHash}}"/>
