@@ -62,7 +62,7 @@ public class RestMqttAuth {
     							@FormParam("topic") String topic,
     							@FormParam("acc") String acc) {
 						
-		if(username.equals("superuser")){			
+		if(username.equals("admin@cobweb.io")){			
 			return Response.status(Response.Status.OK).build();			
 		}
 

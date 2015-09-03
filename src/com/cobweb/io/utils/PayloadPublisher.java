@@ -47,11 +47,41 @@ public class PayloadPublisher {
 			
 			return SUCCESS;
 			
-		}else{
-			
+		}else{			
 			return INVALID;
 		}
 		
 	}
 
+	
+	/**
+	 * Publish mqtt.
+	 *
+	 * @param topic the topic
+	 * @param msg the msg
+	 * @return the string
+	 */
+	public String publishMqtt(String topic, String msg) {
+		
+		ReadService readService = new ReadService();
+		CobwebWeaver cobwebWeaver = new CobwebWeaver();
+		Payload payload = new Payload(msg);
+		
+		List<String> sensorIdList = readService.getSensorIdList();
+		List<String> deviceIdList = readService.getDeviceIdList();
+		
+		if(sensorIdList.contains(topic)){
+			
+			cobwebWeaver.addSensorPayload(topic, payload);			
+			return SUCCESS;
+			
+		}else if(deviceIdList.contains(topic)){			
+			
+			cobwebWeaver.addDevicePayload(topic, payload);			
+			return SUCCESS;
+			
+		}else{
+			return INVALID;
+		}		
+	}
 }

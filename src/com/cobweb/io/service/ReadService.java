@@ -937,7 +937,22 @@ public class ReadService implements AbstractService{
 		return sensorKeyList;		
 	}
 	
-	
+	/**
+	 * Gets the sensor id list.
+	 *
+	 * @return the sensor id list
+	 */
+	public List<String> getSensorIdList(){
+		
+		List<ODocument> resultList = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select idValue from Sensor where isDeleted=false"));
+		List<String>	sensorIdList = new ArrayList<String>();
+		
+		for (ODocument result:resultList) {			
+			sensorIdList.add(result.field("idValue"));			
+		}		
+		return sensorIdList;	
+	}
+
 	/**
 	 * Gets the device key list.
 	 *
@@ -952,6 +967,22 @@ public class ReadService implements AbstractService{
 			deviceKeyList.add(result.field("privateKey"));			
 		}		
 		return deviceKeyList;		
+	}
+	
+	/**
+	 * Gets the device id list.
+	 *
+	 * @return the device id list
+	 */
+	public List<String> getDeviceIdList(){
+		
+		List<ODocument> resultList = graph.getRawGraph().query(new OSQLSynchQuery<Object>("select idValue from Device where isDeleted=false"));
+		List<String>	deviceIdList = new ArrayList<String>();
+		
+		for (ODocument result:resultList) {			
+			deviceIdList.add(result.field("idValue"));			
+		}		
+		return deviceIdList;	
 	}
 	
 	/**
