@@ -446,3 +446,52 @@ md-card.news-item{
 .notification-badge {
   margin-left: 100%;
 }
+
+/*
+Search
+*/
+
+.closed {
+  display: none;
+}
+
+.opened {
+  display: block;
+  padding-left: 10px;
+  border: 1px solid #C3D0DB;
+  line-height: 25px;
+  background-color: #fff;
+  cursor: pointer;
+  width: 345px;
+  position: absolute;
+  top: 30px;
+  left: -1px;
+  color: black;
+  list-style-type: none;
+}
+
+.typeahead-dropdown {
+  height: 60px;
+  margin-top: 6px;
+  border-bottom: 1px solid antiquewhite;
+}
+
+.typeahead-text {
+  position: relative;
+  top: 25px;
+}
+
+.typeahead-button {
+  float: right;
+  position: inherit!important;
+  margin-left: 76px;
+}
+
+.searchbox {
+  position: relative;
+  right: 100px;
+}
+
+.typeahead-dp {
+  float: left;
+}

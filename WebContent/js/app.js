@@ -96,6 +96,7 @@ app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', fu
     $http.get('/api/friends/' + obj.userId).success(function(data) {
       obj.userName = data.firstName + ' ' + data.lastName;
       obj.emailHash = data.emailHash;
+      console.log(data);
     });
   }
 
@@ -129,7 +130,7 @@ app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', fu
   loadNews();
 }]);
 
-app.controller('LayoutCtrl', ['$rootScope', '$scope', '$http', '$location', '$window', function($rootScope, $scope, $http, $location, $window) {
+app.controller('LayoutCtrl', ['$rootScope', '$scope', '$http', '$location', '$window', '$filter', function($rootScope, $scope, $http, $location, $window, $filter) {
   console.log("layout ctrller fired");
   var baseLen = $location.absUrl().length - $location.url().length - 'web/home.html#'.length;
   var rediretUrl = $location.absUrl().slice(0, baseLen);
@@ -140,9 +141,41 @@ app.controller('LayoutCtrl', ['$rootScope', '$scope', '$http', '$location', '$wi
     });
   }
 
+  /*
+  Search
+  */
+
+  function loadUserList(cb) {
+    $http.get('/api/user/search').success(function(userlst) {
+      $scope.items = userlst;
+      cb();
+    });
+  }
+
+  loadUserList(afterload);
+
+  function afterload(){
+    var opened = 'opened';
+    var closed = 'closed';
+
+    $scope.selected = '';
+    $scope.created = false;
+    $scope.state = closed;
+    $scope.change = function () {
+      var filtered;
+      filtered = $filter('filter')($scope.items, $scope.query);
+      return $scope.state = filtered.length > 0 ? opened : 'closed';
+    };
+  }
+
+  $scope.gotoProfile = function(id){
+    console.log(id);
+    $location.url('/user/' + id);
+  }
+
 }]);
 
-app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ngDialog', function($scope, $http, $routeParams, $rootScope, ngDialog) {
+app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ngDialog', '$location', function($scope, $http, $routeParams, $rootScope, ngDialog, $location) {
 
   var userId = $routeParams.id;
 
@@ -731,3 +764,13 @@ app.controller('NotificationCtrl', ['$rootScope', '$scope', '$http', 'ngDialog',
   $rootScope.dataLoaded = true;
 
 }]);
+
+app.directive('xngFocus', [function () {
+  return function (scope, element, attrs) {
+    return scope.$watch(attrs.xngFocus, function (newValue) {
+      console.log(newValue);
+      return newValue && element[0].focus();
+    });
+  };
+}]);
+

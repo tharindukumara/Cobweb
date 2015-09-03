@@ -32,13 +32,23 @@
         <div class="mdl-layout__header-row">
             <span class="mdl-layout-title">Home</span>
             <div class="mdl-layout-spacer"></div>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable searchbox">
                 <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
                     <i class="material-icons">search</i>
                 </label>
                 <div class="mdl-textfield__expandable-holder">
-                    <input class="mdl-textfield__input" type="text" id="search" />
+                    <input class="mdl-textfield__input" type="text" id="search" ng-change='change()' ng-model='query' placeholder='' xng-focus='cleared'/>
                     <label class="mdl-textfield__label" for="search">Enter your query...</label>
+                    <ul class='{{state}}' ng-show='query'>
+                      <li class="typeahead-dropdown" ng-click="gotoProfile(item.uid)" ng-repeat='item in items | filter: query'>
+                        <div class="typehead-dp">
+                            <img class="typeahead-dp" src="http://www.gravatar.com/avatar/{{item.emailHash}}?s=50"/>
+                        </div>
+                        <span class="typeahead-text">
+                            {{item.firstName + ' ' + item.lastName}}
+                        </span>
+                      </li>
+                    </ul>
                 </div>
             </div>
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
