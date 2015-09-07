@@ -2,6 +2,8 @@ package com.cobweb.io.utils;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.cobweb.io.meta.Payload;
 import com.cobweb.io.service.ReadService;
 
@@ -17,6 +19,9 @@ public class PayloadPublisher {
 	/** The Constant SUCCESS. */
 	private static final String SUCCESS = "Success";
 
+	/** The Constant logger. */
+	final static Logger logger = Logger.getLogger(PayloadPublisher.class);
+	
 	/**
 	 * Publish.
 	 *
@@ -38,12 +43,18 @@ public class PayloadPublisher {
 			String sensorId = readService.getSensorIdFromKey(key);
 			cobwebWeaver.addSensorPayload(sensorId, payload);
 			
+			logger.debug("CoAP sensor ID 		: " + sensorId);
+			logger.debug("CoAP sensor payload 	: " + payload.getMessage());
+			
 			return SUCCESS;
 			
 		}else if(deviceKeyList.contains(key)){
 			
 			String deviceId = readService.getDeviceIdFromKey(key);
 			cobwebWeaver.addDevicePayload(deviceId, payload);
+			
+			logger.debug("CoAP device ID 		: " + deviceId);
+			logger.debug("CoAP device payload 	: " + payload.getMessage());
 			
 			return SUCCESS;
 			
