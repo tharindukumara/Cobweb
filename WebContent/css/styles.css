@@ -1,6 +1,12 @@
 .title {
   font-size: 50px !important;
-  margin-bottom: 40px;
+  position: relative;
+  bottom: 20px;
+  left: 35px;
+}
+
+.login-textfield {
+  width: 190px!important;
 }
 
 .signin-form {
@@ -213,18 +219,20 @@ md-card.news-item{
 }
 
 .logo {
-  margin-bottom: 40px;
+  position: relative;
+  bottom: 20px;
+  left: 37px;
 }
 
 .submit-btn {
-  position: relative;
-  right: 100px;
+  right: 20px;
 }
 
 .login-fields {
   float: left;
   position: relative;
   bottom: 13px;
+  left: 106px;
 }
 
 .error-email {
