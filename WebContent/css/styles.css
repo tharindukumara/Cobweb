@@ -371,7 +371,7 @@ md-card.news-item{
   position: relative;
   padding-top: 10px;
   padding-left: 20px;
-  height: 100px;
+  height: 120px;
   background-color: white;
 }
 
@@ -510,4 +510,9 @@ Search
 
 .typeahead-dp {
   float: left;
+}
+
+.coapkey-textfield {
+  float: right;
+  width: 90%!important;
 }

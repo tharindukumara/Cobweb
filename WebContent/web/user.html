@@ -54,12 +54,15 @@
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-id"> Id: {{ item.device.id }}</div>
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-type">Type: {{ item.device.type }}</div>
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-description">Description: {{ item.device.description }}</div>
-              <div class="mdl-typography--title mdl-typography--title-color-contrast item-coapkey" ng-click="show=!show; loadDeviceCoapKey(item.device)" ng-show="loggedUserAccount">
+              <div class="mdl-typography--title mdl-typography--title-color-contrast item-coapkey" ng-click="loadDeviceCoapKey(item.device)" ng-show="loggedUserAccount">
+                <span>Coap Key:</span>
                 <div ng-show="show">
-                  Hide coap key: {{item.device.coapKey}}
+                  <i class="material-icons" ng-click="show=!show;">visibility_off</i>
+                  <input class="mdl-textfield__input coapkey-textfield" type="text" value="{{item.device.coapKey}}">
                 </div>
                 <div ng-show="!show">
-                  Show coap key
+                  <i class="material-icons" ng-click="show=!show;">visibility</i>
+                  <input class="mdl-textfield__input coapkey-textfield" type="password" value="{{item.device.coapKey}} | *************">
                 </div>
               </div>
             </div>
@@ -73,12 +76,15 @@
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-id"> Id: {{ item.id }}</div>
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-type">Type: {{ item.sensorType }}</div>
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-description">Description: {{ item.description }}</div>
-              <div class="mdl-typography--title mdl-typography--title-color-contrast item-coapkey" ng-click="show=!show; loadSensorCoapKey(item)" ng-show="loggedUserAccount">
+              <div class="mdl-typography--title mdl-typography--title-color-contrast item-coapkey" ng-click="loadSensorCoapKey(item)" ng-show="loggedUserAccount">
+                <span>Coap Key:</span>
                 <div ng-show="show">
-                  Hide coap key: {{item.coapKey}}
+                  <i class="material-icons" ng-click="show=!show;">visibility_off</i>
+                  <input class="mdl-textfield__input coapkey-textfield" type="text" value="{{item.coapKey}}">
                 </div>
                 <div ng-show="!show">
-                  Show coap key
+                  <i class="material-icons" ng-click="show=!show;">visibility</i>
+                  <input class="mdl-textfield__input coapkey-textfield" type="password" value="{{item.coapKey}} | *************">
                 </div>
               </div>
             </div>
