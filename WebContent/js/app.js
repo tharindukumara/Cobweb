@@ -329,6 +329,20 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
     });
   }
 
+  $scope.loadDeviceCoapKey = function(obj) {
+    console.log(obj);
+    $http.get('/api/device/key/'+obj.id).success(function(key) {
+      obj.coapKey = key;
+    });
+  }
+
+  $scope.loadSensorCoapKey = function(obj) {
+    console.log(obj);
+    $http.get('/api/sensor/key/'+obj.id).success(function(key) {
+      obj.coapKey = key;
+    });
+  }
+
   function loadDeviceCards(id) {
     $scope.cardLst = [];
 

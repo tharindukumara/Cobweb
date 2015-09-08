@@ -44,7 +44,7 @@
       <ul class="card-table">
         <li class="mdl-shadow--2dp device-card-list" ng-repeat="item in selectedItem">
           <div layout="row" class="item-card">
-            <div ng-show="deviceVisible" ng-init="loadCards(item.device.id, 'device')">
+            <div ng-show="deviceVisible" ng-init="loadCards(item.device.id, 'device'); show=false">
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-name"> {{ item.device.name }} </div>
               <div>
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent follow-btn" ng-show="item.device.subscribed == true" ng-click="unsubscribe(item.device, 'device')">Unfollow</button>
@@ -54,8 +54,16 @@
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-id"> Id: {{ item.device.id }}</div>
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-type">Type: {{ item.device.type }}</div>
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-description">Description: {{ item.device.description }}</div>
+              <div class="mdl-typography--title mdl-typography--title-color-contrast item-coapkey" ng-click="show=!show; loadDeviceCoapKey(item.device)" ng-show="loggedUserAccount">
+                <div ng-show="show">
+                  Hide coap key: {{item.device.coapKey}}
+                </div>
+                <div ng-show="!show">
+                  Show coap key
+                </div>
+              </div>
             </div>
-            <div ng-show="sensorVisible" ng-init="loadCards(item.id, 'sensor')">
+            <div ng-show="sensorVisible" ng-init="loadCards(item.id, 'sensor'); show=false">
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-name"> {{ item.name }} </div>
               <div>
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent follow-btn" ng-show="item.subscribed == true" ng-click="unsubscribe(item, 'sensor')">Unfollow</button>
@@ -64,7 +72,15 @@
               </div>
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-id"> Id: {{ item.id }}</div>
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-type">Type: {{ item.sensorType }}</div>
-              <div class="mdl-typography--title mdl-typography--title-color-contrast item-description">Description: {{ item.device.description }}</div>
+              <div class="mdl-typography--title mdl-typography--title-color-contrast item-description">Description: {{ item.description }}</div>
+              <div class="mdl-typography--title mdl-typography--title-color-contrast item-coapkey" ng-click="show=!show; loadSensorCoapKey(item)" ng-show="loggedUserAccount">
+                <div ng-show="show">
+                  Hide coap key: {{item.coapKey}}
+                </div>
+                <div ng-show="!show">
+                  Show coap key
+                </div>
+              </div>
             </div>
           </div>
           <div>
