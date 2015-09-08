@@ -1071,4 +1071,13 @@ public class ReadService implements AbstractService{
 		
 		return userList;		
 	}
+	
+	/**
+	 * Sync database.
+	 *
+	 * @param email the email
+	 */
+	public void syncDatabase(String email){
+		graph.getRawGraph().query(new OSQLSynchQuery<Object>("Select email from User where email='"+email+"'")).get(0);
+	}
 }

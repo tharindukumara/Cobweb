@@ -151,6 +151,8 @@ public class RestSignup {
 		emailObj.setSubject("Confirm Your Email Address for Cobweb IO account");
 		emailObj.setBody("Hi "+firstName+" "+lastName+",\n \n Welcome to Cobweb.IO \n Congratulations, Your account has been successfully created, please click the following link to confirm your email address. \n "+baseUrl+"signup/"+userId+"\n \n Thank You!");
     	
+		readService.syncDatabase(email);
+		
 		try {
 			sendMail.send(emailObj);
 		} catch (Exception e) {			
@@ -179,9 +181,12 @@ public class RestSignup {
 		URI targetURIForRedirection = null;
 		String baseUrl = ui.getBaseUri().toString();
 		
+		
 		if(!idMap.keySet().contains(userId) || !idMap.values().contains(sessionId)){
 			
 			String email = readService.getEmail(userId);
+			readService.syncDatabase(email);
+
 			List<String> unconfirmedEmailList = readService.getUnconfirmedUserNamesList();
 			
 			if(unconfirmedEmailList.contains(email)){				
