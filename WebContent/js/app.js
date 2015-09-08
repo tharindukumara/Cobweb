@@ -337,6 +337,7 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
 
         dev = {
           id: '',
+          payload_id: '',
           name: '',
           userId: '',
           time: '',
@@ -345,6 +346,7 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
         };
 
         dev.id = device.deviceId;
+        dev.payload_id = device.id;
         dev.userId = device.userId;
         dev.time = device.dateTime;
         dev.msg = device.message;
@@ -363,6 +365,7 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
         sen = {
           id: '',
           deviceId: '',
+          payload_id: '',
           name: '',
           userId: '',
           time: '',
@@ -373,6 +376,7 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
         sen.id = sensor.sensorId;
         sen.userId = sensor.userId;
         sen.deviceId = sensor.deviceId;
+        sen.payload_id = sensor.id;
         sen.time = sensor.timeStamp;
         sen.msg = sensor.message;
         $scope.cardLst.push(sen);
