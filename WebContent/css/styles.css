@@ -16,6 +16,16 @@ body {
   background-color: #f5f5f5;
 }
 
+.side-bar {
+  background-color: white!important;
+}
+
+.side-bar-icon {
+  position: relative;
+  top: 4px;
+  right: 4px;
+}
+
 .title {
   font-size: 50px !important;
   bottom: 30%;
