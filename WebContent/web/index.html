@@ -178,6 +178,15 @@
                                             Passwords don't match.
                                         </span>
                                     </div>
+                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="agreedToTerms">
+                                        <input name="agreedToTerms" type="checkbox" id="agreedToTerms" class="mdl-checkbox__input" ng-model="agreedToTerms" required />
+                                         <span class="mdl-checkbox__label">I agree to the <a href="../web-anon/privacy.html">
+                                             Terms of Use
+                                         </a></span>
+                                    </label>
+                                    <div class="terms-agreement">
+                                        <span ng-show="signupForm.agreedToTerms.$error.required">You must agree to the terms</span>
+                                    </div>
                                     <div class="signup-card-btn">
                                         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect signup-btn" ng-click="signup(user)">Sign Up
                                         </a>

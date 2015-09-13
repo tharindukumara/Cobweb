@@ -286,6 +286,12 @@ md-card.news-item{
   top: 400px;
 }
 
+.terms-agreement {
+  position: relative;
+  left: 300px;
+  bottom: 20px;
+}
+
 .signup-btn {
   position: absolute!important;
   background-color: rgb(68, 138, 255)!important;
@@ -293,7 +299,7 @@ md-card.news-item{
   left: 25;
 }
 
-.mdl-checkbox__box-outline {
+.remember-me .mdl-checkbox__box-outline {
   background-color: white;
   border: none!important;
 }
