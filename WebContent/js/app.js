@@ -580,6 +580,17 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
   /Followers popup
   */
 
+  /*
+  New Message popup
+  */
+  $scope.newMessagePopup = function(){
+    ngDialog.open({ template: 'newMessageTemplate.html', className: 'ngdialog-theme-default', scope: $scope});
+  }
+
+  $scope.postMessage = function(message){
+    console.log(message);
+  }
+
   $scope.$watch('cardLst', function(newval, old){
     console.log(newval);
     if (newval !== undefined && newval.length !== 0){

@@ -347,6 +347,12 @@ md-card.news-item{
   bottom: 4px;
 }
 
+.add-message-button {
+  background-color: #E91E5A!important;
+  left: 367px;
+  bottom: 32px;
+}
+
 .drop-down-table {
   text-transform: uppercase;
 }
@@ -400,7 +406,7 @@ md-card.news-item{
   position: relative;
   padding-top: 10px;
   padding-left: 20px;
-  height: 120px;
+  height: 160px;
   background-color: white;
 }
 
