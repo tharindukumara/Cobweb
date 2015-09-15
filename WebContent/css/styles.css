@@ -10,6 +10,18 @@ Media queries
   .title {
     left: -15%!important;
   }
+
+  .login-fields {
+    display: none;
+  }
+
+  .submit-btn {
+    display: none;
+  }
+
+  .mobile-login-card {
+    display: inline!important;
+  }
 }
 
 body {
@@ -34,6 +46,12 @@ body {
 
 .login-textfield {
   width: 190px!important;
+}
+
+.mobile-login-textfield {
+  position: relative;
+  left: 10%;
+
 }
 
 .signin-form {
@@ -252,6 +270,16 @@ md-card.news-item{
 
 .submit-btn {
   right: 20px;
+}
+
+.mobile-submit-btn {
+  margin-left: 10%;
+}
+
+.mobile-login-card {
+  width: 100%!important;
+  margin-bottom: 3%;
+  display: none;
 }
 
 .login-fields {

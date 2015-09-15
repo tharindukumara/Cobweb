@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.3.12/css/ngDialog-theme-default.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.3.12/css/ngDialog-theme-plain.min.css"/>
 
-    <link rel="stylesheet" href="../css/styles.css" script="text/css"/>
 
     <!-- Angular Material Dependencies -->
     <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.pink-blue.min.css" />
@@ -20,7 +19,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.3.12/js/ngDialog.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
     <script src="../js/signup.js" type="text/javascript"> </script>
+    <link rel="stylesheet" href="../css/styles.css" script="text/css"/>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 </head>
@@ -104,6 +105,27 @@
                         <div class="demo-grid-ruler mdl-grid"></div>
                         <div class="demo-grid-ruler mdl-grid"></div>
                         <div class="demo-grid-ruler mdl-grid"></div>
+                        <div class="mdl-card mdl-shadow--2dp mobile-login-card">
+                            <form name="loginform" method="POST" class="form" action="#">
+                                <div class="mobile-login-textfield">
+                                    <div class="mdl-textfield mdl-js-textfield textfield-demo">
+                                        <input class="mdl-textfield__input" type="text" id="sample1" name="loginEmail"/>
+                                        <label class="mdl-textfield__label login-label" for="sample1">Email</label>
+                                    </div>
+                                    <div class="mdl-textfield mdl-js-textfield textfield-demo">
+                                            <input class="mdl-textfield__input" type="password" id="sample1" name="loginPassword"/>
+                                        <label class="mdl-textfield__label" for="sample1">Password</label>
+                                    </div>
+                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-2">
+                                        <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input" name="rememberMe"/>
+                                        <span class="mdl-checkbox__label">Remember Me</span>
+                                    </label>
+                                </div>
+                                <button  type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mobile-submit-btn">
+                                    Login
+                                </button>
+                            </form>
+                        </div>
                         <iframe width="853" height="480" src="https://www.youtube.com/embed/BaTzxdIRZys?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
                     </div>
                     <div class="mdl-cell mdl-cell--1-col"></div>
