@@ -22,6 +22,10 @@ Media queries
   .mobile-login-card {
     display: inline!important;
   }
+
+  .mdl-cell--5-col ul {
+    padding: 0;
+  }
 }
 
 body {
@@ -83,12 +87,12 @@ body {
 
 .dp-col {
   float: left;
-  height: 200px;
-  width: 150px;
+  height: 85%;
+  width: 25%;
 }
 
 .body-col {
-  width: 350px;
+  width: 75%;
   float: left;
   position: relative;
 }
@@ -162,9 +166,9 @@ body {
 }
 
 .time {
-  position: absolute;
-  left: 270px;
-  top: 175px;
+  position: relative;
+  float: right;
+  margin-right: 10px;
 }
 
 .form {
@@ -242,12 +246,10 @@ md-card.news-item{
 }
 
 .news-item-footer {
-	margin: 2px 0 0 5px;
+  width: 100%;
 	color: rgba(119, 119, 119, 0.87);
 	font-size: 13px;
-	font-weight: 400;
-	letter-spacing: .01em;
-	line-height: 24px;
+  float: left;
 }
 
 .md-body-1.news-item-description{
@@ -277,7 +279,7 @@ md-card.news-item{
 }
 
 .mobile-login-card {
-  width: 100%!important;
+  width: 100%;
   margin-bottom: 3%;
   display: none;
 }
@@ -477,8 +479,8 @@ md-card.news-item{
 
 .payload-id {
   position: relative;
-  left: -145px;
-  top: 176px;
+  float: left;
+  margin-left: 10px;
 }
 
 .notification-list-title {

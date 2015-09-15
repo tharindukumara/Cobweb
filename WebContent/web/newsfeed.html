@@ -60,8 +60,10 @@
                         <a class="mdl-button mdl-js-button mdl-js-ripple-effect" id="device-name-button">{{ item.name }}</a>
                     </div>
                     <div class="message">{{ item.msg }}</div>
-                    <span class="news-item-footer time" am-time-ago="item.time"></span>
-                    <span class="news-item-footer payload-id"> {{item.id}} </span>
+                </div>
+                <div class="news-item-footer">
+                    <span class="time" am-time-ago="item.time"></span>
+                    <span class="payload-id"> {{item.id}} </span>
                 </div>
             </div>
         </li>
@@ -89,8 +91,10 @@
                         <a class="mdl-button mdl-js-button mdl-js-ripple-effect" id="sensor-name-button" ng-click="popup(item)"> {{item.name}}</a>
                     </div>
                     <div class="message">{{ item.msg }}</div>
-                    <span class="news-item-footer time" am-time-ago="item.time"></span>
-                    <span class="news-item-footer payload-id"> {{item.id}} </span>
+                </div>
+                <div class="news-item-footer">
+                    <span class="time" am-time-ago="item.time"></span>
+                    <span class="payload-id"> {{item.id}} </span>
                 </div>
             </div>
         </li>
