@@ -19,9 +19,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.tinkerpop.blueprints.Vertex;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class RestUser.
+ * @author Yasith Lokuge
  */
 @Path("/user")
 public class RestUser {
