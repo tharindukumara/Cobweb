@@ -2,7 +2,7 @@
 Media queries
 */
 
-@media (max-width: 480px) {
+@media screen and (max-width: 480px) {
   .logo {
     left: -15%!important;
   }
@@ -25,6 +25,34 @@ Media queries
 
   .mdl-cell--5-col ul {
     padding: 0;
+  }
+
+  .profile-card {
+    display: none;
+  }
+
+  .mobile-profile-card {
+    display: inline!important;
+  }
+
+  .mobile-profile-pic {
+    left: 33%!important;
+  }
+
+  .mobile-unfriend-button {
+    left: 1%;
+    top: 110px;
+    background-color: rgb(233, 30, 99)!important;
+  }
+
+  .item-table-container {
+    float: none!important;
+    margin: inherit!important;
+  }
+
+  .card-list-container{
+    float: none!important;
+    margin: inherit!important;
   }
 }
 
@@ -352,8 +380,29 @@ md-card.news-item{
 }
 
 .profile-card {
-  width: 100%!important;
+  width: 100%;
   margin-bottom: 15px;
+}
+
+.mobile-profile-card {
+  display: none;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.mobile-profile-pic {
+  position: relative;
+  left: 44%;
+}
+
+.mobile-username-row {
+  text-align: center;
+}
+
+.mobile-profile-username {
+  top: -18px;
+  font-size: 28px;
+  position: relative;
 }
 
 .drop-down-item {
@@ -373,13 +422,14 @@ md-card.news-item{
 
 .add-device-button {
   background-color: #E91E5A!important;
-  left: 392px;
+  float: right;
   bottom: 4px;
 }
 
 .add-message-button {
   background-color: #E91E5A!important;
-  left: 367px;
+  float: right;
+  margin-right: 110px;
   bottom: 32px;
 }
 
@@ -413,9 +463,8 @@ md-card.news-item{
 }
 
 .card-list-container {
-  margin: 0!important;
+  margin: 0;
   float: right;
-  width: 49.95%!important;
 }
 
 .card-table {
@@ -429,7 +478,7 @@ md-card.news-item{
 
 .item-table-container {
   float: left;
-  margin: 0!important;
+  margin: 0;
 }
 
 .item-card {
@@ -466,6 +515,7 @@ md-card.news-item{
   position: absolute!important;
   right: 10px;
   top: 5px;
+  background-color: rgb(233, 30, 99)!important
 }
 
 .profile-card-list {

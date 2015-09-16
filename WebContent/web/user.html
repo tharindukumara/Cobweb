@@ -17,7 +17,7 @@
     ga('create', 'UA-67473058-1', 'auto');
     ga('send', 'pageview');
     </script>
-    
+
     <!-- Piwik -->
 <script type="text/javascript">
   var _paq = _paq || [];
@@ -47,6 +47,20 @@
           </div>
           <div class="mdl-cell mdl-cell--8-col">
               <span class="profile-user-name"> {{ user.userName }} </span>
+          </div>
+      </div>
+    </div>
+
+    <div class="mobile-profile-card">
+
+      <div class="mdl-card mdl-shadow--2dp mdl-grid user-data-grid">
+          <div class="mdl-cell mdl-cell--12-col">
+              <img class="mobile-profile-pic" src="http://www.gravatar.com/avatar/{{user.emailHash}}?s=100"/>
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mobile-unfriend-button" ng-hide="loggedUserAccount" ng-click="confirmUnfriend()">Unfriend
+              </button>
+          </div>
+          <div class="mdl-cell mdl-cell--12-col mobile-username-row">
+              <span class="mobile-profile-username"> {{ user.userName }} </span>
           </div>
       </div>
     </div>
@@ -139,8 +153,10 @@
                       <a class="mdl-button mdl-js-button mdl-js-ripple-effect" id="device-name-button">{{ item.name }}</a>
                     </div>
                     <div class="message">{{ item.msg }}</div>
-                    <span class="news-item-footer time" am-time-ago="item.time"></span>
-                    <span class="news-item-footer payload-id"> {{item.payload_id}} </span>
+                  </div>
+                  <div class="news-item-footer">
+                    <span class="time" am-time-ago="item.time"></span>
+                    <span class="payload-id"> {{item.id}} </span>
                   </div>
                 </div>
               </li>
