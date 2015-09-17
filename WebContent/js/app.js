@@ -372,7 +372,12 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
         dev.msg = device.message;
         $scope.cardLst.push(dev);
       });
-      console.log($scope.cardLst);
+
+      $scope.cardLst = _.sortBy($scope.cardLst, function(item){
+        console.log(item.time);
+        return item.time;
+      });
+      $scope.cardLst.reverse();
     });
   }
 
@@ -402,6 +407,11 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
         $scope.cardLst.push(sen);
       });
       console.log($scope.cardLst);
+      $scope.cardLst = _.sortBy($scope.cardLst, function(item){
+        console.log(item.time);
+        return item.time;
+      });
+      $scope.cardLst.reverse();
     });
   }
 
