@@ -152,6 +152,9 @@
                     <div class="mdl-typography--headline mdl-typography--headline-color-contrast user-name">
                       <a class="mdl-button mdl-js-button mdl-js-ripple-effect" id="user-name-button" href=""> {{ item.userName }} </a>
                     </div>
+                    <div class="remove-message">
+                      <i class="material-icons right remove-msg" ng-click="removeMsgConfirm(item.payload_id)" ng-show="loggedUserAccount">close</i>
+                    </div>
                     <div class="device-title"  ng-click="popup(item)">
                       <a class="mdl-button mdl-js-button mdl-js-ripple-effect" id="device-name-button">{{ item.name }}</a>
                     </div>

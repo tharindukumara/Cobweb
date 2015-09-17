@@ -488,10 +488,23 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
     }
   }
 
-  $scope.confirm = function(name, id, type){;
+  $scope.deleteMessage = function(){
+    $http.delete('/api/payload/' + $scope.deleteMessageId).success(function(res){
+      _.remove($scope.cardLst, function(message){
+        return message.payload_id == $scope.deleteMessageId;
+      });
+    });
+  }
+
+  $scope.confirm = function(name, id, type){
     $scope.deleteId = id;
     $scope.deleteType = type;
-    ngDialog.open({ template: '<p> You sure you want to delete '+ name +'?</p> <button ng-click="deleteItem(); closeThisDialog()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete</button>', className: 'ngdialog-theme-default', scope: $scope, plain: true});
+    ngDialog.open({ template: '<p> Are you sure you want to delete '+ name +'?</p> <button ng-click="deleteItem(); closeThisDialog()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete</button>', className: 'ngdialog-theme-default', scope: $scope, plain: true});
+  }
+
+  $scope.removeMsgConfirm = function(id, type) {
+    $scope.deleteMessageId = id;
+    ngDialog.open({ template: '<p> Are you sure you want to delete this message?</p> <button ng-click="deleteMessage(); closeThisDialog()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete</button>', className: 'ngdialog-theme-default', scope: $scope, plain: true});
   }
 
 
