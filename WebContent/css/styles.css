@@ -74,6 +74,7 @@ body {
   font-size: 50px !important;
   bottom: 30%;
   left: 3%;
+  font-weight: 600;
 }
 
 .login-textfield {
@@ -434,10 +435,9 @@ md-card.news-item{
 }
 
 .add-message-button {
-  background-color: #E91E5A!important;
+  background-color: #2ECC71!important;
   float: right;
-  margin-right: 110px;
-  bottom: 32px;
+  top: 45px;
 }
 
 .drop-down-table {

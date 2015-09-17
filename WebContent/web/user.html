@@ -94,12 +94,12 @@
           <div layout="row" class="item-card">
             <div ng-show="deviceVisible" ng-init="loadCards(item.device.id, 'device'); show=false">
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-type">{{ item.device.type }}</div>
-              <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored add-message-button" ng-click="newMessagePopup(item.device.id, 'device')" ng-show="loggedUserAccount">
-                <i class="material-icons">add</i>
-              </button>
               <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent follow-btn" ng-show="item.device.subscribed == true" ng-click="unsubscribe(item.device, 'device')">Unfollow</button>
               <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent follow-btn" ng-click="subscribe(item.device, 'device')" ng-show="item.device.subscribed == false">Follow</button>
               <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent follow-btn" ng-click="subscriberPopup(item.device.id, 'device')" ng-show="loggedUserAccount">Followers</button>
+              <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored add-message-button" ng-click="newMessagePopup(item.device.id, 'device')" ng-show="loggedUserAccount">
+                <i class="material-icons">add</i>
+              </button>
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-id">{{ item.device.id }}</div>
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-name"> {{ item.device.name }} </div>
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-description">{{ item.device.description }}</div>
