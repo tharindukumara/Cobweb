@@ -583,12 +583,27 @@ app.controller('UserCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'ng
   /*
   New Message popup
   */
-  $scope.newMessagePopup = function(){
+  $scope.newMessagePopup = function(id, type){
+    $scope.messageInfo = {
+      'id': id,
+      'type': type
+    }
     ngDialog.open({ template: 'newMessageTemplate.html', className: 'ngdialog-theme-default', scope: $scope});
   }
 
   $scope.postMessage = function(message){
-    console.log(message);
+    $http({
+      method: 'POST',
+      url: '/api/' + $scope.messageInfo.type +'/message/' + $scope.messageInfo.id,
+      data: message,
+      headers: {
+        'Content-Type': 'text/plain'
+      }})
+      .success(function(result) {
+        loadMyDevices(function(deviceLst){
+          loadMySensors(deviceLst);
+        });
+      });
   }
 
   $scope.$watch('cardLst', function(newval, old){

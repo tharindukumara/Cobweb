@@ -94,7 +94,7 @@
           <div layout="row" class="item-card">
             <div ng-show="deviceVisible" ng-init="loadCards(item.device.id, 'device'); show=false">
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-name"> {{ item.device.name }} </div>
-              <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored add-message-button" ng-click="newMessagePopup()" ng-show="loggedUserAccount">
+              <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored add-message-button" ng-click="newMessagePopup(item.device.id, 'device')" ng-show="loggedUserAccount">
                 <i class="material-icons">add</i>
               </button>
               <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent follow-btn" ng-show="item.device.subscribed == true" ng-click="unsubscribe(item.device, 'device')">Unfollow</button>
@@ -117,6 +117,9 @@
             </div>
             <div ng-show="sensorVisible" ng-init="loadCards(item.id, 'sensor'); show=false">
               <div class="mdl-typography--title mdl-typography--title-color-contrast item-name"> {{ item.name }} </div>
+              <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored add-message-button" ng-click="newMessagePopup(item.id, 'sensor')" ng-show="loggedUserAccount">
+                <i class="material-icons">add</i>
+              </button>
               <div>
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent follow-btn" ng-show="item.subscribed == true" ng-click="unsubscribe(item, 'sensor')">Unfollow</button>
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent follow-btn" ng-click="subscribe(item, 'sensor')" ng-show="item.subscribed == false">Follow</button>
