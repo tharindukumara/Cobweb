@@ -853,16 +853,19 @@ app.directive('xngFocus', [function () {
 
 
 
-app.controller('DashboardCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', function($scope, $http, $rootScope, ngDialog) {
+
+app.controller('DashboardCtrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
 	console.log("DashboardCtrl ctrller fired");
 	
 	$scope.deviceIdList = [];
 	$scope.deviceData = [];
+	$scope.deviceDataList = [];
 	
 	$scope.sensorIdList =[];
 	$scope.sensorData = [];
+	$scope.sensorDataList = [];
 		
-	// Bar chart
+	 //Bar chart
 	      
 	function getDataForBar(chartData) {
 		var barChartArray = [["Date"]];
@@ -924,7 +927,7 @@ app.controller('DashboardCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', fu
 	    });	        
 	    
 	    var l = msgArray.length;
-//	    console.log(l);
+
 		for(var i=1; i<timeArray.length ; i++)
 		{
 			for(var k=1; k<l; k++)
@@ -935,7 +938,6 @@ app.controller('DashboardCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', fu
 			}
 			
 		}
-//		console.log(barChartArray);
 		return barChartArray;	        
 	};
 
@@ -1078,6 +1080,7 @@ app.controller('DashboardCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', fu
     		        dev.userId = device.parentUserId;
     		        $scope.deviceIdList.push(dev);
     		      });
+    		      console.log(data);
     		});
     	}
     	
@@ -1095,17 +1098,15 @@ app.controller('DashboardCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', fu
 					sen.userId = sensor.parentUserId;
 					$scope.sensorIdList.push(sen);
 				});
-				console.log(data);
+//				console.log($scope.sensorIdList);
 			});
 		}
     	
     	function loadDeviceData(obj){
-//    		var userId = obj.userId;
     		
     		for(var i=0; i<$scope.deviceIdList.length;i++){
     			$http.get('/api/device/message/'+ obj.id).success(function(data){
     				data.forEach(function(device){
-//    					if(userId == device.userId){
     						var dev = {
     								id: device.id,
     								message: device.message,
@@ -1114,9 +1115,13 @@ app.controller('DashboardCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', fu
     								name: obj.name,
     								sensorId: device.sensorId
     						};
-    						$scope.deviceData.push(dev);
-//    					}
+    						if($scope.deviceDataList.indexOf(device.id) == -1){
+    							$scope.deviceData.push(dev);
+    							$scope.deviceDataList.push(device.id);
+    						}
+    						
     				});
+    				console.log($scope.deviceData);
     			});
     			
     		}
@@ -1135,26 +1140,34 @@ app.controller('DashboardCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', fu
     								name: obj.name,
     								sensorId: sensor.sensorId
     						};
-    						$scope.sensorData.push(sen);
+    						if($scope.sensorDataList.indexOf(sensor.id) == -1){
+    							$scope.sensorData.push(sen);
+    							$scope.sensorDataList.push(sensor.id);
+    						}
     				});
     				console.log(data);
     			});
     		}
     	}
     	
+    	
     	$scope.$watch('deviceIdList', function(newval, old){
     	    newval.forEach(function(obj){
+    	    	
     	      loadDeviceData(obj);
     	    });
-//    	    console.log(newval);
     	  }, true);
     	
-    	$scope.$watch('deviceData',function(newval,old){
-    		console.log(newval);
-    		chart.deviceBarChart = google.visualization.arrayToDataTable(getDataForBar(newval));
-    		chart.deviceLineChart = google.visualization.arrayToDataTable(getDataForLine(newval));
-    		chart.devicePieChart = google.visualization.arrayToDataTable(getDataForPie(newval));
-    		chart.deviceGeoChart = google.visualization.arrayToDataTable(getDataForGeo(newval));
+    	$scope.$watch('deviceData',function(newval,oldval){
+//    		console.log(newval);
+//    		console.log(oldval);
+    		if ( newval != oldval ){
+    			chart.deviceBarChart = google.visualization.arrayToDataTable(getDataForBar(newval));
+        		chart.deviceLineChart = google.visualization.arrayToDataTable(getDataForLine(newval));
+        		chart.devicePieChart = google.visualization.arrayToDataTable(getDataForPie(newval));
+        		chart.deviceGeoChart = google.visualization.arrayToDataTable(getDataForGeo(newval));
+    		}
+    		
     	},true);
     	
     	$scope.$watch('sensorIdList', function(newval, old){
@@ -1164,13 +1177,17 @@ app.controller('DashboardCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', fu
 //    	    console.log(newval);
     	  }, true);
     	
-    	$scope.$watch('sensorData',function(newval,old){
-//    		console.log(newval);
-    		chart.SensorBarChart = google.visualization.arrayToDataTable(getDataForBar(newval));
-    		chart.SensorLineChart = google.visualization.arrayToDataTable(getDataForLine(newval));
-    		chart.SensorPieChart = google.visualization.arrayToDataTable(getDataForPie(newval));
-    		chart.SensorGeoChart = google.visualization.arrayToDataTable(getDataForGeo(newval));
+    	$scope.$watch('sensorData',function(newval,oldval){
+    		console.log(newval);
+    		if ( newval !== oldval ){
+    			chart.SensorBarChart = google.visualization.arrayToDataTable(getDataForBar(newval));
+        		chart.SensorLineChart = google.visualization.arrayToDataTable(getDataForLine(newval));
+        		chart.SensorPieChart = google.visualization.arrayToDataTable(getDataForPie(newval));
+        		chart.SensorGeoChart = google.visualization.arrayToDataTable(getDataForGeo(newval));
+    		}
+    		
     	},true);
+    	
     	
     	loadDevices();
     	loadSensors();
@@ -1181,6 +1198,8 @@ app.controller('DashboardCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', fu
 		} 
 
 }]);
+
+
 
 app.directive('gChart', function() {
     
@@ -1231,5 +1250,6 @@ app.directive('gChart', function() {
 	    }
     
 });
+
 
 
