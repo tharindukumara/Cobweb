@@ -857,13 +857,144 @@ app.directive('xngFocus', [function () {
 app.controller('DashboardCtrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
 	console.log("DashboardCtrl ctrller fired");
 	
-	$scope.deviceIdList = [];
-	$scope.deviceData = [];
-	$scope.deviceDataList = [];
 	
-	$scope.sensorIdList =[];
-	$scope.sensorData = [];
-	$scope.sensorDataList = [];
+	$scope.alldevice = [];
+	$scope.dataForPie = [];
+	
+	var x1,y1 ;
+	
+	$scope.opts = [
+	               {
+	            	   name: "device",
+	            	   id: 1
+	            	},
+	               {
+	            		name: "sensor",
+	            		id: 2}
+	               ];
+	
+	$scope.types = [{id:"0",name:"All"}];
+	
+	function defaultData(){
+		
+		$http.get('/api/device').success(function(data) {
+		      data.forEach(function(device){
+		    	  
+		    	$http.get('/api/device/message/'+ device.id).success(function(data){
+					data.forEach(function(dvcData){
+						var dev = {
+								id: dvcData.id,
+								message: dvcData.message,
+								dateTime: dvcData.dateTime,
+								name: device.name
+						};
+							$scope.alldevice.push(dev);
+							$scope.dataForPie.push(dev);
+						
+					});
+				});
+		    	  
+		      });
+			});	
+	};
+	
+	defaultData();
+	
+	
+	$scope.changed = function(){
+		$scope.dataForPie = [];
+		x1 = $scope.reg.name ;
+		$http.get('/api/'+x1).success(function(data){
+			$scope.types = [];
+			$scope.types.push({id:"0",name:"All"});
+			data.forEach(function(d){
+				var t = {
+					id: d.id,
+					name: d.name
+				};
+				$scope.types.push(t);
+			});
+		});
+		
+		$http.get('/api/'+x1).success(function(data) {
+		      data.forEach(function(device){
+		    	  
+		    	$http.get('/api/'+x1+'/message/'+ device.id).success(function(dta){
+					dta.forEach(function(data2){
+						var dev = {
+								id: data2.id,
+								message: data2.message,
+								dateTime: data2.dateTime,
+								name: device.name
+						};
+							$scope.dataForPie.push(dev);
+						
+					});
+				});
+		    	  
+		      });
+			});	
+		
+	};
+	
+	$scope.changedItem = function(){
+		$scope.alldevice = [];
+		y1 = $scope.itmeList.id;
+		console.log(x1+" "+y1);
+		
+		if($scope.itmeList.name != "All"){
+			$http.get('/api/'+x1+'/message/'+ y1).success(function(data){
+				data.forEach(function(device){
+					var dev = {
+							id: device.id,
+							message: device.message,
+							dateTime: device.dateTime,
+					};
+						$scope.alldevice.push(dev);
+					
+				});
+			});
+		}
+		else{
+			$http.get('/api/'+x1).success(function(data) {
+  		      data.forEach(function(device){
+  		    	  
+  		    	$http.get('/api/'+x1+'/message/'+ device.id).success(function(dta){
+  					dta.forEach(function(data2){
+  						var dev = {
+  								id: data2.id,
+  								message: data2.message,
+  								dateTime: data2.dateTime,
+  						};
+  							$scope.alldevice.push(dev);
+  						
+  					});
+  				});
+  		    	  
+  		      });
+			});	 
+		}
+		
+		
+		
+	};
+	$scope.$watch('alldevice',function(newval,oldval){
+		console.log(newval);
+		
+		chart.barChart1 = google.visualization.arrayToDataTable(getDataForBar(newval));
+		chart.lineChart1 = google.visualization.arrayToDataTable(getDataForLine(newval));
+		chart.geoChart1 = google.visualization.arrayToDataTable(getDataForGeo(newval));
+		
+		
+	}, true);
+	
+	$scope.$watch('dataForPie',function(newval,oldval){
+		console.log(newval);
+		
+		chart.pieChart1 = google.visualization.arrayToDataTable(getDataForPie(newval));
+		
+	}, true);
+		
 		
 	 //Bar chart
 	      
@@ -871,6 +1002,7 @@ app.controller('DashboardCtrl', ['$scope', '$http', '$rootScope', function($scop
 		var barChartArray = [["Date"]];
 		var timeArray = [];
 		var msgArray = ["Date"];  
+		var emptyArray = ["Date","msg"];
 		
 	    angular.forEach(chartData, function(record, key) {
 	    	
@@ -927,17 +1059,42 @@ app.controller('DashboardCtrl', ['$scope', '$http', '$rootScope', function($scop
 	    });	        
 	    
 	    var l = msgArray.length;
-
-		for(var i=1; i<timeArray.length ; i++)
-		{
-			for(var k=1; k<l; k++)
+	    
+	    if(l > 1){
+	    	for(var i=1; i<timeArray.length ; i++)
 			{
-				if(barChartArray[i][k]== null){
-					barChartArray[i][k]= 0 ;
+				for(var k=1; k<l; k++)
+				{
+					if(barChartArray[i][k]== null){
+						barChartArray[i][k]= 0 ;
+					}
 				}
+				
 			}
-			
-		}
+	    }
+	    else{
+	    	var today = new Date();
+	    	var dd = today.getDate();
+	    	var mm = today.getMonth()+1;
+	    	var yyyy = today.getFullYear();
+
+	    	if(dd<10) {
+	    	    dd='0'+dd
+	    	} 
+
+	    	if(mm<10) {
+	    	    mm='0'+mm
+	    	} 
+
+	    	today = mm+'/'+dd+'/'+yyyy;
+	    	
+	    	barChartArray[0] = emptyArray;
+	    	barChartArray.push([today,0]);
+	    }
+	    	
+
+		console.log(barChartArray);
+		
 		return barChartArray;	        
 	};
 
@@ -967,8 +1124,7 @@ app.controller('DashboardCtrl', ['$scope', '$http', '$rootScope', function($scop
 		
 		angular.forEach(chartData, function(record, key) {
 			var dataItems = [];
-			
-				  			
+				
 	    		var date = new Date(record.dateTime);
 	    		
 	    		if(isInt(record.message) && typeof(record.message)!='object'){
@@ -979,6 +1135,9 @@ app.controller('DashboardCtrl', ['$scope', '$http', '$rootScope', function($scop
 	    		}
 			
 		});
+		if(lineChartArray.length == 1){
+			lineChartArray.push(['',0]);
+		}
 		return lineChartArray;
 	};
 	
@@ -1058,139 +1217,11 @@ app.controller('DashboardCtrl', ['$scope', '$http', '$rootScope', function($scop
 	    }
 	    
 	    	    
-        chart.type = "1";
-        chart.deviceType = "1";
-        $scope.deviceType = $scope.deviceTypes[0];
-        
+        chart.type = "1";        
         $scope.chart = chart;
         
-        
-    	function loadDevices(){
-    		$http.get('/api/device').success(function(data) {
-    		      data.forEach(function(device){
 
-    		        dev = {
-    		          id: '',
-    		          name: '',
-    		          userId: ''
-    		        };
 
-    		        dev.id = device.id;
-    		        dev.name = device.name;
-    		        dev.userId = device.parentUserId;
-    		        $scope.deviceIdList.push(dev);
-    		      });
-    		      console.log(data);
-    		});
-    	}
-    	
-    	function loadSensors(){
-			$http.get('/api/sensor').success(function(data){
-				data.forEach(function(sensor){
-					
-					sen = {
-							id:'',
-							name: '',
-							userId:''
-					};
-					sen.id = sensor.id;
-					sen.name = sensor.name;
-					sen.userId = sensor.parentUserId;
-					$scope.sensorIdList.push(sen);
-				});
-//				console.log($scope.sensorIdList);
-			});
-		}
-    	
-    	function loadDeviceData(obj){
-    		
-    		for(var i=0; i<$scope.deviceIdList.length;i++){
-    			$http.get('/api/device/message/'+ obj.id).success(function(data){
-    				data.forEach(function(device){
-    						var dev = {
-    								id: device.id,
-    								message: device.message,
-    								dateTime: device.dateTime,
-    								deviceId: device.deviceId,
-    								name: obj.name,
-    								sensorId: device.sensorId
-    						};
-    						if($scope.deviceDataList.indexOf(device.id) == -1){
-    							$scope.deviceData.push(dev);
-    							$scope.deviceDataList.push(device.id);
-    						}
-    						
-    				});
-    				console.log($scope.deviceData);
-    			});
-    			
-    		}
-    	}
-    	
-    	function loadSensorData(obj){
-    		
-    		for(var i=0; i<$scope.sensorIdList.length;i++){
-    			$http.get('/api/sensor/message/'+ obj.id).success(function(data){
-    				data.forEach(function(sensor){
-    						var sen = {
-    								id: sensor.id,
-    								message: sensor.message,
-    								dateTime: sensor.dateTime,
-    								deviceId: sensor.deviceId,
-    								name: obj.name,
-    								sensorId: sensor.sensorId
-    						};
-    						if($scope.sensorDataList.indexOf(sensor.id) == -1){
-    							$scope.sensorData.push(sen);
-    							$scope.sensorDataList.push(sensor.id);
-    						}
-    				});
-    				console.log(data);
-    			});
-    		}
-    	}
-    	
-    	
-    	$scope.$watch('deviceIdList', function(newval, old){
-    	    newval.forEach(function(obj){
-    	    	
-    	      loadDeviceData(obj);
-    	    });
-    	  }, true);
-    	
-    	$scope.$watch('deviceData',function(newval,oldval){
-//    		console.log(newval);
-//    		console.log(oldval);
-    		if ( newval != oldval ){
-    			chart.deviceBarChart = google.visualization.arrayToDataTable(getDataForBar(newval));
-        		chart.deviceLineChart = google.visualization.arrayToDataTable(getDataForLine(newval));
-        		chart.devicePieChart = google.visualization.arrayToDataTable(getDataForPie(newval));
-        		chart.deviceGeoChart = google.visualization.arrayToDataTable(getDataForGeo(newval));
-    		}
-    		
-    	},true);
-    	
-    	$scope.$watch('sensorIdList', function(newval, old){
-    	    newval.forEach(function(obj){
-    	    	loadSensorData(obj);
-    	    });
-//    	    console.log(newval);
-    	  }, true);
-    	
-    	$scope.$watch('sensorData',function(newval,oldval){
-    		console.log(newval);
-    		if ( newval !== oldval ){
-    			chart.SensorBarChart = google.visualization.arrayToDataTable(getDataForBar(newval));
-        		chart.SensorLineChart = google.visualization.arrayToDataTable(getDataForLine(newval));
-        		chart.SensorPieChart = google.visualization.arrayToDataTable(getDataForPie(newval));
-        		chart.SensorGeoChart = google.visualization.arrayToDataTable(getDataForGeo(newval));
-    		}
-    		
-    	},true);
-    	
-    	
-    	loadDevices();
-    	loadSensors();
         
         
 	    function isInt(value) {
@@ -1211,45 +1242,27 @@ app.directive('gChart', function() {
 			var type = $scope.chart.type;
 			var deviceType = $scope.chart.deviceType;
 			var chart = " ";
-			if(type=="1" && deviceType=="1"){
+			if(type=="1"){
 				chart = new google.visualization.ColumnChart(elm[0]);
-				chart.draw($scope.chart.deviceBarChart, $scope.chart.options);
+				chart.draw($scope.chart.barChart1, $scope.chart.options);
 			}
-			else if(type=="1" && deviceType=="2"){
-				chart = new google.visualization.ColumnChart(elm[0]);
-				chart.draw($scope.chart.SensorBarChart, $scope.chart.options);
-			}
-			else if(type=="2" && deviceType=="1"){
+			else if(type=="2"){
 				chart = new google.visualization.LineChart(elm[0]);
-				chart.draw($scope.chart.deviceLineChart, $scope.chart.options);
+				chart.draw($scope.chart.lineChart1, $scope.chart.options);
 			}
-			else if(type=="2" && deviceType=="2"){
-				chart = new google.visualization.LineChart(elm[0]);
-				chart.draw($scope.chart.SensorLineChart, $scope.chart.options);
-			}
-			else if(type=="3" && deviceType=="1"){
+			else if(type=="3"){
 				chart = new google.visualization.GeoChart(elm[0]);
-				chart.draw($scope.chart.deviceGeoChart, $scope.chart.options);
+				chart.draw($scope.chart.geoChart1, $scope.chart.options);
 			}
-			else if(type=="3" && deviceType=="2"){
-				chart = new google.visualization.GeoChart(elm[0]);
-				chart.draw($scope.chart.SensorGeoChart, $scope.chart.options);
-			}
-			else if(type=="4" && deviceType=="1"){
+			else if(type=="4"){
 				chart = new google.visualization.PieChart(elm[0]);
-				chart.draw($scope.chart.devicePieChart, $scope.chart.options);
+				chart.draw($scope.chart.pieChart1, $scope.chart.options);
 			}
-			else if(type=="4" && deviceType=="2"){
-				chart = new google.visualization.PieChart(elm[0]);
-				chart.draw($scope.chart.SensorPieChart, $scope.chart.options);
-			}
-	        	
+			      	
 	        	
 			},true);
 	      }
 	    }
     
 });
-
-
 

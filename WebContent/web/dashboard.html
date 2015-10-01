@@ -38,7 +38,7 @@
 <div class="demo-grid-1 mdl-grid"  ng-show="dataLoaded">
 	<div class="mdl-cell mdl-cell--1-col"></div>
 	<div class="mdl-cell mdl-cell--10-col">
-		<div ng-controller = "DashboardCtrl">
+		<!-- <div ng-controller = "DashboardCtrl">-->
 		
 			<!-- <select id="chartType" ng-change="selectType(chartType)" ng-model="chartType" ng-options="c.typeName for c in chartTypes">
 	        </select> -->
@@ -46,12 +46,16 @@
 	        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="lineChart" ng-click="lineChart()">Line</button>
 	        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="geoChart" ng-click="geoChart()">Geo</button>
 	        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="pieChart" ng-click="pieChart()">Pie</button>
-	        <select class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="deviceType" ng-change="selectDeviceType(deviceType)" ng-model="deviceType" ng-options="d.typeName for d in deviceTypes">
+	        <!--<select class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="deviceType" ng-change="selectDeviceType(deviceType)" ng-model="deviceType" ng-options="d.typeName for d in deviceTypes">
+	        </select> -->
+	        <select class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"  ng-change="changed()" ng-model="reg" ng-options="k.name for k in opts" >
+	        </select>
+	        <select class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"  ng-change="changedItem()" ng-model="itmeList" ng-options="type.name for type in types">
 	        </select>
 	        <div><p></p></div>
-	        <div  g-chart></div>
+	        <div g-chart></div>
 	        
-		</div>
+		<!-- </div> -->
 	</div>
 
 </div>

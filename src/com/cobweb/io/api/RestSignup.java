@@ -30,6 +30,7 @@ import com.cobweb.io.meta.User;
 import com.cobweb.io.service.CreateService;
 import com.cobweb.io.service.ReadService;
 import com.cobweb.io.service.UpdateService;
+import com.cobweb.io.utils.FirstFriends;
 import com.cobweb.io.utils.HashGenerator;
 import com.cobweb.io.utils.SendMail;
 
@@ -218,7 +219,9 @@ public class RestSignup {
 				targetURIForRedirection = UriBuilder.fromUri(baseUrl.replace("anon/", "web-anon/error.html?error=0x04")).build();
 			}else{	
 				idMap.remove(userId);	
-				targetURIForRedirection = UriBuilder.fromUri(baseUrl.replace("anon/", "web-anon/error.html?error=0x01")).build();			
+				targetURIForRedirection = UriBuilder.fromUri(baseUrl.replace("anon/", "web-anon/error.html?error=0x01")).build();
+				FirstFriends firstFriends = new FirstFriends();
+				firstFriends.bootstrap(userId);
 			}
 		}	 		
 		return Response.seeOther(targetURIForRedirection).build();

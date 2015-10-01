@@ -26,6 +26,30 @@
     <link rel="stylesheet" href="../css/styles.css" type="text/css" />
     <script src="../js/app.js" type="text/javascript"></script>
 
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  	
+  	<script>
+  	 $(function() {
+  	    $( "#dialog" ).dialog({
+
+  						maxWidth:700,
+  	                    maxHeight: 500,
+  	                    width: 600,
+  	                    height: 455,
+  	                    modal: true
+
+  	    });
+
+
+  	    $('div#dialog').on('dialogclose', function(event) {
+  	     var video = $("#playerid").attr("src");
+  		$("#playerid").attr("src","");
+  		$("#playerid").attr("src",video);
+  	 	});
+  	  	});
+  	</script>
     <meta name="viewport" content="initial-scale=1" />
 </head>
 
@@ -64,11 +88,14 @@
   <noscript><p><img src="//130.211.242.208/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
   <!-- End Piwik Code -->
 
+	<div id="dialog" title="Cobweb IO - Getting Started Guide">
+	  <p><iframe id="playerid" width="560" height="315" src="https://www.youtube.com/embed/NDTudxYDB20?controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></p>
+	</div>
     <!-- Always shows a header, even in smaller screens. -->
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
       <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
-          <span class="mdl-layout-title">Home</span>
+          <span class="mdl-layout-title">Cobweb IO</span>
           <div class="mdl-layout-spacer"></div>
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable searchbox">
             <label class="mdl-button mdl-js-button mdl-button--icon" for="search"> <i class="material-icons">search</i>
@@ -110,8 +137,11 @@
             <span class="mdl-badge notification-badge" data-badge="{{notificationCount}}"></span>
           </a>
           <a class="mdl-navigation__link" href="#/dashboard">
-            <i class="material-icons side-bar-icon">language</i>
+            <i class="material-icons side-bar-icon">dashboard</i>
             Dashboard
+          </a>
+          <a class="mdl-navigation__link" href="http://www.cobweb.io/web-anon/cobwebapi.html" target="_blank">
+            <i class="material-icons side-bar-icon">description</i>HTTP API Documentation 
           </a>
         </nav>
       </div>
