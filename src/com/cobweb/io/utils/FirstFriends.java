@@ -67,6 +67,6 @@ public class FirstFriends {
 		updateService.setUserDeviceSubscription(UserId, USER1_DEVICE_ID);
 		updateService.setUserDeviceSubscription(UserId, USER2_DEVICE_ID);
 		updateService.setUserSensorSubscription(UserId, USER1_SENSOR_ID);
-		updateService.setUserSensorSubscription(UserId, USER1_SENSOR_ID);
+		updateService.setUserSensorSubscription(UserId, USER2_SENSOR_ID);
 	}
 }
