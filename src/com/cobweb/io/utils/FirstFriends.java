@@ -1,5 +1,7 @@
 package com.cobweb.io.utils;
 
+import com.cobweb.io.service.UpdateService;
+
 /**
  * The Class FirstFriends.
  * @author YasithLokuge
@@ -27,6 +29,7 @@ public class FirstFriends {
 	
 	/** The cobweb weaver. */
 	CobwebWeaver cobwebWeaver = new CobwebWeaver();
+	UpdateService updateService = new UpdateService();
 	
 	/**
 	 * Bootstrap.
@@ -44,8 +47,10 @@ public class FirstFriends {
 	 * @param UserId the new friends
 	 */
 	private void setFriends(String UserId){		
-		cobwebWeaver.addFollowUser(USER1_ID, UserId);
-		cobwebWeaver.addFollowUser(USER2_ID, UserId);
+		cobwebWeaver.addFollowUser(UserId,USER1_ID);
+		cobwebWeaver.addFollowUser(UserId,USER2_ID);
+		updateService.setUserFollowsUser(UserId, USER1_ID);
+		updateService.setUserFollowsUser(UserId, USER2_ID);
 	}
 	
 	/**
@@ -58,5 +63,10 @@ public class FirstFriends {
 		cobwebWeaver.addDeviceSubscription(UserId, USER2_DEVICE_ID);
 		cobwebWeaver.addSensorSubscription(UserId, USER1_SENSOR_ID);
 		cobwebWeaver.addSensorSubscription(UserId, USER2_SENSOR_ID);
+		
+		updateService.setUserDeviceSubscription(UserId, USER1_DEVICE_ID);
+		updateService.setUserDeviceSubscription(UserId, USER2_DEVICE_ID);
+		updateService.setUserSensorSubscription(UserId, USER1_SENSOR_ID);
+		updateService.setUserSensorSubscription(UserId, USER1_SENSOR_ID);
 	}
 }
