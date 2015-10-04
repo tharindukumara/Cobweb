@@ -106,6 +106,17 @@ app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', fu
     });
   }
 
+  function showGettingStarted() {
+    if (document.cookie.indexOf("visited") >= 0) {
+      console.log("Not the first time");
+      $scope.showSplash = true;
+    } else {
+      document.cookie = "visited"; // set a cookie on first visit
+      console.log("First time");
+      $scope.showSplash = false;
+    }
+  }
+
   $scope.popup = function (obj) {
     ngDialog.open({ template: '<h2>'+obj.userName+'</h2><p>Name: '+ obj.name+'</p>' +'<p>Id: '+ obj.id+'</p>'+'<p>Type: '+ obj.type+'</p>', className: 'ngdialog-theme-default', plain: true});
   };
@@ -134,6 +145,7 @@ app.controller('CobWebAppCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', fu
   }, true);
 
   loadNews();
+  showGettingStarted();
 }]);
 
 app.controller('LayoutCtrl', ['$rootScope', '$scope', '$http', '$location', '$window', '$filter', function($rootScope, $scope, $http, $location, $window, $filter) {
