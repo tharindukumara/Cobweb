@@ -298,6 +298,7 @@ md-card.news-item{
 .remember-me {
   position: relative;
   bottom: 10px;
+  left: 2px;
 }
 
 .logo {
