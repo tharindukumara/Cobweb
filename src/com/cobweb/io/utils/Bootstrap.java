@@ -135,6 +135,10 @@ public class Bootstrap implements AbstractService {
 		payload.setProperty(ISDELETED, 	OType.BOOLEAN	);
 		graph.commit();
 		
+		
+		CreateFirstFriends createFirstFriends = new CreateFirstFriends();
+		createFirstFriends.create();
+		
 	}
 
 }
