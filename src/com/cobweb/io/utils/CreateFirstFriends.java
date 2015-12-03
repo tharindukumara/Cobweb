@@ -7,6 +7,11 @@ import com.cobweb.io.meta.Sensor;
 import com.cobweb.io.meta.SensorType;
 import com.cobweb.io.meta.User;
 
+
+/**
+ * The Class CreateFirstFriends.
+ * @author Yasith Lokuge
+ */
 public class CreateFirstFriends {
 	
 	/** The Constant USER1_ID. */
@@ -28,17 +33,25 @@ public class CreateFirstFriends {
 	private static final String USER2_SENSOR_ID = "7046a84a-a8f5-4a57-bf00-9f4ad64cdcec";
 	
 	
+	/**
+	 * Creates the.
+	 */
 	public void create() {
 		
 		/** The cobweb weaver. */
 		CobwebWeaver cobwebWeaver = new CobwebWeaver();
+		HashGenerator hashGenerator = new HashGenerator();
 		
+		String saltSuper 	= hashGenerator.generateSalt();	
+		String saltAnn 		= hashGenerator.generateSalt();	
+		String saltPeter 	= hashGenerator.generateSalt();	
+		
+		//User userObj = new User(firstName,lastName, email, hashGenerator.saltHashPassword(password,salt) ,salt); 
 		
 		/** Create MQTT Superuser */
-		User superuser	= new User("Super", "User", "admin@cobweb.io");
-		superuser.setPassword("C0bw3b105up3ru53r");
-		
-		User userAnn 	= new User("Lucy", "Ann", "lucy@cobweb.io");
+		User superuser	= new User("Super", "User", "admin@cobweb.io", hashGenerator.saltHashPassword("C0bw3b105up3ru53r",saltSuper) ,saltSuper);
+				
+		User userAnn 	= new User("Lucy", "Ann", "lucy@cobweb.io", hashGenerator.saltHashPassword("lucy@123",saltAnn) ,saltAnn);
 		userAnn.setUid(USER1_ID);
 		
 		
@@ -54,7 +67,7 @@ public class CreateFirstFriends {
 		
 		Payload sensor1payload = new Payload("Running Out of Coffee!!! Please Refill");
 		
-		User userPeter 	= new User("Peter", "Williams", "peter@cobweb.io");
+		User userPeter 	= new User("Peter", "Williams", "peter@cobweb.io", hashGenerator.saltHashPassword("peter@123",saltPeter) ,saltPeter);
 		userPeter.setUid(USER2_ID);
 		
 		Device user2device = new Device("Smart Iron", "My Smart Iron at Home", DeviceType.OTHER);
