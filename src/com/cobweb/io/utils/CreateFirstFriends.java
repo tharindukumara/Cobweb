@@ -33,6 +33,11 @@ public class CreateFirstFriends {
 		/** The cobweb weaver. */
 		CobwebWeaver cobwebWeaver = new CobwebWeaver();
 		
+		
+		/** Create MQTT Superuser */
+		User superuser	= new User("Super", "User", "admin@cobweb.io");
+		superuser.setPassword("C0bw3b105up3ru53r");
+		
 		User userAnn 	= new User("Lucy", "Ann", "lucy@cobweb.io");
 		userAnn.setUid(USER1_ID);
 		
@@ -64,7 +69,7 @@ public class CreateFirstFriends {
 		
 		Payload sensor2payload = new Payload("Current Consumption 100W");
 		
-		
+		cobwebWeaver.addUser(superuser);
 		cobwebWeaver.addUser(userAnn);
 		cobwebWeaver.addUser(userPeter);
 		cobwebWeaver.addDevice(USER1_ID, user1device);
