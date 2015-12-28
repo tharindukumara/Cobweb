@@ -31,10 +31,10 @@ public class SendMail extends HttpServlet {
 	private static final String SMTP_HOST_NAME = "smtp.sendgrid.net";
 	
 	/** The Constant SMTP_AUTH_USER. */
-	private static final String SMTP_AUTH_USER = "YasithLokuge";
+	private static final String SMTP_AUTH_USER = "username";
 	
 	/** The Constant SMTP_AUTH_PWD. */
-	private static final String SMTP_AUTH_PWD = "Y@51th19910507";
+	private static final String SMTP_AUTH_PWD = "password";
 	
 	/** The Constant SMTP_PORT. */
 	private static final int SMTP_PORT = 2525;
