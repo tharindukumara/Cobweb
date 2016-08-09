@@ -43,13 +43,13 @@ public class SendMail extends HttpServlet {
 	private static final long serialVersionUID = 4012826357716915515L;
 	
 	/** The Constant SMTP_HOST_NAME. */
-	private static final String SMTP_HOST_NAME = "smtp.sendgrid.net";
+	private static final String SMTP_HOST_NAME = "HOST_NAME";
 	
 	/** The Constant SMTP_AUTH_USER. */
-	private static final String SMTP_AUTH_USER = "username";
+	private static final String SMTP_AUTH_USER = "USERNAME";
 	
 	/** The Constant SMTP_AUTH_PWD. */
-	private static final String SMTP_AUTH_PWD = "password";
+	private static final String SMTP_AUTH_PWD = "PASSWORD";
 	
 	/** The Constant SMTP_PORT. */
 	private static final int SMTP_PORT = 2525;

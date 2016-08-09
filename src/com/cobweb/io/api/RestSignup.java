@@ -35,6 +35,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.BasicConfigurator;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.codehaus.jettison.json.JSONException;
@@ -56,6 +59,8 @@ import com.cobweb.io.utils.SendMail;
  */
 @Path("/signup")
 public class RestSignup {	
+	
+	private static Log log = LogFactory.getLog(RestSignup.class);
 	
 	/** The Constant idMap. */
 	private static final Map<String, String> idMap = new HashMap<String, String>();
@@ -81,7 +86,9 @@ public class RestSignup {
 	/** The Constant SUCCESS. */
 	private static final String SUCCESS					= "{\"status\":\"Success\"}";	
 	
-	
+	public RestSignup() {
+		BasicConfigurator.configure(); 
+	}
 	/**
 	 * Signup.
 	 *
@@ -171,7 +178,8 @@ public class RestSignup {
 		
 		try {
 			sendMail.send(emailObj);
-		} catch (Exception e) {			
+		} catch (Exception e) {	
+			log.error(e.toString());
 			return INTERNAL_ERROR;
 		}
 		
